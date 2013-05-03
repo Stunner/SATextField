@@ -24,22 +24,5 @@
 
 @implementation SATextFieldUtility
 
-+ (void)resizeTextField:(UITextField *)textField byPixels:(NSInteger)pixelOffset {
-    // if pixel offset is positive it makes the textfield bigger, and vice versa
-    
-    [UIView animateWithDuration:0.15
-                          delay:0.0
-                        options:(UIViewAnimationOptions)UIViewAnimationCurveEaseOut
-                     animations:^{
-                         // expand size of field to include clear text button
-                         CGRect newFrame = textField.frame;
-                         newFrame.origin.x -= pixelOffset;
-                         newFrame.size.width += pixelOffset;
-                         textField.frame = newFrame;
-                     }
-                     completion:^(BOOL finished){
-                         
-                     }];
-}
 
 @end

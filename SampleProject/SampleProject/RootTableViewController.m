@@ -109,13 +109,14 @@
     cell.textLabel.text = @"Tax Rate";
     
     if (!_textField) {
-        _textField = [[SATextField alloc] initWithFrame:CGRectMake(220.0, 10.0, 60.0, 26.0)];
+        _textField = [[SATextField alloc] initWithFrame:CGRectMake(232.0, 10.0, 48.0, 26.0)];
         _textField.clearButtonMode = UITextFieldViewModeWhileEditing;
         _textField.adjustsFontSizeToFitWidth = YES;
         _textField.borderStyle = UITextBorderStyleRoundedRect;
         _textField.keyboardType = UIKeyboardTypeAlphabet;
         _textField.delegate = self;
         _textField.placeholder = @"8.25";
+        _textField.dynamicResizing = YES;
     }
     
     UILabel *percentSign = [[UILabel alloc] initWithFrame:CGRectMake(285.0, 6.0, 20.0, 26.0)];

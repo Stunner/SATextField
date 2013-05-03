@@ -22,7 +22,7 @@
 
 #import <UIKit/UIKit.h>
 
-#define kClearTextButtonOffset 27
+#define kClearTextButtonOffset 20
 
 @class SATextField;
 
@@ -52,6 +52,8 @@ replacementString:(NSString *)string;
 @property (nonatomic, assign) BOOL adjustsFontSizeToFitWidth;
 @property (nonatomic, assign) UITextFieldViewMode clearButtonMode;
 @property (nonatomic, strong) NSString *text;
+
+@property (nonatomic, assign) BOOL dynamicResizing;
 
 - (id)initWithFrame:(CGRect)frame;
 

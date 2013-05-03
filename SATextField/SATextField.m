@@ -26,6 +26,7 @@
 @interface SATextField ()
 
 @property (nonatomic, strong) UITextField *textField;
+@property (nonatomic, assign) CGFloat textFieldWidth;
 @property (nonatomic, assign) BOOL hasOffsetForTextClearButton;
 
 @end
@@ -40,6 +41,7 @@
         textFrame.origin.x = 0;
         textFrame.origin.y = 0;
         self.textField = [[UITextField alloc] initWithFrame:textFrame];
+        _textFieldWidth = frame.size.width;
         _textField.delegate = self;
         [self addSubview:_textField];
         
@@ -95,17 +97,62 @@
 #pragma mark - Helper Methods
 
 - (void)resizeTextField:(UITextField *)textField
+                toWidth:(NSInteger)width
+{
+    [UIView animateWithDuration:0.15
+                          delay:0.0
+                        options:(UIViewAnimationOptions)UIViewAnimationCurveEaseOut
+                     animations:^{
+                         CGRect selfFrame = self.frame;
+                         CGRect newFrame = textField.frame;
+                         NSInteger changeInLength = width - textField.frame.size.width;
+                         newFrame.size.width = width;
+                         selfFrame.origin.x -= changeInLength;
+                         selfFrame.size.width = width;
+                         textField.frame = newFrame;
+                         self.frame = selfFrame;
+                     }
+                     completion:^(BOOL finished){
+                         
+                     }];
+}
+
+
+- (void)resizeTextField:(UITextField *)textField
+               byPixels:(NSInteger)pixelOffset
+{
+    // if pixel offset is positive it makes the textfield bigger, and vice versa
+    
+    [UIView animateWithDuration:0.15
+                          delay:0.0
+                        options:(UIViewAnimationOptions)UIViewAnimationCurveEaseOut
+                     animations:^{
+                         // expand size of field to include clear text button
+                         CGRect selfFrame = self.frame;
+                         CGRect newFrame = textField.frame;
+                         newFrame.size.width += pixelOffset;
+                         selfFrame.origin.x -= pixelOffset;
+                         selfFrame.size.width += pixelOffset;
+                         textField.frame = newFrame;
+                         self.frame = selfFrame;
+                     }
+                     completion:^(BOOL finished){
+                         
+                     }];
+}
+
+- (void)resizeTextField:(UITextField *)textField
      forClearTextButton:(BOOL)clearTextButtonShowing
 {
     if (clearTextButtonShowing) {
         //expand size of field to include clear text button
-        [SATextFieldUtility resizeTextField:textField
-                                   byPixels:kClearTextButtonOffset];
+        [self resizeTextField:textField
+                     byPixels:kClearTextButtonOffset];
         _hasOffsetForTextClearButton = YES;
     } else {
         //shrink size of field to exclude clear text button
-        [SATextFieldUtility resizeTextField:textField
-                                   byPixels:-kClearTextButtonOffset];
+        [self resizeTextField:textField
+                     byPixels:-kClearTextButtonOffset];
         _hasOffsetForTextClearButton = NO;
     }
 }
@@ -124,6 +171,14 @@ replacementString:(NSString *)string
         [self resizeTextField:textField forClearTextButton:NO];
     }
     
+    if (_dynamicResizing) {
+        CGFloat oldTextFieldWidth = [textField.text sizeWithFont:textField.font].width;
+        CGFloat newTextFieldWidth = [newString sizeWithFont:textField.font].width;
+        NSInteger changeInLength = newTextFieldWidth - oldTextFieldWidth;
+        [self resizeTextField:textField
+                     byPixels:changeInLength];
+    }
+    
     if ([_delegate respondsToSelector:@selector(textField:shouldChangeCharactersInRange:replacementString:)]) {
         return [_delegate textField:self
       shouldChangeCharactersInRange:range
@@ -137,10 +192,15 @@ replacementString:(NSString *)string
         [self resizeTextField:textField forClearTextButton:NO];
     }
     
+    BOOL shouldClear = YES;
     if ([_delegate respondsToSelector:@selector(textFieldShouldClear:)]) {
-        return [_delegate textFieldShouldClear:self];
+        shouldClear = [_delegate textFieldShouldClear:self];
     }
-    return YES;
+    if (_dynamicResizing && shouldClear) {
+        [self resizeTextField:textField
+                      toWidth:_textFieldWidth];
+    }
+    return shouldClear;
 }
 
 - (BOOL)textFieldShouldReturn:(UITextField *)textField {

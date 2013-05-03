@@ -24,7 +24,5 @@
 
 @interface SATextFieldUtility : NSObject
 
-+ (void)resizeTextField:(UITextField *)textField
-               byPixels:(NSInteger)pixelOffset;
 
 @end
