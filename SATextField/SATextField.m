@@ -92,6 +92,24 @@
 
 }
 
+#pragma mark - Helper Methods
+
+- (void)resizeTextField:(UITextField *)textField
+     forClearTextButton:(BOOL)clearTextButtonShowing
+{
+    if (clearTextButtonShowing) {
+        //expand size of field to include clear text button
+        [SATextFieldUtility resizeTextField:textField
+                                   byPixels:kClearTextButtonOffset];
+        _hasOffsetForTextClearButton = YES;
+    } else {
+        //shrink size of field to exclude clear text button
+        [SATextFieldUtility resizeTextField:textField
+                                   byPixels:-kClearTextButtonOffset];
+        _hasOffsetForTextClearButton = NO;
+    }
+}
+
 #pragma mark - TextField Delegate Methods
 
 - (BOOL)textField:(UITextField *)textField
@@ -101,15 +119,9 @@ replacementString:(NSString *)string
     NSString *newString = [textField.text stringByReplacingCharactersInRange:range
                                                                   withString:string];
     if (newString.length > 0 && !_hasOffsetForTextClearButton) {
-        //expand size of field to include clear text button
-        [SATextFieldUtility resizeTextField:textField
-                                   byPixels:kClearTextButtonOffset];
-        _hasOffsetForTextClearButton = YES;
+        [self resizeTextField:textField forClearTextButton:YES];
     } else if (newString.length == 0 && _hasOffsetForTextClearButton) {
-        //shrink size of field to exclude clear text button
-        [SATextFieldUtility resizeTextField:textField
-                                   byPixels:-kClearTextButtonOffset];
-        _hasOffsetForTextClearButton = NO;
+        [self resizeTextField:textField forClearTextButton:NO];
     }
     
     if ([_delegate respondsToSelector:@selector(textField:shouldChangeCharactersInRange:replacementString:)]) {
@@ -122,10 +134,7 @@ replacementString:(NSString *)string
 
 - (BOOL)textFieldShouldClear:(UITextField *)textField {
     if (_hasOffsetForTextClearButton) {
-        //shrink size of field to exclude clear text button
-        [SATextFieldUtility resizeTextField:textField
-                                   byPixels:-kClearTextButtonOffset];
-        _hasOffsetForTextClearButton = NO;
+        [self resizeTextField:textField forClearTextButton:NO];
     }
     
     if ([_delegate respondsToSelector:@selector(textFieldShouldClear:)]) {
@@ -151,10 +160,7 @@ replacementString:(NSString *)string
 - (void)textFieldDidBeginEditing:(UITextField *)textField {
     textField.placeholder = nil;
     if (textField.text.length > 0 && !_hasOffsetForTextClearButton) {
-        //expand size of field to include clear text button
-        [SATextFieldUtility resizeTextField:textField
-                                   byPixels:kClearTextButtonOffset];
-        _hasOffsetForTextClearButton = YES;
+        [self resizeTextField:textField forClearTextButton:YES];
     }
     
     if ([_delegate respondsToSelector:@selector(textFieldDidBeginEditing:)]) {
@@ -171,10 +177,7 @@ replacementString:(NSString *)string
 
 - (void)textFieldDidEndEditing:(UITextField *)textField {
     if (_hasOffsetForTextClearButton) {
-        //shrink size of field to exclude clear text button
-        [SATextFieldUtility resizeTextField:textField
-                                   byPixels:-kClearTextButtonOffset];
-        _hasOffsetForTextClearButton = NO;
+        [self resizeTextField:textField forClearTextButton:NO];
     }
     if ([textField.text isEqualToString:@""]) {
         textField.placeholder = _placeholder;
