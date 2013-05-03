@@ -109,7 +109,7 @@
     cell.textLabel.text = @"Tax Rate";
     
     if (!_textField) {
-        _textField = [[SATextField alloc] initWithFrame:CGRectMake(220.0, 5.0, 60.0, 26.0)];
+        _textField = [[SATextField alloc] initWithFrame:CGRectMake(220.0, 10.0, 60.0, 26.0)];
         _textField.clearButtonMode = UITextFieldViewModeWhileEditing;
         _textField.adjustsFontSizeToFitWidth = YES;
         _textField.borderStyle = UITextBorderStyleRoundedRect;

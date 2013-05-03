@@ -38,6 +38,7 @@
     if (self) {
         CGRect textFrame = frame;
         textFrame.origin.x = 0;
+        textFrame.origin.y = 0;
         self.textField = [[UITextField alloc] initWithFrame:textFrame];
         _textField.delegate = self;
         [self addSubview:_textField];
