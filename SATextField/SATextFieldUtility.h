@@ -24,5 +24,7 @@
 
 @interface SATextFieldUtility : NSObject
 
++ (void)selectTextForInput:(UITextField *)input
+                   atRange:(NSRange)range;
 
 @end

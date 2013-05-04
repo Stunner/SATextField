@@ -113,11 +113,12 @@
         _textField.clearButtonMode = UITextFieldViewModeWhileEditing;
         _textField.adjustsFontSizeToFitWidth = YES;
         _textField.borderStyle = UITextBorderStyleRoundedRect;
-        _textField.keyboardType = UIKeyboardTypeAlphabet;
+        _textField.keyboardType = UIKeyboardTypeDecimalPad;
         _textField.delegate = self;
         _textField.placeholder = @"8.25";
         _textField.dynamicResizing = YES;
         _textField.maxWidth = 150.0;
+        _textField.fixedDecimalPoint = YES;
     }
     
     UILabel *percentSign = [[UILabel alloc] initWithFrame:CGRectMake(285.0, 6.0, 20.0, 26.0)];

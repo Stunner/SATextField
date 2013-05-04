@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		930C9D871734778E009B8244 /* LICENSE.txt in Resources */ = {isa = PBXBuildFile; fileRef = 930C9D851734778E009B8244 /* LICENSE.txt */; };
 		930C9D881734778E009B8244 /* README.md in Resources */ = {isa = PBXBuildFile; fileRef = 930C9D861734778E009B8244 /* README.md */; };
+		930C9D9117351753009B8244 /* CustomTextField.m in Sources */ = {isa = PBXBuildFile; fileRef = 930C9D9017351753009B8244 /* CustomTextField.m */; };
 		93B01CFC1731CAD200EF8182 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 93B01CFB1731CAD200EF8182 /* UIKit.framework */; };
 		93B01CFE1731CAD200EF8182 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 93B01CFD1731CAD200EF8182 /* Foundation.framework */; };
 		93B01D001731CAD200EF8182 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 93B01CFF1731CAD200EF8182 /* CoreGraphics.framework */; };
@@ -26,6 +27,8 @@
 /* Begin PBXFileReference section */
 		930C9D851734778E009B8244 /* LICENSE.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = LICENSE.txt; path = ../LICENSE.txt; sourceTree = "<group>"; };
 		930C9D861734778E009B8244 /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = README.md; path = ../README.md; sourceTree = "<group>"; };
+		930C9D8F17351753009B8244 /* CustomTextField.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CustomTextField.h; sourceTree = "<group>"; };
+		930C9D9017351753009B8244 /* CustomTextField.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CustomTextField.m; sourceTree = "<group>"; };
 		93B01CF81731CAD200EF8182 /* SampleProject.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SampleProject.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		93B01CFB1731CAD200EF8182 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		93B01CFD1731CAD200EF8182 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -124,6 +127,8 @@
 				93B01D2C1731F72500EF8182 /* SATextFieldUtility.m */,
 				93B01D241731CFCE00EF8182 /* SATextField.h */,
 				93B01D251731CFCE00EF8182 /* SATextField.m */,
+				930C9D8F17351753009B8244 /* CustomTextField.h */,
+				930C9D9017351753009B8244 /* CustomTextField.m */,
 			);
 			name = SATextField;
 			sourceTree = "<group>";
@@ -200,6 +205,7 @@
 				93B01D231731CB8000EF8182 /* RootTableViewController.m in Sources */,
 				93B01D261731CFCE00EF8182 /* SATextField.m in Sources */,
 				93B01D2D1731F72500EF8182 /* SATextFieldUtility.m in Sources */,
+				930C9D9117351753009B8244 /* CustomTextField.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

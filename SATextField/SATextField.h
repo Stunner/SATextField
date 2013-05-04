@@ -43,15 +43,18 @@ replacementString:(NSString *)string;
 
 @interface SATextField : UIControl <UITextFieldDelegate>
 
-@property (nonatomic, assign) BOOL fixedDecimalPoint;
 @property (nonatomic, assign) id <SATextFieldDelegate>delegate;
-
 @property (nonatomic, assign) UIKeyboardType keyboardType;
 @property (nonatomic, strong) NSString *placeholder;
 @property (nonatomic, assign) UITextBorderStyle borderStyle;
 @property (nonatomic, assign) BOOL adjustsFontSizeToFitWidth;
 @property (nonatomic, assign) UITextFieldViewMode clearButtonMode;
 @property (nonatomic, strong) NSString *text;
+/**
+ Specifies if the text field is to automatically include the 
+ decimal point as the user enters a number.
+ */
+@property (nonatomic, assign) BOOL fixedDecimalPoint;
 
 @property (nonatomic, assign) BOOL dynamicResizing;
 @property (nonatomic, assign) CGFloat maxWidth;

@@ -22,12 +22,13 @@
 
 #import "SATextField.h"
 #import "SATextFieldUtility.h"
+#import "CustomTextField.h"
 
 #define kDynamicResizeThresholdOffset 4
 
 @interface SATextField ()
 
-@property (nonatomic, strong) UITextField *textField;
+@property (nonatomic, strong) CustomTextField *textField;
 @property (nonatomic, assign) CGFloat initialTextFieldWidth;
 @property (nonatomic, assign) BOOL hasOffsetForTextClearButton;
 /**
@@ -49,7 +50,7 @@
         CGRect textFrame = frame;
         textFrame.origin.x = 0;
         textFrame.origin.y = 0;
-        self.textField = [[UITextField alloc] initWithFrame:textFrame];
+        self.textField = [[CustomTextField alloc] initWithFrame:textFrame];
         _initialTextFieldWidth = frame.size.width;
         _textField.delegate = self;
         [self addSubview:_textField];
@@ -86,6 +87,15 @@
 
 -(void)setText:(NSString *)text {
     _textField.text = text;
+}
+
+-(void)setFixedDecimalPoint:(BOOL)fixedDecimalPoint {
+    if (_textField.keyboardType == UIKeyboardTypeDecimalPad) {
+        _fixedDecimalPoint = fixedDecimalPoint;
+        _textField.hideCaret = fixedDecimalPoint;
+    } else {
+        NSLog(@"SATextField fixed decimal point requires UIKeyboardTypeDecimalPad!");
+    }
 }
 
 -(BOOL)resignFirstResponder {
@@ -194,6 +204,11 @@ replacementString:(NSString *)string
         }
     }
     
+    if (_fixedDecimalPoint) {
+        [SATextFieldUtility selectTextForInput:textField
+                                       atRange:NSMakeRange(textField.text.length, 0)];
+    }
+    
     if ([_delegate respondsToSelector:@selector(textField:shouldChangeCharactersInRange:replacementString:)]) {
         return [_delegate textField:self
       shouldChangeCharactersInRange:range
@@ -224,10 +239,11 @@ replacementString:(NSString *)string
     return YES;
 }
 
-- (BOOL)textFieldShouldBeginEditing:(SATextField *)textField {
+- (BOOL)textFieldShouldBeginEditing:(UITextField *)textField {
     if ([_delegate respondsToSelector:@selector(textFieldShouldBeginEditing:)]) {
         return [_delegate textFieldShouldBeginEditing:self];
     }
+    
     return YES;
 }
 
@@ -242,7 +258,7 @@ replacementString:(NSString *)string
     }
 }
 
-- (BOOL)textFieldShouldEndEditing:(SATextField *)textField {
+- (BOOL)textFieldShouldEndEditing:(UITextField *)textField {
     if ([_delegate respondsToSelector:@selector(textFieldShouldEndEditing:)]) {
         return [_delegate textFieldShouldEndEditing:self];
     }
