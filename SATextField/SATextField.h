@@ -54,6 +54,7 @@ replacementString:(NSString *)string;
 @property (nonatomic, strong) NSString *text;
 
 @property (nonatomic, assign) BOOL dynamicResizing;
+@property (nonatomic, assign) CGFloat maxWidth;
 
 - (id)initWithFrame:(CGRect)frame;
 

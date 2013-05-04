@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		930C9D871734778E009B8244 /* LICENSE.txt in Resources */ = {isa = PBXBuildFile; fileRef = 930C9D851734778E009B8244 /* LICENSE.txt */; };
+		930C9D881734778E009B8244 /* README.md in Resources */ = {isa = PBXBuildFile; fileRef = 930C9D861734778E009B8244 /* README.md */; };
 		93B01CFC1731CAD200EF8182 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 93B01CFB1731CAD200EF8182 /* UIKit.framework */; };
 		93B01CFE1731CAD200EF8182 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 93B01CFD1731CAD200EF8182 /* Foundation.framework */; };
 		93B01D001731CAD200EF8182 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 93B01CFF1731CAD200EF8182 /* CoreGraphics.framework */; };
@@ -19,11 +21,11 @@
 		93B01D231731CB8000EF8182 /* RootTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 93B01D221731CB8000EF8182 /* RootTableViewController.m */; };
 		93B01D261731CFCE00EF8182 /* SATextField.m in Sources */ = {isa = PBXBuildFile; fileRef = 93B01D251731CFCE00EF8182 /* SATextField.m */; };
 		93B01D2D1731F72500EF8182 /* SATextFieldUtility.m in Sources */ = {isa = PBXBuildFile; fileRef = 93B01D2C1731F72500EF8182 /* SATextFieldUtility.m */; };
-		93E213ED17331C7B0033961E /* LICENSE.txt in Resources */ = {isa = PBXBuildFile; fileRef = 93E213EC17331C7B0033961E /* LICENSE.txt */; };
-		93E213EF17331D910033961E /* README.md in Resources */ = {isa = PBXBuildFile; fileRef = 93E213EE17331D900033961E /* README.md */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		930C9D851734778E009B8244 /* LICENSE.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = LICENSE.txt; path = ../LICENSE.txt; sourceTree = "<group>"; };
+		930C9D861734778E009B8244 /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = README.md; path = ../README.md; sourceTree = "<group>"; };
 		93B01CF81731CAD200EF8182 /* SampleProject.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SampleProject.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		93B01CFB1731CAD200EF8182 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		93B01CFD1731CAD200EF8182 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -43,8 +45,6 @@
 		93B01D251731CFCE00EF8182 /* SATextField.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SATextField.m; path = ../SATextField/SATextField.m; sourceTree = "<group>"; };
 		93B01D2B1731F72500EF8182 /* SATextFieldUtility.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SATextFieldUtility.h; path = ../SATextField/SATextFieldUtility.h; sourceTree = "<group>"; };
 		93B01D2C1731F72500EF8182 /* SATextFieldUtility.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SATextFieldUtility.m; path = ../SATextField/SATextFieldUtility.m; sourceTree = "<group>"; };
-		93E213EC17331C7B0033961E /* LICENSE.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = LICENSE.txt; sourceTree = "<group>"; };
-		93E213EE17331D900033961E /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = README.md; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -64,8 +64,8 @@
 		93B01CEF1731CAD200EF8182 = {
 			isa = PBXGroup;
 			children = (
-				93E213EE17331D900033961E /* README.md */,
-				93E213EC17331C7B0033961E /* LICENSE.txt */,
+				930C9D851734778E009B8244 /* LICENSE.txt */,
+				930C9D861734778E009B8244 /* README.md */,
 				93B01D271731D02600EF8182 /* SATextField */,
 				93B01D011731CAD200EF8182 /* SampleProject */,
 				93B01CFA1731CAD200EF8182 /* Frameworks */,
@@ -183,8 +183,8 @@
 				93B01D0E1731CAD200EF8182 /* Default.png in Resources */,
 				93B01D101731CAD200EF8182 /* Default@2x.png in Resources */,
 				93B01D121731CAD200EF8182 /* Default-568h@2x.png in Resources */,
-				93E213ED17331C7B0033961E /* LICENSE.txt in Resources */,
-				93E213EF17331D910033961E /* README.md in Resources */,
+				930C9D871734778E009B8244 /* LICENSE.txt in Resources */,
+				930C9D881734778E009B8244 /* README.md in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
