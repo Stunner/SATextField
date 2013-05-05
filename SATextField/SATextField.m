@@ -31,6 +31,7 @@
 
 @property (nonatomic, strong) CustomTextField *textField;
 @property (nonatomic, assign) CGFloat initialTextFieldWidth;
+@property (nonatomic, assign) NSUInteger previousTextLength;
 @property (nonatomic, assign) BOOL hasOffsetForTextClearButton;
 /**
  Threshold that must be passed in order to begin expanding text field.
@@ -56,6 +57,7 @@
         _textField.delegate = self;
         [self addSubview:_textField];
         
+        _previousTextLength = 0;
         _hasOffsetForTextClearButton = NO;
         _fixedDecimalPoint = NO;
         _dynamicResizing = NO;
@@ -203,6 +205,54 @@ replacementString:(NSString *)string
         [self resizeTextField:textField forClearTextButton:NO];
     }
     
+    if (_fixedDecimalPoint) {
+        CGFloat oldTextWidth = [textField.text sizeWithFont:textField.font].width;
+        CGFloat newTextWidth = [newString sizeWithFont:textField.font].width;
+        CGFloat changeInLength = newTextWidth - oldTextWidth;
+        
+        NSCharacterSet *excludedCharacters = [NSCharacterSet characterSetWithCharactersInString:@" ."]; // TODO: remove space
+        NSString *cleansedString = [[newString componentsSeparatedByCharactersInSet:excludedCharacters] componentsJoinedByString:@""];
+        cleansedString = [cleansedString stringByTrimmingLeadingZeroes];
+        if (cleansedString.length < 3) {
+            NSUInteger zeroesCount = 3-cleansedString.length;
+            NSString *zeroes = [SATextFieldUtility insertDecimalInString:[@"0" repeatTimes:zeroesCount]
+                                                       atPositionFromEnd:(zeroesCount - 1)];
+            textField.text = [SATextFieldUtility append:zeroes, cleansedString, nil];
+        } else {
+            textField.text = [SATextFieldUtility insertDecimalInString:cleansedString
+                                                     atPositionFromEnd:2];
+        }
+        [SATextFieldUtility selectTextForInput:textField
+                                       atRange:NSMakeRange(textField.text.length, 0)];
+        NSLog(@"textfield length: %d", textField.text.length);
+        if ((changeInLength > 0 && textField.text.length > 4) ||
+            (changeInLength < 0 && textField.text.length != _previousTextLength)) {
+            if (_dynamicResizing) {
+                NSLog(@"1");
+                CGFloat newTextFieldWidth = kClearTextButtonOffset + newTextWidth;
+                if (newTextFieldWidth < _maxWidth) {
+                    NSLog(@"2");
+                    if ((kClearTextButtonOffset + newTextWidth > _dynamicResizeThreshold) || // expanding case
+                        ((changeInLength < 0) && // shrinking case
+                         ((textField.frame.size.width + changeInLength) >= (_initialTextFieldWidth + kClearTextButtonOffset))))
+                    {
+                        NSLog(@"3 %f", changeInLength);
+                        [self resizeSelfByPixels:changeInLength];
+                    }
+                }
+            }
+        }
+        
+        _previousTextLength = textField.text.length;
+        if ([_delegate respondsToSelector:@selector(textField:shouldChangeCharactersInRange:replacementString:)]) {
+            [_delegate textField:self
+          shouldChangeCharactersInRange:range
+                      replacementString:string];
+        }
+        
+        return NO;
+    }
+    
     if (_dynamicResizing) {
         CGFloat oldTextWidth = [textField.text sizeWithFont:textField.font].width;
         CGFloat newTextWidth = [newString sizeWithFont:textField.font].width;
@@ -218,31 +268,7 @@ replacementString:(NSString *)string
         }
     }
     
-    if (_fixedDecimalPoint) {
-        NSCharacterSet *excludedCharacters = [NSCharacterSet characterSetWithCharactersInString:@" ."]; // TODO: remove space
-        NSString *cleansedString = [[newString componentsSeparatedByCharactersInSet:excludedCharacters] componentsJoinedByString:@""];
-        cleansedString = [cleansedString stringByTrimmingLeadingZeroes];
-        if (cleansedString.length < 3) {
-            NSUInteger zeroesCount = 3-cleansedString.length;
-            NSString *zeroes = [SATextFieldUtility insertDecimalInString:[@"0" repeatTimes:zeroesCount]
-                                                       atPositionFromEnd:(zeroesCount - 1)];
-            textField.text = [SATextFieldUtility append:zeroes, cleansedString, nil];
-        } else {
-            textField.text = [SATextFieldUtility insertDecimalInString:cleansedString
-                                                     atPositionFromEnd:2];
-        }
-        [SATextFieldUtility selectTextForInput:textField
-                                       atRange:NSMakeRange(textField.text.length, 0)];
-        
-        if ([_delegate respondsToSelector:@selector(textField:shouldChangeCharactersInRange:replacementString:)]) {
-            [_delegate textField:self
-          shouldChangeCharactersInRange:range
-                      replacementString:string];
-        }
-        
-        return NO;
-    }
-    
+    _previousTextLength = textField.text.length;
     if ([_delegate respondsToSelector:@selector(textField:shouldChangeCharactersInRange:replacementString:)]) {
         return [_delegate textField:self
       shouldChangeCharactersInRange:range
