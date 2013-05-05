@@ -59,6 +59,7 @@
         
         _previousTextLength = 0;
         _hasOffsetForTextClearButton = NO;
+        _maxTextLength = -1; // no text length cap
         _fixedDecimalPoint = NO;
         _dynamicResizing = NO;
         // set some buffer space for the edge of the text field
@@ -203,6 +204,17 @@ replacementString:(NSString *)string
         [self resizeTextField:textField forClearTextButton:YES];
     } else if (newString.length == 0 && _hasOffsetForTextClearButton) {
         [self resizeTextField:textField forClearTextButton:NO];
+    }
+    
+    if (_maxTextLength > -1) {
+        if (newString.length > _maxTextLength) {
+            if ([_delegate respondsToSelector:@selector(textField:shouldChangeCharactersInRange:replacementString:)]) {
+                [_delegate textField:self
+       shouldChangeCharactersInRange:range
+                   replacementString:string];
+            }
+            return NO;
+        }
     }
     
     if (_fixedDecimalPoint) {

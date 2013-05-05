@@ -50,6 +50,7 @@ replacementString:(NSString *)string;
 @property (nonatomic, assign) BOOL adjustsFontSizeToFitWidth;
 @property (nonatomic, assign) UITextFieldViewMode clearButtonMode;
 @property (nonatomic, strong) NSString *text;
+@property (nonatomic, assign) NSInteger maxTextLength;
 /**
  Specifies if the text field is to automatically include the 
  decimal point as the user enters a number.
@@ -57,6 +58,10 @@ replacementString:(NSString *)string;
 @property (nonatomic, assign) BOOL fixedDecimalPoint;
 
 @property (nonatomic, assign) BOOL dynamicResizing;
+/**
+ Maximum size that the text field may resize to when dynamically 
+ resizing.
+ */
 @property (nonatomic, assign) CGFloat maxWidth;
 
 - (id)initWithFrame:(CGRect)frame;
