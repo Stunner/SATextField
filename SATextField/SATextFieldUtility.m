@@ -34,4 +34,44 @@
     [input setSelectedTextRange:[input textRangeFromPosition:start toPosition:end]];
 }
 
++ (NSString *) append:(id) first, ...
+{
+    NSString * result = @"";
+    id eachArg;
+    va_list alist;
+    if(first)
+    {
+        result = [result stringByAppendingString:first];
+        va_start(alist, first);
+        while ((eachArg = va_arg(alist, id)))
+			result = [result stringByAppendingString:eachArg];
+        va_end(alist);
+    }
+    return result;
+}
+
++ (NSString *)insertDecimalInString:(NSString *)string
+                  atPositionFromEnd:(NSUInteger)position
+{
+    if (string.length < position + 1) {
+        if (string.length == 0) {
+            return @".  ";
+        }
+        if (string.length == 1) {
+            NSString *returnable = [SATextFieldUtility append:@". ", string, nil];
+            NSLog(@"returnable: %@", returnable);
+            return returnable;
+        }
+        if (string.length == 2) {
+            return [SATextFieldUtility append:@".", string, nil];
+        }
+    }
+    NSUInteger decimalPosition = string.length - position;
+    NSString *leftOfDecimal = [string substringToIndex:decimalPosition];
+    NSString *rightOfDecimal = [string substringFromIndex:decimalPosition];
+    NSString *returnable = [SATextFieldUtility append:leftOfDecimal, @".", rightOfDecimal, nil];
+    NSLog(@"returnable: %@", returnable);
+    return returnable;
+}
+
 @end

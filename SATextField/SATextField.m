@@ -87,6 +87,11 @@
 
 -(void)setText:(NSString *)text {
     _textField.text = text;
+    if ([text isEqualToString:@""]) {
+        [self resizeTextField:_textField forClearTextButton:NO];
+    } else {
+        [self resizeTextField:_textField forClearTextButton:YES];
+    }
 }
 
 -(void)setFixedDecimalPoint:(BOOL)fixedDecimalPoint {
@@ -189,10 +194,15 @@ replacementString:(NSString *)string
         [self resizeTextField:textField forClearTextButton:NO];
     }
     
-    if (_dynamicResizing) {
+    NSInteger changeInLength = 0;
+    CGFloat newTextWidth = 0.0;
+    if (_dynamicResizing || _fixedDecimalPoint) {
         CGFloat oldTextWidth = [textField.text sizeWithFont:textField.font].width;
-        CGFloat newTextWidth = [newString sizeWithFont:textField.font].width;
-        NSInteger changeInLength = newTextWidth - oldTextWidth;
+        newTextWidth = [newString sizeWithFont:textField.font].width;
+        changeInLength = newTextWidth - oldTextWidth;
+    }
+    
+    if (_dynamicResizing) {
         CGFloat newTextFieldWidth = kClearTextButtonOffset + newTextWidth;
         if (newTextFieldWidth < _maxWidth) {
             if ((kClearTextButtonOffset + newTextWidth > _dynamicResizeThreshold) || // expanding case
@@ -205,8 +215,20 @@ replacementString:(NSString *)string
     }
     
     if (_fixedDecimalPoint) {
+        NSCharacterSet *excludedCharacters = [NSCharacterSet characterSetWithCharactersInString:@" ."];
+        NSString *cleansedString = [[newString componentsSeparatedByCharactersInSet:excludedCharacters] componentsJoinedByString: @""];
+        textField.text = [SATextFieldUtility insertDecimalInString:cleansedString
+                                                 atPositionFromEnd:2];
         [SATextFieldUtility selectTextForInput:textField
                                        atRange:NSMakeRange(textField.text.length, 0)];
+        
+        if ([_delegate respondsToSelector:@selector(textField:shouldChangeCharactersInRange:replacementString:)]) {
+            [_delegate textField:self
+          shouldChangeCharactersInRange:range
+                      replacementString:string];
+        }
+        
+        return NO;
     }
     
     if ([_delegate respondsToSelector:@selector(textField:shouldChangeCharactersInRange:replacementString:)]) {
@@ -251,6 +273,12 @@ replacementString:(NSString *)string
     textField.placeholder = nil;
     if (textField.text.length > 0 && !_hasOffsetForTextClearButton) {
         [self resizeTextField:textField forClearTextButton:YES];
+    }
+    
+    if (_dynamicResizing) {
+        if ([textField.text isEqualToString:@""]) {
+            [self setText:@".  "];
+        }
     }
     
     if ([_delegate respondsToSelector:@selector(textFieldDidBeginEditing:)]) {
