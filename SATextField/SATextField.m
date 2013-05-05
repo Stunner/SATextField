@@ -23,6 +23,7 @@
 #import "SATextField.h"
 #import "SATextFieldUtility.h"
 #import "CustomTextField.h"
+#import "NSString+SATextField.h"
 
 #define kDynamicResizeThresholdOffset 4
 
@@ -91,15 +92,23 @@
         [self resizeTextField:_textField forClearTextButton:NO];
     } else {
         [self resizeTextField:_textField forClearTextButton:YES];
+        CGFloat textWidth = [text sizeWithFont:_textField.font].width;
+        CGFloat potentialTextFieldWidth = textWidth + kClearTextButtonOffset - kDynamicResizeThresholdOffset - 3;
+        CGFloat potentialChangeInPixels = potentialTextFieldWidth - textWidth;
+        if (potentialChangeInPixels > 0) {
+            [self resizeSelfByPixels:potentialChangeInPixels];
+        }
     }
 }
 
 -(void)setFixedDecimalPoint:(BOOL)fixedDecimalPoint {
-    if (_textField.keyboardType == UIKeyboardTypeDecimalPad) {
+    if (_textField.keyboardType == UIKeyboardTypeDecimalPad ||
+        _textField.keyboardType == UIKeyboardTypeNumberPad)
+    {
         _fixedDecimalPoint = fixedDecimalPoint;
         _textField.hideCaret = fixedDecimalPoint;
     } else {
-        NSLog(@"SATextField fixed decimal point requires UIKeyboardTypeDecimalPad!");
+        NSLog(@"SATextField fixed decimal point requires UIKeyboardTypeDecimalPad or UIKeyboardTypeNumberPad!");
     }
 }
 
@@ -194,15 +203,10 @@ replacementString:(NSString *)string
         [self resizeTextField:textField forClearTextButton:NO];
     }
     
-    NSInteger changeInLength = 0;
-    CGFloat newTextWidth = 0.0;
-    if (_dynamicResizing || _fixedDecimalPoint) {
-        CGFloat oldTextWidth = [textField.text sizeWithFont:textField.font].width;
-        newTextWidth = [newString sizeWithFont:textField.font].width;
-        changeInLength = newTextWidth - oldTextWidth;
-    }
-    
     if (_dynamicResizing) {
+        CGFloat oldTextWidth = [textField.text sizeWithFont:textField.font].width;
+        CGFloat newTextWidth = [newString sizeWithFont:textField.font].width;
+        CGFloat changeInLength = newTextWidth - oldTextWidth;
         CGFloat newTextFieldWidth = kClearTextButtonOffset + newTextWidth;
         if (newTextFieldWidth < _maxWidth) {
             if ((kClearTextButtonOffset + newTextWidth > _dynamicResizeThreshold) || // expanding case
@@ -215,10 +219,18 @@ replacementString:(NSString *)string
     }
     
     if (_fixedDecimalPoint) {
-        NSCharacterSet *excludedCharacters = [NSCharacterSet characterSetWithCharactersInString:@" ."];
-        NSString *cleansedString = [[newString componentsSeparatedByCharactersInSet:excludedCharacters] componentsJoinedByString: @""];
-        textField.text = [SATextFieldUtility insertDecimalInString:cleansedString
-                                                 atPositionFromEnd:2];
+        NSCharacterSet *excludedCharacters = [NSCharacterSet characterSetWithCharactersInString:@" ."]; // TODO: remove space
+        NSString *cleansedString = [[newString componentsSeparatedByCharactersInSet:excludedCharacters] componentsJoinedByString:@""];
+        cleansedString = [cleansedString stringByTrimmingLeadingZeroes];
+        if (cleansedString.length < 3) {
+            NSUInteger zeroesCount = 3-cleansedString.length;
+            NSString *zeroes = [SATextFieldUtility insertDecimalInString:[@"0" repeatTimes:zeroesCount]
+                                                       atPositionFromEnd:(zeroesCount - 1)];
+            textField.text = [SATextFieldUtility append:zeroes, cleansedString, nil];
+        } else {
+            textField.text = [SATextFieldUtility insertDecimalInString:cleansedString
+                                                     atPositionFromEnd:2];
+        }
         [SATextFieldUtility selectTextForInput:textField
                                        atRange:NSMakeRange(textField.text.length, 0)];
         
@@ -237,7 +249,7 @@ replacementString:(NSString *)string
                   replacementString:string];
     }
     return YES;
-}
+} // textField:shouldChangeCharactersInRange:replacementString:
 
 - (BOOL)textFieldShouldClear:(UITextField *)textField {
     if (_hasOffsetForTextClearButton) {
@@ -277,7 +289,8 @@ replacementString:(NSString *)string
     
     if (_dynamicResizing) {
         if ([textField.text isEqualToString:@""]) {
-            [self setText:@".  "];
+            [self setText:@"0.00"]; // TODO: move this to CustomTextField and move the
+                                   // setter's functionality to that class's setter
         }
     }
     

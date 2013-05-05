@@ -21,6 +21,7 @@
 //
 
 #import "SATextFieldUtility.h"
+#import "NSString+SATextField.h"
 
 @implementation SATextFieldUtility
 
@@ -53,19 +54,14 @@
 + (NSString *)insertDecimalInString:(NSString *)string
                   atPositionFromEnd:(NSUInteger)position
 {
-    if (string.length < position + 1) {
-        if (string.length == 0) {
-            return @".  ";
-        }
-        if (string.length == 1) {
-            NSString *returnable = [SATextFieldUtility append:@". ", string, nil];
-            NSLog(@"returnable: %@", returnable);
-            return returnable;
-        }
-        if (string.length == 2) {
-            return [SATextFieldUtility append:@".", string, nil];
-        }
-    }
+//    if (string.length < position + 1) {
+//        NSLog(@"%d", position);
+//        NSString *fillerString = [@"0" repeatTimes:(position - string.length)];
+//        NSString *returnable = [SATextFieldUtility append:@".", fillerString, string, nil];
+//        NSLog(@"returnable: %@", returnable);
+//        return returnable;
+//    }
+    
     NSUInteger decimalPosition = string.length - position;
     NSString *leftOfDecimal = [string substringToIndex:decimalPosition];
     NSString *rightOfDecimal = [string substringFromIndex:decimalPosition];
