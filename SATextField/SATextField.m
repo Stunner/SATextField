@@ -126,7 +126,9 @@
 #pragma mark - View Lifecycle
 
 - (void)viewDidLoad {
-
+    if (_fixedDecimalPoint) {
+        _textField.text = @"0.00";
+    }
 }
 
 - (void)viewWillAppear {
@@ -290,13 +292,16 @@ replacementString:(NSString *)string
 } // textField:shouldChangeCharactersInRange:replacementString:
 
 - (BOOL)textFieldShouldClear:(UITextField *)textField {
-    if (_hasOffsetForTextClearButton) {
-        [self resizeTextField:textField forClearTextButton:NO];
-    }
-    
     BOOL shouldClear = YES;
     if ([_delegate respondsToSelector:@selector(textFieldShouldClear:)]) {
         shouldClear = [_delegate textFieldShouldClear:self];
+    }
+    if (_fixedDecimalPoint) {
+        textField.text = @"0.00"; // TODO: investigate resizing bug here
+        return NO;
+    }
+    if (_hasOffsetForTextClearButton) {
+        [self resizeTextField:textField forClearTextButton:NO];
     }
     if (_dynamicResizing && shouldClear) {
         [self resizeSelfToWidth:_initialTextFieldWidth];
@@ -325,10 +330,10 @@ replacementString:(NSString *)string
         [self resizeTextField:textField forClearTextButton:YES];
     }
     
-    if (_dynamicResizing) {
+    if (_fixedDecimalPoint) {
         if ([textField.text isEqualToString:@""]) {
             [self setText:@"0.00"]; // TODO: move this to CustomTextField and move the
-                                   // setter's functionality to that class's setter
+                                    // setter's functionality to that class's setter
         }
     }
     
@@ -349,7 +354,11 @@ replacementString:(NSString *)string
         [self resizeTextField:textField forClearTextButton:NO];
     }
     if ([textField.text isEqualToString:@""]) {
-        textField.placeholder = _placeholder;
+        if (_fixedDecimalPoint) {
+            [self setText:@"0.00"];
+        } else {
+            textField.placeholder = _placeholder;
+        }
     }
     
     if ([_delegate respondsToSelector:@selector(textFieldDidEndEditing:)]) {
