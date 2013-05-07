@@ -11,7 +11,7 @@
 @interface NSString (SATextField)
 
 - (NSString *)repeatTimes:(NSUInteger)times;
-
 - (NSString*)stringByTrimmingLeadingZeroes;
+- (BOOL)isNumeral;
 
 @end

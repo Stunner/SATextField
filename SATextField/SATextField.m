@@ -225,6 +225,10 @@
 shouldChangeCharactersInRange:(NSRange)range
 replacementString:(NSString *)string
 {
+    if (_fixedDecimalPoint && ![string isNumeral] && string.length != 0) {
+        return NO;
+    }
+    
     NSString *newString = [textField.text stringByReplacingCharactersInRange:range
                                                                   withString:string];
     if (newString.length > 0 && !_isOffsetForTextClearButton) {
@@ -246,7 +250,7 @@ replacementString:(NSString *)string
     
     CGFloat oldTextWidth = [textField.text sizeWithFont:textField.font].width;
     if (_fixedDecimalPoint) {
-        NSCharacterSet *excludedCharacters = [NSCharacterSet characterSetWithCharactersInString:@"."]; // TODO: remove space
+        NSCharacterSet *excludedCharacters = [NSCharacterSet characterSetWithCharactersInString:@"."];
         NSString *cleansedString = [[newString componentsSeparatedByCharactersInSet:excludedCharacters] componentsJoinedByString:@""];
         cleansedString = [cleansedString stringByTrimmingLeadingZeroes];
         if (cleansedString.length < 3) {
@@ -298,7 +302,7 @@ replacementString:(NSString *)string
                                                    : _initialTextFieldWidth];
     }
     if (_fixedDecimalPoint) {
-        textField.text = @"0.00"; // TODO: investigate resizing bug here
+        textField.text = @"0.00";
         return NO;
     }
     if (_isOffsetForTextClearButton) {

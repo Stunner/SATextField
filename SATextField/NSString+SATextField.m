@@ -28,5 +28,16 @@
     return [self substringFromIndex:i];
 }
 
+- (BOOL)isNumeral {
+    NSCharacterSet *myCharSet = [NSCharacterSet characterSetWithCharactersInString:@"0123456789"];
+    for (int i = 0; i < [self length]; i++) {
+        unichar c = [self characterAtIndex:i];
+        if ([myCharSet characterIsMember:c]) {
+            return YES;
+        }
+    }
+    return NO;
+}
+
 
 @end
