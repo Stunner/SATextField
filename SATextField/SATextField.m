@@ -26,6 +26,8 @@
 #import "NSString+SATextField.h"
 
 #define kDynamicResizeThresholdOffset 4
+#define kClearTextButtonOffset 0
+#define kFixedDecimalClearTextButtonOffset 29
 
 @interface SATextField ()
 
@@ -37,6 +39,7 @@
  Threshold that must be passed in order to begin expanding text field.
  */
 @property (nonatomic, assign) CGFloat dynamicResizeThreshold;
+@property (nonatomic, assign) CGFloat clearTextButtonOffset;
 
 - (void)resizeSelfToWidth:(NSInteger)width;
 - (void)resizeSelfByPixels:(NSInteger)pixelOffset;
@@ -59,11 +62,13 @@
         
         _previousTextLength = 0;
         _hasOffsetForTextClearButton = NO;
+        // set some buffer space for the edge of the text field
+        _dynamicResizeThreshold = _initialTextFieldWidth - kDynamicResizeThresholdOffset;
+        _clearTextButtonOffset = kClearTextButtonOffset;
+        
         _maxTextLength = -1; // no text length cap
         _fixedDecimalPoint = NO;
         _dynamicResizing = NO;
-        // set some buffer space for the edge of the text field
-        _dynamicResizeThreshold = _initialTextFieldWidth - kDynamicResizeThresholdOffset;
     }
     return self;
 }
@@ -90,17 +95,38 @@
 }
 
 -(void)setText:(NSString *)text {
+    NSLog(@"setText: %@", text);
     _textField.text = text;
     if ([text isEqualToString:@""]) {
         [self resizeTextField:_textField forClearTextButton:NO];
     } else {
-        [self resizeTextField:_textField forClearTextButton:YES];
-        CGFloat textWidth = [text sizeWithFont:_textField.font].width;
-        CGFloat potentialTextFieldWidth = textWidth + kClearTextButtonOffset - kDynamicResizeThresholdOffset - 3;
-        CGFloat potentialChangeInPixels = potentialTextFieldWidth - textWidth;
-        if (potentialChangeInPixels > 0) {
-            [self resizeSelfByPixels:potentialChangeInPixels];
+        if ([self isFirstResponder]) {
+            [self resizeTextField:_textField forClearTextButton:YES];
+        } else {
+            [self resizeTextField:_textField forClearTextButton:NO];
         }
+        CGFloat textWidth = [text sizeWithFont:_textField.font].width;
+//        CGFloat potentialTextFieldWidth = 0;
+        CGFloat resizeThreshold = textWidth - kDynamicResizeThresholdOffset;
+        if ([self isFirstResponder]) {
+            if (textWidth + _clearTextButtonOffset >= resizeThreshold) {
+                [self resizeSelfByPixels:textWidth + _clearTextButtonOffset + 5 - resizeThreshold];
+            } else if (textWidth + _clearTextButtonOffset < resizeThreshold) {
+                [self resizeSelfByPixels:resizeThreshold + 5 - textWidth + _clearTextButtonOffset];
+            }
+//            potentialTextFieldWidth = textWidth + kClearTextButtonOffset - kDynamicResizeThresholdOffset - 3;
+        } else {
+            if (textWidth >= resizeThreshold) {
+                [self resizeSelfByPixels:textWidth + 26 - resizeThreshold];
+            } else if (textWidth < resizeThreshold) {
+                [self resizeSelfByPixels:resizeThreshold + 26 - textWidth];
+            }
+//            potentialTextFieldWidth = textWidth;
+        }
+//        CGFloat potentialChangeInPixels = potentialTextFieldWidth - textWidth;
+//        if (potentialChangeInPixels > 0) {
+//            [self resizeSelfByPixels:potentialChangeInPixels];
+//        }
     }
 }
 
@@ -110,6 +136,12 @@
     {
         _fixedDecimalPoint = fixedDecimalPoint;
         _textField.hideCaret = fixedDecimalPoint;
+        if (_fixedDecimalPoint) {
+            _clearTextButtonOffset = kFixedDecimalClearTextButtonOffset;
+            [self setText:@"0.00"];
+        } else {
+            _clearTextButtonOffset = kClearTextButtonOffset;
+        }
     } else {
         NSLog(@"SATextField fixed decimal point requires UIKeyboardTypeDecimalPad or UIKeyboardTypeNumberPad!");
     }
@@ -121,18 +153,6 @@
 
 -(BOOL)isFirstResponder {
     return _textField.isFirstResponder;
-}
-
-#pragma mark - View Lifecycle
-
-- (void)viewDidLoad {
-    if (_fixedDecimalPoint) {
-        _textField.text = @"0.00";
-    }
-}
-
-- (void)viewWillAppear {
-
 }
 
 #pragma mark - Helper Methods
@@ -185,11 +205,11 @@
 {
     if (clearTextButtonShowing) {
         //expand size of field to include clear text button
-        [self resizeSelfByPixels:kClearTextButtonOffset];
+        [self resizeSelfByPixels:_clearTextButtonOffset];
         _hasOffsetForTextClearButton = YES;
     } else {
         //shrink size of field to exclude clear text button
-        [self resizeSelfByPixels:-kClearTextButtonOffset];
+        [self resizeSelfByPixels:-_clearTextButtonOffset];
         _hasOffsetForTextClearButton = NO;
     }
 }
@@ -221,8 +241,6 @@ replacementString:(NSString *)string
     
     if (_fixedDecimalPoint) {
         CGFloat oldTextWidth = [textField.text sizeWithFont:textField.font].width;
-        CGFloat newTextWidth = [newString sizeWithFont:textField.font].width;
-        CGFloat changeInLength = newTextWidth - oldTextWidth;
         
         NSCharacterSet *excludedCharacters = [NSCharacterSet characterSetWithCharactersInString:@" ."]; // TODO: remove space
         NSString *cleansedString = [[newString componentsSeparatedByCharactersInSet:excludedCharacters] componentsJoinedByString:@""];
@@ -236,24 +254,38 @@ replacementString:(NSString *)string
             textField.text = [SATextFieldUtility insertDecimalInString:cleansedString
                                                      atPositionFromEnd:2];
         }
+        CGFloat newTextWidth = [textField.text sizeWithFont:textField.font].width;
         [SATextFieldUtility selectTextForInput:textField
                                        atRange:NSMakeRange(textField.text.length, 0)];
         NSLog(@"textfield length: %d", textField.text.length);
-        if ((changeInLength > 0 && textField.text.length > 4) ||
-            (changeInLength < 0 && textField.text.length != _previousTextLength)) {
-            if (_dynamicResizing) {
-                NSLog(@"1");
-                CGFloat newTextFieldWidth = kClearTextButtonOffset + newTextWidth;
-                if (newTextFieldWidth < _maxWidth) {
-                    NSLog(@"2");
-                    if ((kClearTextButtonOffset + newTextWidth > _dynamicResizeThreshold) || // expanding case
-                        ((changeInLength < 0) && // shrinking case
-                         ((textField.frame.size.width + changeInLength) >= (_initialTextFieldWidth + kClearTextButtonOffset))))
-                    {
-                        NSLog(@"3 %f", changeInLength);
-                        [self resizeSelfByPixels:changeInLength];
-                    }
-                }
+//        if ((changeInLength > 0 && textField.text.length > 4) ||
+//            (changeInLength < 0 && textField.text.length != _previousTextLength)) {
+//            if (_dynamicResizing) {
+//                NSLog(@"1");
+//                CGFloat newTextFieldWidth = _clearTextButtonOffset + newTextWidth;
+//                if (newTextFieldWidth < _maxWidth) {
+//                    NSLog(@"2");
+//                    if ((_clearTextButtonOffset + newTextWidth > _dynamicResizeThreshold) || // expanding case
+//                        ((changeInLength < 0) && // shrinking case
+//                         ((textField.frame.size.width + changeInLength) >= (_initialTextFieldWidth + _clearTextButtonOffset))))
+//                    {
+//                        NSLog(@"3 %f", changeInLength);
+//                        [self resizeSelfByPixels:changeInLength];
+//                    }
+//                }
+//            }
+//        }
+
+//        CGFloat oldTextWidth = [textField.text sizeWithFont:textField.font].width;
+//        CGFloat newTextWidth = [newString sizeWithFont:textField.font].width;
+        if (_dynamicResizing) {
+            CGFloat changeInWidth = newTextWidth - oldTextWidth;
+            CGFloat resizeThreshold = textField.frame.size.width - kDynamicResizeThresholdOffset;
+            CGFloat resizedWidth = textField.frame.size.width + newTextWidth + _clearTextButtonOffset + 5 - resizeThreshold;
+            if (newTextWidth + _clearTextButtonOffset >= resizeThreshold && resizedWidth < _maxWidth) { // expanding case
+                [self resizeSelfByPixels:changeInWidth];
+            } else if (newTextWidth + _clearTextButtonOffset < resizeThreshold) { // contracting case
+                [self resizeSelfByPixels:changeInWidth];
             }
         }
         
@@ -270,16 +302,25 @@ replacementString:(NSString *)string
     if (_dynamicResizing) {
         CGFloat oldTextWidth = [textField.text sizeWithFont:textField.font].width;
         CGFloat newTextWidth = [newString sizeWithFont:textField.font].width;
-        CGFloat changeInLength = newTextWidth - oldTextWidth;
-        CGFloat newTextFieldWidth = kClearTextButtonOffset + newTextWidth;
-        if (newTextFieldWidth < _maxWidth) {
-            if ((kClearTextButtonOffset + newTextWidth > _dynamicResizeThreshold) || // expanding case
-                ((changeInLength < 0) && // shrinking case
-                 ((textField.frame.size.width + changeInLength) >= (_initialTextFieldWidth + kClearTextButtonOffset))))
-            {
-                [self resizeSelfByPixels:changeInLength];
-            }
+        CGFloat changeInWidth = newTextWidth - oldTextWidth;
+        CGFloat resizeThreshold = textField.frame.size.width - kDynamicResizeThresholdOffset;
+        CGFloat resizedWidth = textField.frame.size.width + newTextWidth + _clearTextButtonOffset + 5 - resizeThreshold;
+        if (newTextWidth + _clearTextButtonOffset >= resizeThreshold && resizedWidth < _maxWidth) { // expanding case
+            [self resizeSelfByPixels:changeInWidth];
+        } else if (newTextWidth + _clearTextButtonOffset < resizeThreshold) { // contracting case
+            [self resizeSelfByPixels:changeInWidth];
         }
+        
+        
+//        CGFloat newTextFieldWidth = kClearTextButtonOffset + newTextWidth;
+//        if (newTextFieldWidth < _maxWidth) {
+//            if ((kClearTextButtonOffset + newTextWidth > _dynamicResizeThreshold) || // expanding case
+//                ((changeInLength < 0) && // shrinking case
+//                 ((textField.frame.size.width + changeInLength) >= (_initialTextFieldWidth + kClearTextButtonOffset))))
+//            {
+//                [self resizeSelfByPixels:changeInLength];
+//            }
+//        }
     }
     
     _previousTextLength = textField.text.length;
@@ -296,15 +337,17 @@ replacementString:(NSString *)string
     if ([_delegate respondsToSelector:@selector(textFieldShouldClear:)]) {
         shouldClear = [_delegate textFieldShouldClear:self];
     }
+    if (shouldClear) {
+        [self resizeSelfToWidth:_fixedDecimalPoint ? (_initialTextFieldWidth + _clearTextButtonOffset +
+                                                      kDynamicResizeThresholdOffset + 3)
+                                                   : _initialTextFieldWidth];
+    }
     if (_fixedDecimalPoint) {
         textField.text = @"0.00"; // TODO: investigate resizing bug here
         return NO;
     }
     if (_hasOffsetForTextClearButton) {
         [self resizeTextField:textField forClearTextButton:NO];
-    }
-    if (_dynamicResizing && shouldClear) {
-        [self resizeSelfToWidth:_initialTextFieldWidth];
     }
     return shouldClear;
 }

@@ -22,7 +22,6 @@
 
 #import <UIKit/UIKit.h>
 
-#define kClearTextButtonOffset 20
 
 @class SATextField;
 
