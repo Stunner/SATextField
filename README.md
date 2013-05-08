@@ -3,6 +3,8 @@ SATextField
 
 SATextField is a class that enhances UITextField and allows for the following additional functionality:
 
+- Fixing decimal to 2 spaces, allowing for ATM-style text entry.
+- Dynamically resizing text field for every character entered.
 - Resizing of the text field to compensate for space taken up by clear text button.
 - Reapplying placeholder when text field is empty.
 
