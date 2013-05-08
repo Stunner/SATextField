@@ -29,6 +29,7 @@
 
 #define kDefaultClearTextButtonOffset 20
 #define kDynamicResizeClearTextButtonOffset 0
+#define kDynamicResizeClearTextButtonOffsetSelection 31
 #define kFixedDecimalClearTextButtonOffset 29
 
 typedef enum {
@@ -43,6 +44,7 @@ typedef enum {
 @property (nonatomic, strong) CustomTextField *textField;
 @property (nonatomic, assign) CGFloat initialTextFieldWidth;
 @property (nonatomic, assign) BOOL isOffsetForTextClearButton;
+@property (nonatomic, assign) BOOL isOffsetForTextClearButtonForDynamicResize;
 /**
  Threshold that must be passed in order to begin expanding text field.
  */
@@ -74,6 +76,7 @@ typedef enum {
         [self addSubview:_textField];
         
         _isOffsetForTextClearButton = NO;
+        _isOffsetForTextClearButtonForDynamicResize = NO;
         // set some buffer space for the edge of the text field
         _dynamicResizeThreshold = _initialTextFieldWidth - kDynamicResizeThresholdOffset;
         _clearTextButtonOffset = kDefaultClearTextButtonOffset;
@@ -366,6 +369,13 @@ replacementString:(NSString *)string
         [self resizeTextField:textField forClearTextButton:YES];
     }
     
+    if (_dynamicResizing && !_fixedDecimalPoint) {
+        if (_isOffsetForTextClearButtonForDynamicResize) {
+            [self resizeSelfByPixels:kDynamicResizeClearTextButtonOffsetSelection];
+            _isOffsetForTextClearButtonForDynamicResize = NO;
+        }
+    }
+    
     if (_fixedDecimalPoint) {
         if ([textField.text isEqualToString:@""]) {
             [self setText:@"0.00"]; // TODO: move this to CustomTextField and move the
@@ -393,6 +403,13 @@ replacementString:(NSString *)string
         if (_isExpanded && [textField.text isEqualToString:@""]) {
             [self resizeSelfByPixels:-_expansionWidth];
             _isExpanded = NO;
+        }
+    }
+    if (_dynamicResizing && !_fixedDecimalPoint) {
+        CGFloat textWidth = [textField.text sizeWithFont:textField.font].width;
+        if (textWidth + kDynamicResizeClearTextButtonOffsetSelection > _initialTextFieldWidth) {
+            [self resizeSelfByPixels:-kDynamicResizeClearTextButtonOffsetSelection];
+            _isOffsetForTextClearButtonForDynamicResize = YES;
         }
     }
     if ([textField.text isEqualToString:@""]) {
