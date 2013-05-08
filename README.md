@@ -14,19 +14,20 @@ Merely add the SATextField folder to your project.
 Usage
 =====
 
-Import AppUPdateTracker.h in your AppDelegate class and make calls to `appDidFinishLaunching` 
-and `appWillEnterForeground` in `application:didFinishLaunchingWithOptions:` and
-`applicationWillEnterForeground:` callbacks respectively.
-
 **Example:**
 ```
-SATextField *textField = [[SATextField alloc] initWithFrame:CGRectMake(220.0, 5.0, 60.0, 26.0)];
+SATextField *textField = [[SATextField alloc] initWithFrame:CGRectMake(232.0, 10.0, 48.0, 26.0)];
 textField.clearButtonMode = UITextFieldViewModeWhileEditing;
 textField.adjustsFontSizeToFitWidth = YES;
 textField.borderStyle = UITextBorderStyleRoundedRect;
-textField.keyboardType = UIKeyboardTypeAlphabet;
+textField.keyboardType = UIKeyboardTypeDecimalPad;
 textField.delegate = self;
-textField.placeholder = @"test";
+textField.placeholder = @"8.25";
+textField.dynamicResizing = YES;
+textField.expansionWidth = 40.0;
+textField.maxWidth = 150.0;
+textField.fixedDecimalPoint = YES;
+textField.maxTextLength = 14;
 ```
 Utilize the SATextFieldDelegate methods (identical to those of UITextField):
 ```
