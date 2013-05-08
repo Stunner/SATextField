@@ -49,6 +49,13 @@ replacementString:(NSString *)string;
 @property (nonatomic, assign) BOOL adjustsFontSizeToFitWidth;
 @property (nonatomic, assign) UITextFieldViewMode clearButtonMode;
 @property (nonatomic, strong) NSString *text;
+/**
+ How wide the textfield should expand to when a character is
+ entered (beyond expansion for clear text button). (Applies 
+ only to text fields with fixedDecimal and dynamicResizing 
+ options set to NO.) Defaults to 0 (no expansion).
+ */
+@property (nonatomic, assign) CGFloat expansionWidth;
 @property (nonatomic, assign) NSInteger maxTextLength;
 /**
  Specifies if the text field is to automatically include the 

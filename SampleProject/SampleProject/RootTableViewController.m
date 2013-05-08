@@ -116,9 +116,10 @@
         _textField.keyboardType = UIKeyboardTypeDecimalPad;
         _textField.delegate = self;
         _textField.placeholder = @"8.25";
-        _textField.dynamicResizing = YES;
+        _textField.dynamicResizing = NO;
+        _textField.expansionWidth = 40.0;
         _textField.maxWidth = 150.0;
-        _textField.fixedDecimalPoint = YES;
+        _textField.fixedDecimalPoint = NO;
         _textField.maxTextLength = 14;
     }
     

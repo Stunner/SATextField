@@ -26,8 +26,17 @@
 #import "NSString+SATextField.h"
 
 #define kDynamicResizeThresholdOffset 4
-#define kClearTextButtonOffset 0
+
+#define kDefaultClearTextButtonOffset 20
+#define kDynamicResizeClearTextButtonOffset 0
 #define kFixedDecimalClearTextButtonOffset 29
+
+typedef enum {
+    OptionTypeDefault,
+    OptionTypeDynamicResize,
+    OptionTypeFixedDecimal,
+    OptionTypeDynamicResizeAndFixedDecimal
+}OptionType;
 
 @interface SATextField ()
 
@@ -42,6 +51,8 @@
  The size that the text must be moved to make room for the clear button.
  */
 @property (nonatomic, assign) CGFloat clearTextButtonOffset;
+@property (nonatomic, assign) BOOL isExpanded;
+@property (nonatomic, assign) OptionType optionType;
 
 - (void)resizeSelfToWidth:(NSInteger)width;
 - (void)resizeSelfByPixels:(NSInteger)pixelOffset;
@@ -65,11 +76,14 @@
         _isOffsetForTextClearButton = NO;
         // set some buffer space for the edge of the text field
         _dynamicResizeThreshold = _initialTextFieldWidth - kDynamicResizeThresholdOffset;
-        _clearTextButtonOffset = kClearTextButtonOffset;
+        _clearTextButtonOffset = kDefaultClearTextButtonOffset;
+        _isExpanded = NO;
         
+        _expansionWidth = 0;
         _maxTextLength = -1; // no text length cap
         _fixedDecimalPoint = NO;
         _dynamicResizing = NO;
+        _optionType = OptionTypeDefault;
     }
     return self;
 }
@@ -96,7 +110,6 @@
 }
 
 -(void)setText:(NSString *)text {
-    NSLog(@"setText: %@", text);
     _textField.text = text;
     if ([text isEqualToString:@""]) {
         [self resizeTextField:_textField forClearTextButton:NO];
@@ -124,6 +137,14 @@
     }
 }
 
+-(void)setDynamicResizing:(BOOL)dynamicResizing {
+    if (dynamicResizing) {
+        _dynamicResizing = dynamicResizing;
+        _clearTextButtonOffset = kDynamicResizeClearTextButtonOffset;
+        _optionType = _fixedDecimalPoint ? OptionTypeDynamicResizeAndFixedDecimal : OptionTypeDynamicResize;
+    }
+}
+
 -(void)setFixedDecimalPoint:(BOOL)fixedDecimalPoint {
     if (_textField.keyboardType == UIKeyboardTypeDecimalPad ||
         _textField.keyboardType == UIKeyboardTypeNumberPad)
@@ -133,8 +154,7 @@
         if (_fixedDecimalPoint) {
             _clearTextButtonOffset = kFixedDecimalClearTextButtonOffset;
             [self setText:@"0.00"];
-        } else {
-            _clearTextButtonOffset = kClearTextButtonOffset;
+            _optionType = _dynamicResizing ? OptionTypeDynamicResizeAndFixedDecimal : OptionTypeFixedDecimal;
         }
     } else {
         NSLog(@"SATextField fixed decimal point requires UIKeyboardTypeDecimalPad or UIKeyboardTypeNumberPad!");
@@ -195,9 +215,9 @@
 }
 
 - (void)resizeTextField:(UITextField *)textField
-     forClearTextButton:(BOOL)clearTextButtonShowing
+     forClearTextButton:(BOOL)showClearTextButton
 {
-    if (clearTextButtonShowing) {
+    if (showClearTextButton) {
         //expand size of field to include clear text button
         [self resizeSelfByPixels:_clearTextButtonOffset];
         _isOffsetForTextClearButton = YES;
@@ -231,10 +251,23 @@ replacementString:(NSString *)string
     
     NSString *newString = [textField.text stringByReplacingCharactersInRange:range
                                                                   withString:string];
+    
     if (newString.length > 0 && !_isOffsetForTextClearButton) {
         [self resizeTextField:textField forClearTextButton:YES];
+        if (_optionType == OptionTypeDefault) {
+            if (!_isExpanded) {
+                [self resizeSelfByPixels:_expansionWidth];
+                _isExpanded = YES;
+            }
+        }
     } else if (newString.length == 0 && _isOffsetForTextClearButton) {
         [self resizeTextField:textField forClearTextButton:NO];
+        if (_optionType == OptionTypeDefault) {
+            if (_isExpanded && [newString isEqualToString:@""]) {
+                [self resizeSelfByPixels:-_expansionWidth];
+                _isExpanded = NO;
+            }
+        }
     }
     
     if (_maxTextLength > -1) {
@@ -299,7 +332,7 @@ replacementString:(NSString *)string
     if (shouldClear) {
         [self resizeSelfToWidth:_fixedDecimalPoint ? (_initialTextFieldWidth + _clearTextButtonOffset +
                                                       kDynamicResizeThresholdOffset)
-                                                   : _initialTextFieldWidth];
+                                                   : _initialTextFieldWidth + _clearTextButtonOffset];
     }
     if (_fixedDecimalPoint) {
         textField.text = @"0.00";
@@ -307,6 +340,7 @@ replacementString:(NSString *)string
     }
     if (_isOffsetForTextClearButton) {
         [self resizeTextField:textField forClearTextButton:NO];
+        _isExpanded = NO;
     }
     return shouldClear;
 }
@@ -354,6 +388,12 @@ replacementString:(NSString *)string
 - (void)textFieldDidEndEditing:(UITextField *)textField {
     if (_isOffsetForTextClearButton) {
         [self resizeTextField:textField forClearTextButton:NO];
+    }
+    if (_optionType == OptionTypeDefault) {
+        if (_isExpanded && [textField.text isEqualToString:@""]) {
+            [self resizeSelfByPixels:-_expansionWidth];
+            _isExpanded = NO;
+        }
     }
     if ([textField.text isEqualToString:@""]) {
         if (_fixedDecimalPoint) {

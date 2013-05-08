@@ -54,19 +54,10 @@
 + (NSString *)insertDecimalInString:(NSString *)string
                   atPositionFromEnd:(NSUInteger)position
 {
-//    if (string.length < position + 1) {
-//        NSLog(@"%d", position);
-//        NSString *fillerString = [@"0" repeatTimes:(position - string.length)];
-//        NSString *returnable = [SATextFieldUtility append:@".", fillerString, string, nil];
-//        NSLog(@"returnable: %@", returnable);
-//        return returnable;
-//    }
-    
     NSUInteger decimalPosition = string.length - position;
     NSString *leftOfDecimal = [string substringToIndex:decimalPosition];
     NSString *rightOfDecimal = [string substringFromIndex:decimalPosition];
     NSString *returnable = [SATextFieldUtility append:leftOfDecimal, @".", rightOfDecimal, nil];
-    NSLog(@"returnable: %@", returnable);
     return returnable;
 }
 
