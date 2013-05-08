@@ -22,7 +22,6 @@
 
 #import <UIKit/UIKit.h>
 
-#define kClearTextButtonOffset 20
 
 @class SATextField;
 
@@ -43,17 +42,32 @@ replacementString:(NSString *)string;
 
 @interface SATextField : UIControl <UITextFieldDelegate>
 
-@property (nonatomic, assign) BOOL fixedDecimalPoint;
 @property (nonatomic, assign) id <SATextFieldDelegate>delegate;
-
 @property (nonatomic, assign) UIKeyboardType keyboardType;
 @property (nonatomic, strong) NSString *placeholder;
 @property (nonatomic, assign) UITextBorderStyle borderStyle;
 @property (nonatomic, assign) BOOL adjustsFontSizeToFitWidth;
 @property (nonatomic, assign) UITextFieldViewMode clearButtonMode;
 @property (nonatomic, strong) NSString *text;
+/**
+ How wide the textfield should expand to when a character is
+ entered (beyond expansion for clear text button). (Applies 
+ only to text fields with fixedDecimal and dynamicResizing 
+ options set to NO.) Defaults to 0 (no expansion).
+ */
+@property (nonatomic, assign) CGFloat expansionWidth;
+@property (nonatomic, assign) NSInteger maxTextLength;
+/**
+ Specifies if the text field is to automatically include the 
+ decimal point as the user enters a number.
+ */
+@property (nonatomic, assign) BOOL fixedDecimalPoint;
 
 @property (nonatomic, assign) BOOL dynamicResizing;
+/**
+ Maximum size that the text field may resize to when dynamically 
+ resizing.
+ */
 @property (nonatomic, assign) CGFloat maxWidth;
 
 - (id)initWithFrame:(CGRect)frame;

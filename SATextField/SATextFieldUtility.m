@@ -21,8 +21,44 @@
 //
 
 #import "SATextFieldUtility.h"
+#import "NSString+SATextField.h"
 
 @implementation SATextFieldUtility
 
++ (void)selectTextForInput:(UITextField *)input
+                   atRange:(NSRange)range
+{
+    UITextPosition *start = [input positionFromPosition:[input beginningOfDocument]
+                                                 offset:range.location];
+    UITextPosition *end = [input positionFromPosition:start
+                                               offset:range.length];
+    [input setSelectedTextRange:[input textRangeFromPosition:start toPosition:end]];
+}
+
++ (NSString *) append:(id) first, ...
+{
+    NSString * result = @"";
+    id eachArg;
+    va_list alist;
+    if(first)
+    {
+        result = [result stringByAppendingString:first];
+        va_start(alist, first);
+        while ((eachArg = va_arg(alist, id)))
+			result = [result stringByAppendingString:eachArg];
+        va_end(alist);
+    }
+    return result;
+}
+
++ (NSString *)insertDecimalInString:(NSString *)string
+                  atPositionFromEnd:(NSUInteger)position
+{
+    NSUInteger decimalPosition = string.length - position;
+    NSString *leftOfDecimal = [string substringToIndex:decimalPosition];
+    NSString *rightOfDecimal = [string substringFromIndex:decimalPosition];
+    NSString *returnable = [SATextFieldUtility append:leftOfDecimal, @".", rightOfDecimal, nil];
+    return returnable;
+}
 
 @end

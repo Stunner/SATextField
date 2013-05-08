@@ -24,5 +24,12 @@
 
 @interface SATextFieldUtility : NSObject
 
++ (void)selectTextForInput:(UITextField *)input
+                   atRange:(NSRange)range;
+
++ (NSString *) append:(id) first, ...;
+
++ (NSString *)insertDecimalInString:(NSString *)string
+                  atPositionFromEnd:(NSUInteger)position;
 
 @end
