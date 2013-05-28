@@ -24,10 +24,10 @@
 
 /**
  Detects when table view has been tapped/begins scrolling and calls 
- firstResponderShouldResign when appropriate to allow for resignation 
+ shouldResignFirstResponder when appropriate to allow for resignation 
  of first responders (i.e. keyboard). 
  
- firstResponderShouldResign should be overridden by subclass if it wishes 
+ shouldResignFirstResponder should be overridden by subclass if it wishes 
  to be notified when first responder should resign.
  */
 @interface SATableViewController : UITableViewController <UIGestureRecognizerDelegate>

@@ -10,6 +10,6 @@
 
 @interface SATableViewController (ForSubclassEyesOnly)
 
-- (void)firstResponderShouldResign;
+- (void)shouldResignFirstResponder;
 
 @end

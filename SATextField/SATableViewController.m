@@ -26,7 +26,7 @@
 
 @property (nonatomic, strong) UIGestureRecognizer *tapGestureRecognizer;
 
-- (void)firstResponderShouldResign;
+- (void)shouldResignFirstResponder;
 
 @end
 
@@ -47,7 +47,7 @@
 
     // add gesture to detect when table view is being tapped so that keyboard may be dismissed
     self.tapGestureRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self
-                                                                        action:@selector(firstResponderShouldResign)];
+                                                                        action:@selector(shouldResignFirstResponder)];
     _tapGestureRecognizer.delegate = self;
     _tapGestureRecognizer.cancelsTouchesInView = NO;
     [self.tableView addGestureRecognizer:_tapGestureRecognizer];
@@ -74,7 +74,7 @@
 
 #pragma mark - Helper Functions
 
-- (void)firstResponderShouldResign {
+- (void)shouldResignFirstResponder {
     // to be overidden by subclass -- called when first responder should be resigned
 }
 
@@ -155,7 +155,7 @@
 //}
 
 - (void)scrollViewWillBeginDragging:(UIScrollView *)activeScrollView {
-    [self firstResponderShouldResign];
+    [self shouldResignFirstResponder];
 }
 
 @end

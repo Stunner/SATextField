@@ -56,7 +56,7 @@
 
 #pragma mark - SATableViewController Methods
 
-- (void)firstResponderShouldResign {
+- (void)shouldResignFirstResponder {
     if ([_textField isFirstResponder]) {
         [_textField resignFirstResponder];
     }
