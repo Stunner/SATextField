@@ -26,6 +26,8 @@
 @interface RootTableViewController ()
 
 @property (nonatomic, strong) SATextField *textField;
+@property (nonatomic, strong) UISwitch *dynamicResizeSwitch;
+@property (nonatomic, strong) UISwitch *fixedDecimalSwitch;
 
 @end
 
@@ -60,12 +62,22 @@
     }
 }
 
+#pragma mark - GUI Methods
+
+- (void)dynamicResizeSwitchFlipped:(UISwitch *)sender {
+    _textField.dynamicResizing = sender.isOn;
+}
+
+- (void)fixedDecimalSwitchFlipped:(UISwitch *)sender {
+    _textField.fixedDecimalPoint = sender.isOn;
+}
+
 #pragma mark - Table view data source
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
     // Return the number of sections.
-    return 1;
+    return 3;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
@@ -83,31 +95,52 @@
     
     // Configure the cell...
     cell.selectionStyle = UITableViewCellSelectionStyleNone;
-    cell.textLabel.text = @"Tax Rate";
-    
-    if (!_textField) {
-        _textField = [[SATextField alloc] initWithFrame:CGRectMake(232.0, 10.0, 48.0, 26.0)];
-        _textField.clearButtonMode = UITextFieldViewModeWhileEditing;
-        _textField.adjustsFontSizeToFitWidth = YES;
-        _textField.borderStyle = UITextBorderStyleRoundedRect;
-        _textField.keyboardType = UIKeyboardTypeDecimalPad;
-        _textField.delegate = self;
-        _textField.placeholder = @"8.25";
-        _textField.dynamicResizing = YES;
-        _textField.expansionWidth = 40.0;
-        _textField.maxWidth = 150.0;
-        _textField.fixedDecimalPoint = YES;
-        _textField.maxTextLength = 14;
-        _textField.textAlignment = NSTextAlignmentLeft;
+    if (indexPath.section == 0) {
+        cell.textLabel.text = @"Tax Rate";
+        
+        if (!_textField) {
+            _textField = [[SATextField alloc] initWithFrame:CGRectMake(232.0, 10.0, 48.0, 26.0)];
+            _textField.clearButtonMode = UITextFieldViewModeWhileEditing;
+            _textField.adjustsFontSizeToFitWidth = YES;
+            _textField.borderStyle = UITextBorderStyleRoundedRect;
+            _textField.keyboardType = UIKeyboardTypeDecimalPad;
+            _textField.delegate = self;
+            _textField.placeholder = @"8.25";
+            _textField.dynamicResizing = NO;
+            _textField.expansionWidth = 40.0;
+            _textField.maxWidth = 150.0;
+            _textField.fixedDecimalPoint = NO;
+            _textField.maxTextLength = 14;
+            _textField.textAlignment = NSTextAlignmentLeft;
+        }
+        
+        UILabel *percentSign = [[UILabel alloc] initWithFrame:CGRectMake(285.0, 10.0, 20.0, 26.0)];
+        percentSign.text = @"%";
+        percentSign.backgroundColor = [UIColor clearColor];
+        
+        [cell addSubview:_textField];
+        [cell addSubview:percentSign];
+    } else if (indexPath.section == 1) {
+        cell.textLabel.text = @"Dynamic Resize";
+        if (!_dynamicResizeSwitch) {
+            _dynamicResizeSwitch = [[UISwitch alloc] initWithFrame:CGRectMake(220.0, 9.0, 75.0, 26.0)];
+            [_dynamicResizeSwitch setOn:NO];
+            [_dynamicResizeSwitch addTarget:self
+                               action:@selector(dynamicResizeSwitchFlipped:)
+                     forControlEvents:UIControlEventAllTouchEvents];
+        }
+        [cell addSubview:_dynamicResizeSwitch];
+    } else if (indexPath.section == 2) {
+        cell.textLabel.text = @"Fixed Decimal";
+        if (!_fixedDecimalSwitch) {
+            _fixedDecimalSwitch = [[UISwitch alloc] initWithFrame:CGRectMake(220.0, 9.0, 75.0, 26.0)];
+            [_fixedDecimalSwitch setOn:NO];
+            [_fixedDecimalSwitch addTarget:self
+                                    action:@selector(fixedDecimalSwitchFlipped:)
+                          forControlEvents:UIControlEventAllTouchEvents];
+        }
+        [cell addSubview:_fixedDecimalSwitch];
     }
-    
-    UILabel *percentSign = [[UILabel alloc] initWithFrame:CGRectMake(285.0, 6.0, 20.0, 26.0)];
-    percentSign.text = @"%";
-    percentSign.backgroundColor = [UIColor clearColor];
-    
-    [cell addSubview:_textField];
-    [cell addSubview:percentSign];
-    
     return cell;
 }
 
