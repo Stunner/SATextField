@@ -112,6 +112,10 @@ typedef enum {
     _textField.clearButtonMode = clearButtonMode;
 }
 
+-(void)setTextAlignment:(NSTextAlignment)textAlignment {
+    _textField.textAlignment = textAlignment;
+}
+
 -(void)setText:(NSString *)text {
     _textField.text = text;
     if ([text isEqualToString:@""]) {

@@ -48,6 +48,7 @@ replacementString:(NSString *)string;
 @property (nonatomic, assign) UITextBorderStyle borderStyle;
 @property (nonatomic, assign) BOOL adjustsFontSizeToFitWidth;
 @property (nonatomic, assign) UITextFieldViewMode clearButtonMode;
+@property (nonatomic, assign) NSTextAlignment textAlignment;
 @property (nonatomic, strong) NSString *text;
 /**
  How wide the textfield should expand to when a character is

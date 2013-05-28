@@ -98,6 +98,7 @@
         _textField.maxWidth = 150.0;
         _textField.fixedDecimalPoint = YES;
         _textField.maxTextLength = 14;
+        _textField.textAlignment = NSTextAlignmentLeft;
     }
     
     UILabel *percentSign = [[UILabel alloc] initWithFrame:CGRectMake(285.0, 6.0, 20.0, 26.0)];
