@@ -21,11 +21,11 @@
 //
 
 #import "RootTableViewController.h"
+#import "SATableViewControllerSubclass.h"
 
 @interface RootTableViewController ()
 
 @property (nonatomic, strong) SATextField *textField;
-@property (nonatomic, strong) UIGestureRecognizer *tapGestureRecognizer;
 
 @end
 
@@ -44,18 +44,6 @@
 {
     [super viewDidLoad];
     
-    // add gesture to detect when table view is being tapped so that keyboard may be dismissed
-    self.tapGestureRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self
-                                                                        action:@selector(dismissKeyboard)];
-    _tapGestureRecognizer.delegate = self;
-    _tapGestureRecognizer.cancelsTouchesInView = NO;
-    [self.tableView addGestureRecognizer:_tapGestureRecognizer];
-
-    // Uncomment the following line to preserve selection between presentations.
-    // self.clearsSelectionOnViewWillAppear = NO;
- 
-    // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
-    // self.navigationItem.rightBarButtonItem = self.editButtonItem;
 }
 
 - (void)didReceiveMemoryWarning
@@ -64,23 +52,12 @@
     // Dispose of any resources that can be recreated.
 }
 
-#pragma mark - UIGestureRecognizerDelegate Methods
+#pragma mark - SATableViewController Methods
 
-//see: http://stackoverflow.com/questions/7195661/why-is-uigesturerecognizer-being-called-on-my-textfield-clear-button
-- (BOOL)gestureRecognizer:(UIGestureRecognizer *)gestureRecognizer shouldReceiveTouch:(UITouch *)touch
-{
-    if([touch.view isKindOfClass:[UITextField class]] ||
-       [touch.view isKindOfClass:[UIButton class]])
-    {
-        return NO;
+- (void)firstResponderShouldResign {
+    if ([_textField isFirstResponder]) {
+        [_textField resignFirstResponder];
     }
-    return YES;
-}
-
-#pragma mark - Helper Functions
-
-- (void)dismissKeyboard {
-    [_textField resignFirstResponder];
 }
 
 #pragma mark - Table view data source
@@ -183,12 +160,6 @@
      // Pass the selected object to the new view controller.
      [self.navigationController pushViewController:detailViewController animated:YES];
      */
-}
-
-- (void)scrollViewWillBeginDragging:(UIScrollView *)activeScrollView {
-    if (_textField.isFirstResponder) {
-        [self dismissKeyboard];
-    }
 }
 
 #pragma mark - SATextField Delegate Methods

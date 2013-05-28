@@ -9,6 +9,8 @@
 /* Begin PBXBuildFile section */
 		930C9D871734778E009B8244 /* LICENSE.txt in Resources */ = {isa = PBXBuildFile; fileRef = 930C9D851734778E009B8244 /* LICENSE.txt */; };
 		930C9D881734778E009B8244 /* README.md in Resources */ = {isa = PBXBuildFile; fileRef = 930C9D861734778E009B8244 /* README.md */; };
+		935BDD9C175446AD0071A470 /* SATableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 935BDD9B175446AD0071A470 /* SATableViewController.m */; };
+		935BDD9F175449D60071A470 /* SATableViewControllerSubclass.m in Sources */ = {isa = PBXBuildFile; fileRef = 935BDD9E175449D60071A470 /* SATableViewControllerSubclass.m */; };
 		93B01CFC1731CAD200EF8182 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 93B01CFB1731CAD200EF8182 /* UIKit.framework */; };
 		93B01CFE1731CAD200EF8182 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 93B01CFD1731CAD200EF8182 /* Foundation.framework */; };
 		93B01D001731CAD200EF8182 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 93B01CFF1731CAD200EF8182 /* CoreGraphics.framework */; };
@@ -28,6 +30,10 @@
 /* Begin PBXFileReference section */
 		930C9D851734778E009B8244 /* LICENSE.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = LICENSE.txt; path = ../LICENSE.txt; sourceTree = "<group>"; };
 		930C9D861734778E009B8244 /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = README.md; path = ../README.md; sourceTree = "<group>"; };
+		935BDD9A175446AD0071A470 /* SATableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SATableViewController.h; path = ../SATextField/SATableViewController.h; sourceTree = "<group>"; };
+		935BDD9B175446AD0071A470 /* SATableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SATableViewController.m; path = ../SATextField/SATableViewController.m; sourceTree = "<group>"; };
+		935BDD9D175449D60071A470 /* SATableViewControllerSubclass.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SATableViewControllerSubclass.h; path = ../SATextField/SATableViewControllerSubclass.h; sourceTree = "<group>"; };
+		935BDD9E175449D60071A470 /* SATableViewControllerSubclass.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SATableViewControllerSubclass.m; path = ../SATextField/SATableViewControllerSubclass.m; sourceTree = "<group>"; };
 		93B01CF81731CAD200EF8182 /* SampleProject.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SampleProject.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		93B01CFB1731CAD200EF8182 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		93B01CFD1731CAD200EF8182 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -134,6 +140,10 @@
 				93B01D2C1731F72500EF8182 /* SATextFieldUtility.m */,
 				93B01D241731CFCE00EF8182 /* SATextField.h */,
 				93B01D251731CFCE00EF8182 /* SATextField.m */,
+				935BDD9A175446AD0071A470 /* SATableViewController.h */,
+				935BDD9B175446AD0071A470 /* SATableViewController.m */,
+				935BDD9D175449D60071A470 /* SATableViewControllerSubclass.h */,
+				935BDD9E175449D60071A470 /* SATableViewControllerSubclass.m */,
 			);
 			name = SATextField;
 			sourceTree = "<group>";
@@ -212,6 +222,8 @@
 				93B01D2D1731F72500EF8182 /* SATextFieldUtility.m in Sources */,
 				93CB475E1736052300CE92A1 /* CustomTextField.m in Sources */,
 				93CB475F1736052300CE92A1 /* NSString+SATextField.m in Sources */,
+				935BDD9C175446AD0071A470 /* SATableViewController.m in Sources */,
+				935BDD9F175449D60071A470 /* SATableViewControllerSubclass.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
