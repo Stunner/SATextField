@@ -142,10 +142,13 @@ typedef enum {
 
 -(void)setDynamicResizing:(BOOL)dynamicResizing {
     if (dynamicResizing) {
-        _dynamicResizing = dynamicResizing;
-        _clearTextButtonOffset = kDynamicResizeClearTextButtonOffset;
+        _clearTextButtonOffset = _fixedDecimalPoint ? kFixedDecimalClearTextButtonOffset : kDynamicResizeClearTextButtonOffset;
         _optionType = _fixedDecimalPoint ? OptionTypeDynamicResizeAndFixedDecimal : OptionTypeDynamicResize;
+    } else {
+        _clearTextButtonOffset = _fixedDecimalPoint ? kFixedDecimalClearTextButtonOffset : kDefaultClearTextButtonOffset;
+        _optionType = _fixedDecimalPoint ? OptionTypeFixedDecimal : OptionTypeDefault;
     }
+    _dynamicResizing = dynamicResizing;
 }
 
 -(void)setFixedDecimalPoint:(BOOL)fixedDecimalPoint {
@@ -155,9 +158,13 @@ typedef enum {
         _fixedDecimalPoint = fixedDecimalPoint;
         _textField.hideCaret = fixedDecimalPoint;
         if (_fixedDecimalPoint) {
+            _textField.keyboardType = UIKeyboardTypeNumberPad;
             _clearTextButtonOffset = kFixedDecimalClearTextButtonOffset;
-            [self setText:@"0.00"];
             _optionType = _dynamicResizing ? OptionTypeDynamicResizeAndFixedDecimal : OptionTypeFixedDecimal;
+            [self setText:@"0.00"];
+        } else {
+            _clearTextButtonOffset = _dynamicResizing ? kDynamicResizeClearTextButtonOffset : kDefaultClearTextButtonOffset;
+            _optionType = _dynamicResizing ? OptionTypeDynamicResize : OptionTypeDefault;
         }
     } else {
         NSLog(@"SATextField fixed decimal point requires UIKeyboardTypeDecimalPad or UIKeyboardTypeNumberPad!");
@@ -286,6 +293,8 @@ replacementString:(NSString *)string
     
     CGFloat oldTextWidth = [textField.text sizeWithFont:textField.font].width;
     if (_fixedDecimalPoint) {
+        [SATextFieldUtility selectTextForInput:textField
+                                       atRange:NSMakeRange(textField.text.length, 0)];
         NSCharacterSet *excludedCharacters = [NSCharacterSet characterSetWithCharactersInString:@"."];
         NSString *cleansedString = [[newString componentsSeparatedByCharactersInSet:excludedCharacters] componentsJoinedByString:@""];
         cleansedString = [cleansedString stringByTrimmingLeadingZeroes];
@@ -299,8 +308,6 @@ replacementString:(NSString *)string
                                                      atPositionFromEnd:2];
         }
         CGFloat newTextWidth = [textField.text sizeWithFont:textField.font].width;
-        [SATextFieldUtility selectTextForInput:textField
-                                       atRange:NSMakeRange(textField.text.length, 0)];
         if (_dynamicResizing) {
             [self resizeSelfFromOldTextWidth:oldTextWidth toNewTextWidth:newTextWidth];
         }
