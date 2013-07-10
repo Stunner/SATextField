@@ -16,6 +16,10 @@ Merely add the SATextField folder to your project.
 Usage
 =====
 
+If you want to take advantage of the table view gesture support (resign first responder from text fields
+when scrolling or tapping on the table view) found in the sample app, make the table view that you use 
+SATextField in inherit from SATableViewController (see RootTableViewController in sample project).
+
 **Example:**
 ```
 SATextField *textField = [[SATextField alloc] initWithFrame:CGRectMake(232.0, 10.0, 48.0, 26.0)];
