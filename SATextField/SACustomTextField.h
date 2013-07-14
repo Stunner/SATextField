@@ -20,34 +20,26 @@
 // THE SOFTWARE.
 //
 
-#import "CustomTextField.h"
+#import <UIKit/UIKit.h>
 
-@implementation CustomTextField
+typedef enum {
+    SAKeyboardTypeDefault,
+    SAKeyboardTypeASCIICapable,
+    SAKeyboardTypeNumbersAndPunctuation,
+    SAKeyboardTypeURL,
+    SAKeyboardTypeNumberPad,
+    SAKeyboardTypePhonePad,
+    SAKeyboardTypeNamePhonePad,
+    SAKeyboardTypeEmailAddress,
+    SAKeyboardTypeDecimalPad,
+    SAKeyboardTypeTwitter,
+    SAKeyboardTypeAlphabet = SAKeyboardTypeASCIICapable,
+    SAKeyboardTypeDate
+} SAKeyboardType;
 
-- (id)initWithFrame:(CGRect)frame
-{
-    self = [super initWithFrame:frame];
-    if (self) {
-        // Initialization code
-    }
-    return self;
-}
+@interface SACustomTextField : UITextField
 
-- (CGRect)caretRectForPosition:(UITextPosition *)position
-{
-    if (_hideCaret) {
-        return CGRectZero;
-    }
-    return [super caretRectForPosition:position];
-}
-
-/*
-// Only override drawRect: if you perform custom drawing.
-// An empty implementation adversely affects performance during animation.
-- (void)drawRect:(CGRect)rect
-{
-    // Drawing code
-}
-*/
+@property (nonatomic, assign) BOOL hideCaret;
+@property (nonatomic, assign) SAKeyboardType keyboardType;
 
 @end

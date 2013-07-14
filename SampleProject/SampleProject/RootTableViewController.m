@@ -28,6 +28,7 @@
 @property (nonatomic, strong) SATextField *textField;
 @property (nonatomic, strong) UISwitch *dynamicResizeSwitch;
 @property (nonatomic, strong) UISwitch *fixedDecimalSwitch;
+@property (nonatomic, strong) SATextField *dateField;
 
 @end
 
@@ -60,6 +61,9 @@
     if ([_textField isFirstResponder]) {
         [_textField resignFirstResponder];
     }
+    if ([_dateField isFirstResponder]) {
+        [_dateField resignFirstResponder];
+    }
 }
 
 #pragma mark - GUI Methods
@@ -77,7 +81,7 @@
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
     // Return the number of sections.
-    return 3;
+    return 4;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
@@ -140,6 +144,31 @@
                           forControlEvents:UIControlEventAllTouchEvents];
         }
         [cell addSubview:_fixedDecimalSwitch];
+    } else if (indexPath.section == 3) {
+        cell.textLabel.text = @"Date";
+        
+        if (!_dateField) {
+            _dateField = [[SATextField alloc] initWithFrame:CGRectMake(183.0, 10.0, 120.0, 26.0)];
+            _dateField.clearButtonMode = UITextFieldViewModeWhileEditing;
+            _dateField.adjustsFontSizeToFitWidth = YES;
+            _dateField.borderStyle = UITextBorderStyleRoundedRect;
+            _dateField.keyboardType = SAKeyboardTypeDate;
+            _dateField.delegate = self;
+            _dateField.placeholder = @"7/13/13 5:50 PM";
+            _dateField.dynamicResizing = NO;
+            _dateField.expansionWidth = 40.0;
+            _dateField.maxWidth = 150.0;
+            _dateField.fixedDecimalPoint = NO;
+            _dateField.maxTextLength = 14;
+            _dateField.textAlignment = NSTextAlignmentLeft;
+        }
+        
+//        UILabel *percentSign = [[UILabel alloc] initWithFrame:CGRectMake(285.0, 10.0, 20.0, 26.0)];
+//        percentSign.text = @"%";
+//        percentSign.backgroundColor = [UIColor clearColor];
+        
+        [cell addSubview:_dateField];
+//        [cell addSubview:percentSign];
     }
     return cell;
 }
@@ -202,32 +231,37 @@
 shouldChangeCharactersInRange:(NSRange)range
 replacementString:(NSString *)string
 {
+    NSLog(@"textField:shouldChangeCharactersInRange:replacementString:");
     return YES;
 }
 
 - (BOOL)textFieldShouldClear:(SATextField *)textField {
+    NSLog(@"textFieldShouldClear:");
     return YES;
 }
 
 - (BOOL)textFieldShouldReturn:(SATextField *)textField {
+    NSLog(@"textFieldShouldReturn:");
     [_textField resignFirstResponder];
     return YES;
 }
 
 - (BOOL)textFieldShouldBeginEditing:(SATextField *)textField {
+    NSLog(@"textFieldShouldBeginEditing:");
     return YES;
 }
 
 - (void)textFieldDidBeginEditing:(SATextField *)textField {
-
+    NSLog(@"textFieldDidBeginEditing:");
 }
 
 - (BOOL)textFieldShouldEndEditing:(SATextField *)textField {
+    NSLog(@"textFieldShouldEndEditing:");
     return YES;
 }
 
 - (void)textFieldDidEndEditing:(SATextField *)textField {
-
+    NSLog(@"textFieldDidEndEditing:");
 }
 
 

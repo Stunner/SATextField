@@ -23,7 +23,7 @@
 		93B01D231731CB8000EF8182 /* RootTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 93B01D221731CB8000EF8182 /* RootTableViewController.m */; };
 		93B01D261731CFCE00EF8182 /* SATextField.m in Sources */ = {isa = PBXBuildFile; fileRef = 93B01D251731CFCE00EF8182 /* SATextField.m */; };
 		93B01D2D1731F72500EF8182 /* SATextFieldUtility.m in Sources */ = {isa = PBXBuildFile; fileRef = 93B01D2C1731F72500EF8182 /* SATextFieldUtility.m */; };
-		93CB475E1736052300CE92A1 /* CustomTextField.m in Sources */ = {isa = PBXBuildFile; fileRef = 93CB475B1736052300CE92A1 /* CustomTextField.m */; };
+		93CB475E1736052300CE92A1 /* SACustomTextField.m in Sources */ = {isa = PBXBuildFile; fileRef = 93CB475B1736052300CE92A1 /* SACustomTextField.m */; };
 		93CB475F1736052300CE92A1 /* NSString+SATextField.m in Sources */ = {isa = PBXBuildFile; fileRef = 93CB475D1736052300CE92A1 /* NSString+SATextField.m */; };
 /* End PBXBuildFile section */
 
@@ -53,8 +53,8 @@
 		93B01D251731CFCE00EF8182 /* SATextField.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SATextField.m; path = ../SATextField/SATextField.m; sourceTree = "<group>"; };
 		93B01D2B1731F72500EF8182 /* SATextFieldUtility.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SATextFieldUtility.h; path = ../SATextField/SATextFieldUtility.h; sourceTree = "<group>"; };
 		93B01D2C1731F72500EF8182 /* SATextFieldUtility.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SATextFieldUtility.m; path = ../SATextField/SATextFieldUtility.m; sourceTree = "<group>"; };
-		93CB475A1736052300CE92A1 /* CustomTextField.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CustomTextField.h; path = ../SATextField/CustomTextField.h; sourceTree = "<group>"; };
-		93CB475B1736052300CE92A1 /* CustomTextField.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CustomTextField.m; path = ../SATextField/CustomTextField.m; sourceTree = "<group>"; };
+		93CB475A1736052300CE92A1 /* SACustomTextField.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SACustomTextField.h; path = ../SATextField/SACustomTextField.h; sourceTree = "<group>"; };
+		93CB475B1736052300CE92A1 /* SACustomTextField.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SACustomTextField.m; path = ../SATextField/SACustomTextField.m; sourceTree = "<group>"; };
 		93CB475C1736052300CE92A1 /* NSString+SATextField.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "NSString+SATextField.h"; path = "../SATextField/NSString+SATextField.h"; sourceTree = "<group>"; };
 		93CB475D1736052300CE92A1 /* NSString+SATextField.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "NSString+SATextField.m"; path = "../SATextField/NSString+SATextField.m"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -132,8 +132,8 @@
 		93B01D271731D02600EF8182 /* SATextField */ = {
 			isa = PBXGroup;
 			children = (
-				93CB475A1736052300CE92A1 /* CustomTextField.h */,
-				93CB475B1736052300CE92A1 /* CustomTextField.m */,
+				93CB475A1736052300CE92A1 /* SACustomTextField.h */,
+				93CB475B1736052300CE92A1 /* SACustomTextField.m */,
 				93CB475C1736052300CE92A1 /* NSString+SATextField.h */,
 				93CB475D1736052300CE92A1 /* NSString+SATextField.m */,
 				93B01D2B1731F72500EF8182 /* SATextFieldUtility.h */,
@@ -220,7 +220,7 @@
 				93B01D231731CB8000EF8182 /* RootTableViewController.m in Sources */,
 				93B01D261731CFCE00EF8182 /* SATextField.m in Sources */,
 				93B01D2D1731F72500EF8182 /* SATextFieldUtility.m in Sources */,
-				93CB475E1736052300CE92A1 /* CustomTextField.m in Sources */,
+				93CB475E1736052300CE92A1 /* SACustomTextField.m in Sources */,
 				93CB475F1736052300CE92A1 /* NSString+SATextField.m in Sources */,
 				935BDD9C175446AD0071A470 /* SATableViewController.m in Sources */,
 				935BDD9F175449D60071A470 /* SATableViewControllerSubclass.m in Sources */,

@@ -22,7 +22,6 @@
 
 #import "SATextField.h"
 #import "SATextFieldUtility.h"
-#import "CustomTextField.h"
 #import "NSString+SATextField.h"
 
 #define kDynamicResizeThresholdOffset 4
@@ -41,7 +40,7 @@ typedef enum {
 
 @interface SATextField ()
 
-@property (nonatomic, strong) CustomTextField *textField;
+@property (nonatomic, strong) SACustomTextField *textField;
 @property (nonatomic, assign) CGFloat initialTextFieldWidth;
 @property (nonatomic, assign) BOOL isOffsetForTextClearButton;
 @property (nonatomic, assign) BOOL isOffsetForTextClearButtonForDynamicResize;
@@ -70,7 +69,7 @@ typedef enum {
         CGRect textFrame = frame;
         textFrame.origin.x = 0;
         textFrame.origin.y = 0;
-        self.textField = [[CustomTextField alloc] initWithFrame:textFrame];
+        self.textField = [[SACustomTextField alloc] initWithFrame:textFrame];
         _initialTextFieldWidth = frame.size.width;
         _textField.delegate = self;
         [self addSubview:_textField];
@@ -91,7 +90,7 @@ typedef enum {
     return self;
 }
 
-- (void)setKeyboardType:(UIKeyboardType)keyboardType {
+- (void)setKeyboardType:(SAKeyboardType)keyboardType {
     _textField.keyboardType = keyboardType;
 }
 

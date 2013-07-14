@@ -20,8 +20,8 @@
 // THE SOFTWARE.
 //
 
+#import "SACustomTextField.h"
 #import <UIKit/UIKit.h>
-
 
 @class SATextField;
 
@@ -43,7 +43,7 @@ replacementString:(NSString *)string;
 @interface SATextField : UIControl <UITextFieldDelegate>
 
 @property (nonatomic, assign) id <SATextFieldDelegate>delegate;
-@property (nonatomic, assign) UIKeyboardType keyboardType;
+@property (nonatomic, assign) SAKeyboardType keyboardType;
 @property (nonatomic, strong) NSString *placeholder;
 @property (nonatomic, assign) UITextBorderStyle borderStyle;
 @property (nonatomic, assign) BOOL adjustsFontSizeToFitWidth;

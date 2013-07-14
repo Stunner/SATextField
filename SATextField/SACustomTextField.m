@@ -20,10 +20,48 @@
 // THE SOFTWARE.
 //
 
-#import <UIKit/UIKit.h>
+#import "SACustomTextField.h"
 
-@interface CustomTextField : UITextField
+@implementation SACustomTextField
 
-@property (nonatomic, assign) BOOL hideCaret;
+@synthesize keyboardType = _keyboardType;
+
+- (id)initWithFrame:(CGRect)frame
+{
+    self = [super initWithFrame:frame];
+    if (self) {
+        // Initialization code
+    }
+    return self;
+}
+
+#pragma mark - Setters & Getters
+
+- (void)setKeyboardType:(SAKeyboardType)keyboardType {
+    _keyboardType = keyboardType;
+    if (keyboardType == SAKeyboardTypeDate) {
+        UIDatePicker *datePicker = [[UIDatePicker alloc] initWithFrame:CGRectZero];
+        [self setInputView:datePicker];
+    } else {
+        [super setKeyboardType:(UIKeyboardType)keyboardType];
+    }
+}
+
+- (CGRect)caretRectForPosition:(UITextPosition *)position
+{
+    if (_hideCaret) {
+        return CGRectZero;
+    }
+    return [super caretRectForPosition:position];
+}
+
+/*
+// Only override drawRect: if you perform custom drawing.
+// An empty implementation adversely affects performance during animation.
+- (void)drawRect:(CGRect)rect
+{
+    // Drawing code
+}
+*/
 
 @end
