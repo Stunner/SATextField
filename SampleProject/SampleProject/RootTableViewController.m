@@ -148,13 +148,13 @@
         cell.textLabel.text = @"Date";
         
         if (!_dateField) {
-            _dateField = [[SATextField alloc] initWithFrame:CGRectMake(183.0, 10.0, 120.0, 26.0)];
+            _dateField = [[SATextField alloc] initWithFrame:CGRectMake(170.0, 10.0, 133.0, 26.0)];
             _dateField.clearButtonMode = UITextFieldViewModeWhileEditing;
             _dateField.adjustsFontSizeToFitWidth = YES;
             _dateField.borderStyle = UITextBorderStyleRoundedRect;
             _dateField.keyboardType = SAKeyboardTypeDate;
             _dateField.delegate = self;
-            _dateField.placeholder = @"7/13/13 5:50 PM";
+            _dateField.placeholder = @"12/13/13 11:50 PM";
             _dateField.dynamicResizing = NO;
             _dateField.expansionWidth = 40.0;
             _dateField.maxWidth = 150.0;
@@ -163,12 +163,7 @@
             _dateField.textAlignment = NSTextAlignmentLeft;
         }
         
-//        UILabel *percentSign = [[UILabel alloc] initWithFrame:CGRectMake(285.0, 10.0, 20.0, 26.0)];
-//        percentSign.text = @"%";
-//        percentSign.backgroundColor = [UIColor clearColor];
-        
         [cell addSubview:_dateField];
-//        [cell addSubview:percentSign];
     }
     return cell;
 }
@@ -264,5 +259,8 @@ replacementString:(NSString *)string
     NSLog(@"textFieldDidEndEditing:");
 }
 
+- (void)dateFieldValueChanged:(NSDate *)date {
+    NSLog(@"dateFieldValueChanged: %@", date);
+}
 
 @end

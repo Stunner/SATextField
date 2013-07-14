@@ -37,9 +37,17 @@ typedef enum {
     SAKeyboardTypeDate
 } SAKeyboardType;
 
+@protocol SACustomTextFieldDelegate <UITextFieldDelegate>
+
+@optional
+- (void)dateFieldValueChanged:(NSDate *)date;
+
+@end
+
 @interface SACustomTextField : UITextField
 
 @property (nonatomic, assign) BOOL hideCaret;
 @property (nonatomic, assign) SAKeyboardType keyboardType;
+@property (nonatomic, assign) id<SACustomTextFieldDelegate> delegate;
 
 @end

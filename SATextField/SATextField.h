@@ -38,9 +38,11 @@ replacementString:(NSString *)string;
 - (BOOL)textFieldShouldEndEditing:(SATextField *)textField;
 - (void)textFieldDidEndEditing:(SATextField *)textField;
 
+- (void)dateFieldValueChanged:(NSDate *)date;
+
 @end
 
-@interface SATextField : UIControl <UITextFieldDelegate>
+@interface SATextField : UIControl <SACustomTextFieldDelegate>
 
 @property (nonatomic, assign) id <SATextFieldDelegate>delegate;
 @property (nonatomic, assign) SAKeyboardType keyboardType;

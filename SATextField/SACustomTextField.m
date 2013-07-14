@@ -22,9 +22,16 @@
 
 #import "SACustomTextField.h"
 
+@interface SACustomTextField ()
+
+@property (nonatomic, strong) UIDatePicker *datePicker;
+
+@end
+
 @implementation SACustomTextField
 
 @synthesize keyboardType = _keyboardType;
+//@dynamic delegate;
 
 - (id)initWithFrame:(CGRect)frame
 {
@@ -40,8 +47,11 @@
 - (void)setKeyboardType:(SAKeyboardType)keyboardType {
     _keyboardType = keyboardType;
     if (keyboardType == SAKeyboardTypeDate) {
-        UIDatePicker *datePicker = [[UIDatePicker alloc] initWithFrame:CGRectZero];
-        [self setInputView:datePicker];
+        _datePicker = [[UIDatePicker alloc] initWithFrame:CGRectZero];
+        [_datePicker addTarget:self
+                        action:@selector(datePickerValueChanged:)
+              forControlEvents:UIControlEventValueChanged];
+        [self setInputView:_datePicker];
     } else {
         [super setKeyboardType:(UIKeyboardType)keyboardType];
     }
@@ -55,13 +65,10 @@
     return [super caretRectForPosition:position];
 }
 
-/*
-// Only override drawRect: if you perform custom drawing.
-// An empty implementation adversely affects performance during animation.
-- (void)drawRect:(CGRect)rect
-{
-    // Drawing code
+- (void)datePickerValueChanged:(UIDatePicker *)sender {
+    if ([self.delegate respondsToSelector:@selector(dateFieldValueChanged:)]) {
+        [self.delegate dateFieldValueChanged:sender.date];
+    }
 }
-*/
 
 @end

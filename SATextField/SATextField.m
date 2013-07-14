@@ -437,4 +437,10 @@ replacementString:(NSString *)string
     }
 }
 
+- (void)dateFieldValueChanged:(NSDate *)date {
+    if ([_delegate respondsToSelector:@selector(dateFieldValueChanged:)]) {
+        [_delegate dateFieldValueChanged:date];
+    }
+}
+
 @end
