@@ -171,7 +171,9 @@ typedef enum {
             _optionType = _dynamicResizing ? OptionTypeDynamicResize : OptionTypeDefault;
         }
     } else {
-        NSLog(@"SATextField fixed decimal point requires UIKeyboardTypeDecimalPad or UIKeyboardTypeNumberPad!");
+        if (_fixedDecimalPoint) {
+            NSLog(@"SATextField fixed decimal point requires UIKeyboardTypeDecimalPad or UIKeyboardTypeNumberPad!");
+        }
     }
 }
 
