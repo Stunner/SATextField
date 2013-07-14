@@ -86,12 +86,13 @@ typedef enum {
         _fixedDecimalPoint = NO;
         _dynamicResizing = NO;
         _optionType = OptionTypeDefault;
+        _dateFormatString = @"M/d/yy h:mm a";
     }
     return self;
 }
 
 - (void)setKeyboardType:(SAKeyboardType)keyboardType {
-    _textField.keyboardType = keyboardType;
+    _keyboardType = _textField.keyboardType = keyboardType;
 }
 
 - (void)setPlaceholder:(NSString *)placeholder {
@@ -103,19 +104,19 @@ typedef enum {
     _textField.borderStyle = borderStyle;
 }
 
--(void)setAdjustsFontSizeToFitWidth:(BOOL)adjustsFontSizeToFitWidth {
+- (void)setAdjustsFontSizeToFitWidth:(BOOL)adjustsFontSizeToFitWidth {
     _textField.adjustsFontSizeToFitWidth = adjustsFontSizeToFitWidth;
 }
 
--(void)setClearButtonMode:(UITextFieldViewMode)clearButtonMode {
+- (void)setClearButtonMode:(UITextFieldViewMode)clearButtonMode {
     _textField.clearButtonMode = clearButtonMode;
 }
 
--(void)setTextAlignment:(NSTextAlignment)textAlignment {
+- (void)setTextAlignment:(NSTextAlignment)textAlignment {
     _textField.textAlignment = textAlignment;
 }
 
--(void)setText:(NSString *)text {
+- (void)setText:(NSString *)text {
     _textField.text = text;
     if ([text isEqualToString:@""]) {
         [self resizeTextField:_textField forClearTextButton:NO];
@@ -124,6 +125,9 @@ typedef enum {
             [self resizeTextField:_textField forClearTextButton:YES];
         } else {
             [self resizeTextField:_textField forClearTextButton:NO];
+        }
+        if (_keyboardType == SAKeyboardTypeDate) {
+            return;
         }
         CGFloat textWidth = [text sizeWithFont:_textField.font].width;
         CGFloat resizeThreshold = textWidth - kDynamicResizeThresholdOffset;
@@ -141,20 +145,9 @@ typedef enum {
             }
         }
     }
-}
+} // setText:
 
--(void)setDynamicResizing:(BOOL)dynamicResizing {
-    if (dynamicResizing) {
-        _clearTextButtonOffset = _fixedDecimalPoint ? kFixedDecimalClearTextButtonOffset : kDynamicResizeClearTextButtonOffset;
-        _optionType = _fixedDecimalPoint ? OptionTypeDynamicResizeAndFixedDecimal : OptionTypeDynamicResize;
-    } else {
-        _clearTextButtonOffset = _fixedDecimalPoint ? kFixedDecimalClearTextButtonOffset : kDefaultClearTextButtonOffset;
-        _optionType = _fixedDecimalPoint ? OptionTypeFixedDecimal : OptionTypeDefault;
-    }
-    _dynamicResizing = dynamicResizing;
-}
-
--(void)setFixedDecimalPoint:(BOOL)fixedDecimalPoint {
+- (void)setFixedDecimalPoint:(BOOL)fixedDecimalPoint {
     if (_textField.keyboardType == UIKeyboardTypeDecimalPad ||
         _textField.keyboardType == UIKeyboardTypeNumberPad)
     {
@@ -174,7 +167,20 @@ typedef enum {
             NSLog(@"SATextField fixed decimal point requires UIKeyboardTypeDecimalPad or UIKeyboardTypeNumberPad!");
         }
     }
+} // setFixedDecimalPoint:
+
+- (void)setDynamicResizing:(BOOL)dynamicResizing {
+    if (dynamicResizing) {
+        _clearTextButtonOffset = _fixedDecimalPoint ? kFixedDecimalClearTextButtonOffset : kDynamicResizeClearTextButtonOffset;
+        _optionType = _fixedDecimalPoint ? OptionTypeDynamicResizeAndFixedDecimal : OptionTypeDynamicResize;
+    } else {
+        _clearTextButtonOffset = _fixedDecimalPoint ? kFixedDecimalClearTextButtonOffset : kDefaultClearTextButtonOffset;
+        _optionType = _fixedDecimalPoint ? OptionTypeFixedDecimal : OptionTypeDefault;
+    }
+    _dynamicResizing = dynamicResizing;
 }
+
+#pragma mark - Overridden Superclass Methods
 
 -(BOOL)resignFirstResponder {
     return _textField.resignFirstResponder;
@@ -233,13 +239,17 @@ typedef enum {
      forClearTextButton:(BOOL)showClearTextButton
 {
     if (showClearTextButton) {
-        //expand size of field to include clear text button
-        [self resizeSelfByPixels:_clearTextButtonOffset];
-        _isOffsetForTextClearButton = YES;
+        if (!_isOffsetForTextClearButton) {
+            //expand size of field to include clear text button
+            [self resizeSelfByPixels:_clearTextButtonOffset];
+            _isOffsetForTextClearButton = YES;
+        }
     } else {
-        //shrink size of field to exclude clear text button
-        [self resizeSelfByPixels:-_clearTextButtonOffset];
-        _isOffsetForTextClearButton = NO;
+        if (_isOffsetForTextClearButton) {
+            //shrink size of field to exclude clear text button
+            [self resizeSelfByPixels:-_clearTextButtonOffset];
+            _isOffsetForTextClearButton = NO;
+        }
     }
 }
 
@@ -438,8 +448,12 @@ replacementString:(NSString *)string
 }
 
 - (void)dateFieldValueChanged:(NSDate *)date {
-    if ([_delegate respondsToSelector:@selector(dateFieldValueChanged:)]) {
-        [_delegate dateFieldValueChanged:date];
+    NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
+    [dateFormatter setDateFormat:_dateFormatString];
+    NSString *dateText = [dateFormatter stringFromDate:date];
+    [self setText:dateText];
+    if ([_delegate respondsToSelector:@selector(textFieldDateValueChanged:)]) {
+        [_delegate textFieldDateValueChanged:dateText];
     }
 }
 

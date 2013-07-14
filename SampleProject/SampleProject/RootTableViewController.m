@@ -148,9 +148,9 @@
         cell.textLabel.text = @"Date";
         
         if (!_dateField) {
-            _dateField = [[SATextField alloc] initWithFrame:CGRectMake(170.0, 10.0, 133.0, 26.0)];
+            _dateField = [[SATextField alloc] initWithFrame:CGRectMake(143.0, 10.0, 160.0, 26.0)];
             _dateField.clearButtonMode = UITextFieldViewModeWhileEditing;
-            _dateField.adjustsFontSizeToFitWidth = YES;
+            _dateField.adjustsFontSizeToFitWidth = NO;
             _dateField.borderStyle = UITextBorderStyleRoundedRect;
             _dateField.keyboardType = SAKeyboardTypeDate;
             _dateField.delegate = self;
@@ -259,8 +259,8 @@ replacementString:(NSString *)string
     NSLog(@"textFieldDidEndEditing:");
 }
 
-- (void)dateFieldValueChanged:(NSDate *)date {
-    NSLog(@"dateFieldValueChanged: %@", date);
+- (void)textFieldDateValueChanged:(NSString *)dateString {
+    NSLog(@"textFieldDateValueChanged: %@", dateString);
 }
 
 @end

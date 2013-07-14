@@ -38,7 +38,7 @@ replacementString:(NSString *)string;
 - (BOOL)textFieldShouldEndEditing:(SATextField *)textField;
 - (void)textFieldDidEndEditing:(SATextField *)textField;
 
-- (void)dateFieldValueChanged:(NSDate *)date;
+- (void)textFieldDateValueChanged:(NSString *)dateString;
 
 @end
 
@@ -72,6 +72,10 @@ replacementString:(NSString *)string;
  resizing.
  */
 @property (nonatomic, assign) CGFloat maxWidth;
+/**
+ Defaults to "M/d/yy h:mm a" ("8/14/13 7:52 AM").
+ */
+@property (nonatomic, strong) NSString *dateFormatString;
 
 - (id)initWithFrame:(CGRect)frame;
 
