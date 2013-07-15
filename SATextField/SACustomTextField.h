@@ -23,17 +23,17 @@
 #import <UIKit/UIKit.h>
 
 typedef enum {
-    SAKeyboardTypeDefault,
-    SAKeyboardTypeASCIICapable,
-    SAKeyboardTypeNumbersAndPunctuation,
-    SAKeyboardTypeURL,
-    SAKeyboardTypeNumberPad,
-    SAKeyboardTypePhonePad,
-    SAKeyboardTypeNamePhonePad,
-    SAKeyboardTypeEmailAddress,
-    SAKeyboardTypeDecimalPad,
-    SAKeyboardTypeTwitter,
-    SAKeyboardTypeAlphabet = SAKeyboardTypeASCIICapable,
+    SAKeyboardTypeDefault = UIKeyboardTypeDefault,
+    SAKeyboardTypeASCIICapable = UIKeyboardTypeASCIICapable,
+    SAKeyboardTypeNumbersAndPunctuation = UIKeyboardTypeNumbersAndPunctuation,
+    SAKeyboardTypeURL = UIKeyboardTypeURL,
+    SAKeyboardTypeNumberPad = UIKeyboardTypeNumberPad,
+    SAKeyboardTypePhonePad = UIKeyboardTypePhonePad,
+    SAKeyboardTypeNamePhonePad = UIKeyboardTypeNamePhonePad,
+    SAKeyboardTypeEmailAddress = UIKeyboardTypeEmailAddress,
+    SAKeyboardTypeDecimalPad = UIKeyboardTypeDecimalPad,
+    SAKeyboardTypeTwitter = UIKeyboardTypeTwitter,
+    SAKeyboardTypeAlphabet = UIKeyboardTypeAlphabet,
     SAKeyboardTypeDate
 } SAKeyboardType;
 
