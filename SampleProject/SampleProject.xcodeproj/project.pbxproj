@@ -78,6 +78,7 @@
 		93D822CF18C2E20F00848EF4 /* SATextFieldTests-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "SATextFieldTests-Prefix.pch"; sourceTree = "<group>"; };
 		93D822D518C2E38500848EF4 /* SATextFieldTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SATextFieldTests.m; sourceTree = "<group>"; };
 		93D822D718C2E3B600848EF4 /* XCTest.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = XCTest.framework; path = Library/Frameworks/XCTest.framework; sourceTree = DEVELOPER_DIR; };
+		93D822DD18C318D700848EF4 /* Logging.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Logging.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -166,6 +167,7 @@
 		93B01D271731D02600EF8182 /* SATextField */ = {
 			isa = PBXGroup;
 			children = (
+				93D822DC18C318D700848EF4 /* External Libraries */,
 				93CB475A1736052300CE92A1 /* CustomTextField.h */,
 				93CB475B1736052300CE92A1 /* CustomTextField.m */,
 				93CB475C1736052300CE92A1 /* NSString+SATextField.h */,
@@ -199,6 +201,15 @@
 				93D822CF18C2E20F00848EF4 /* SATextFieldTests-Prefix.pch */,
 			);
 			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		93D822DC18C318D700848EF4 /* External Libraries */ = {
+			isa = PBXGroup;
+			children = (
+				93D822DD18C318D700848EF4 /* Logging.h */,
+			);
+			name = "External Libraries";
+			path = "../SATextField/External Libraries";
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */

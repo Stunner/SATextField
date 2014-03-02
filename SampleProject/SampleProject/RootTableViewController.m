@@ -22,6 +22,7 @@
 
 #import "RootTableViewController.h"
 #import "SATableViewControllerSubclass.h"
+#import "Logging.h"
 
 @interface RootTableViewController ()
 
@@ -33,8 +34,9 @@
 
 @implementation RootTableViewController
 
-- (id)initWithStyle:(UITableViewStyle)style
-{
+- (id)initWithStyle:(UITableViewStyle)style {
+    LogTrace(@"%s", __PRETTY_FUNCTION__);
+    
     self = [super initWithStyle:style];
     if (self) {
         // Custom initialization
@@ -42,14 +44,16 @@
     return self;
 }
 
-- (void)viewDidLoad
-{
+- (void)viewDidLoad {
+    LogTrace(@"%s", __PRETTY_FUNCTION__);
+    
     [super viewDidLoad];
     
 }
 
-- (void)didReceiveMemoryWarning
-{
+- (void)didReceiveMemoryWarning {
+    LogTrace(@"%s", __PRETTY_FUNCTION__);
+    
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
@@ -57,6 +61,8 @@
 #pragma mark - SATableViewController Methods
 
 - (void)shouldResignFirstResponder {
+    LogTrace(@"%s", __PRETTY_FUNCTION__);
+    
     if ([_textField isFirstResponder]) {
         [_textField resignFirstResponder];
     }
@@ -65,29 +71,36 @@
 #pragma mark - GUI Methods
 
 - (void)dynamicResizeSwitchFlipped:(UISwitch *)sender {
+    LogTrace(@"%s", __PRETTY_FUNCTION__);
+    
     _textField.dynamicResizing = sender.isOn;
 }
 
 - (void)fixedDecimalSwitchFlipped:(UISwitch *)sender {
+    LogTrace(@"%s", __PRETTY_FUNCTION__);
+    
     _textField.fixedDecimalPoint = sender.isOn;
 }
 
 #pragma mark - Table view data source
 
-- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
-{
+- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
+    LogTrace(@"%s", __PRETTY_FUNCTION__);
+    
     // Return the number of sections.
     return 3;
 }
 
-- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
-{
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
+    LogTrace(@"%s", __PRETTY_FUNCTION__);
+    
     // Return the number of rows in the section.
     return 1;
 }
 
-- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
-{
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
+    LogTrace(@"%s", __PRETTY_FUNCTION__);
+    
     static NSString *CellIdentifier = @"Cell";
 //    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier forIndexPath:indexPath];
     UITableViewCell *cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleValue1
@@ -187,6 +200,8 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
+    LogTrace(@"%s", __PRETTY_FUNCTION__);
+    
     // Navigation logic may go here. Create and push another view controller.
     /*
      <#DetailViewController#> *detailViewController = [[<#DetailViewController#> alloc] initWithNibName:@"<#Nib name#>" bundle:nil];
@@ -202,32 +217,42 @@
 shouldChangeCharactersInRange:(NSRange)range
 replacementString:(NSString *)string
 {
+    LogTrace(@"%s", __PRETTY_FUNCTION__);
+    
     return YES;
 }
 
 - (BOOL)textFieldShouldClear:(SATextField *)textField {
+    LogTrace(@"%s", __PRETTY_FUNCTION__);
+    
     return YES;
 }
 
 - (BOOL)textFieldShouldReturn:(SATextField *)textField {
+    LogTrace(@"%s", __PRETTY_FUNCTION__);
+    
     [_textField resignFirstResponder];
     return YES;
 }
 
 - (BOOL)textFieldShouldBeginEditing:(SATextField *)textField {
+    LogTrace(@"%s", __PRETTY_FUNCTION__);
+    
     return YES;
 }
 
 - (void)textFieldDidBeginEditing:(SATextField *)textField {
-
+    LogTrace(@"%s", __PRETTY_FUNCTION__);
 }
 
 - (BOOL)textFieldShouldEndEditing:(SATextField *)textField {
+    LogTrace(@"%s", __PRETTY_FUNCTION__);
+    
     return YES;
 }
 
 - (void)textFieldDidEndEditing:(SATextField *)textField {
-
+    LogTrace(@"%s", __PRETTY_FUNCTION__);
 }
 
 

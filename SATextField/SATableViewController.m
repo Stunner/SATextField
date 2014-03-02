@@ -21,6 +21,7 @@
 //
 
 #import "SATableViewController.h"
+#import "Logging.h"
 
 @interface SATableViewController ()
 
@@ -32,8 +33,9 @@
 
 @implementation SATableViewController
 
-- (id)initWithStyle:(UITableViewStyle)style
-{
+- (id)initWithStyle:(UITableViewStyle)style {
+    LogTrace(@"%s", __PRETTY_FUNCTION__);
+    
     self = [super initWithStyle:style];
     if (self) {
         // Custom initialization
@@ -41,8 +43,9 @@
     return self;
 }
 
-- (void)viewDidLoad
-{
+- (void)viewDidLoad {
+    LogTrace(@"%s", __PRETTY_FUNCTION__);
+    
     [super viewDidLoad];
 
     // add gesture to detect when table view is being tapped so that keyboard may be dismissed
@@ -53,8 +56,9 @@
     [self.tableView addGestureRecognizer:_tapGestureRecognizer];
 }
 
-- (void)didReceiveMemoryWarning
-{
+- (void)didReceiveMemoryWarning {
+    LogTrace(@"%s", __PRETTY_FUNCTION__);
+    
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
@@ -62,8 +66,9 @@
 #pragma mark - UIGestureRecognizerDelegate Methods
 
 //see: http://stackoverflow.com/questions/7195661/why-is-uigesturerecognizer-being-called-on-my-textfield-clear-button
-- (BOOL)gestureRecognizer:(UIGestureRecognizer *)gestureRecognizer shouldReceiveTouch:(UITouch *)touch
-{
+- (BOOL)gestureRecognizer:(UIGestureRecognizer *)gestureRecognizer shouldReceiveTouch:(UITouch *)touch {
+    LogTrace(@"%s", __PRETTY_FUNCTION__);
+    
     if([touch.view isKindOfClass:[UITextField class]] ||
        [touch.view isKindOfClass:[UIButton class]])
     {
@@ -75,6 +80,8 @@
 #pragma mark - Helper Functions
 
 - (void)shouldResignFirstResponder {
+    LogTrace(@"%s", __PRETTY_FUNCTION__);
+    
     // to be overidden by subclass -- called when first responder should be resigned
 }
 
@@ -155,6 +162,8 @@
 //}
 
 - (void)scrollViewWillBeginDragging:(UIScrollView *)activeScrollView {
+    LogTrace(@"%s", __PRETTY_FUNCTION__);
+    
     [self shouldResignFirstResponder];
 }
 

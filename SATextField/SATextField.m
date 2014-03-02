@@ -24,6 +24,7 @@
 #import "SATextFieldUtility.h"
 #import "CustomTextField.h"
 #import "NSString+SATextField.h"
+#import "Logging.h"
 
 #define kDynamicResizeThresholdOffset 4
 
@@ -63,8 +64,9 @@ typedef enum {
 
 @implementation SATextField
 
-- (id)initWithFrame:(CGRect)frame
-{
+- (id)initWithFrame:(CGRect)frame {
+    LogTrace(@"%s", __PRETTY_FUNCTION__);
+    
     self = [super initWithFrame:frame];
     if (self) {
         CGRect textFrame = frame;
@@ -92,31 +94,45 @@ typedef enum {
 }
 
 - (void)setKeyboardType:(UIKeyboardType)keyboardType {
+    LogTrace(@"%s", __PRETTY_FUNCTION__);
+    
     _textField.keyboardType = keyboardType;
 }
 
 - (void)setPlaceholder:(NSString *)placeholder {
+    LogTrace(@"%s", __PRETTY_FUNCTION__);
+    
     _placeholder = placeholder;
     _textField.placeholder = placeholder;
 }
 
 - (void)setBorderStyle:(UITextBorderStyle)borderStyle {
+    LogTrace(@"%s", __PRETTY_FUNCTION__);
+    
     _textField.borderStyle = borderStyle;
 }
 
--(void)setAdjustsFontSizeToFitWidth:(BOOL)adjustsFontSizeToFitWidth {
+- (void)setAdjustsFontSizeToFitWidth:(BOOL)adjustsFontSizeToFitWidth {
+    LogTrace(@"%s", __PRETTY_FUNCTION__);
+    
     _textField.adjustsFontSizeToFitWidth = adjustsFontSizeToFitWidth;
 }
 
--(void)setClearButtonMode:(UITextFieldViewMode)clearButtonMode {
+- (void)setClearButtonMode:(UITextFieldViewMode)clearButtonMode {
+    LogTrace(@"%s", __PRETTY_FUNCTION__);
+    
     _textField.clearButtonMode = clearButtonMode;
 }
 
--(void)setTextAlignment:(NSTextAlignment)textAlignment {
+- (void)setTextAlignment:(NSTextAlignment)textAlignment {
+    LogTrace(@"%s", __PRETTY_FUNCTION__);
+    
     _textField.textAlignment = textAlignment;
 }
 
--(void)setText:(NSString *)text {
+- (void)setText:(NSString *)text {
+    LogTrace(@"%s", __PRETTY_FUNCTION__);
+    
     _textField.text = text;
     _text = text;
     if ([text isEqualToString:@""]) {
@@ -145,7 +161,9 @@ typedef enum {
     }
 }
 
--(void)setDynamicResizing:(BOOL)dynamicResizing {
+- (void)setDynamicResizing:(BOOL)dynamicResizing {
+    LogTrace(@"%s", __PRETTY_FUNCTION__);
+    
     if (dynamicResizing) {
         _clearTextButtonOffset = _fixedDecimalPoint ? kFixedDecimalClearTextButtonOffset : kDynamicResizeClearTextButtonOffset;
         _optionType = _fixedDecimalPoint ? OptionTypeDynamicResizeAndFixedDecimal : OptionTypeDynamicResize;
@@ -156,7 +174,9 @@ typedef enum {
     _dynamicResizing = dynamicResizing;
 }
 
--(void)setFixedDecimalPoint:(BOOL)fixedDecimalPoint {
+- (void)setFixedDecimalPoint:(BOOL)fixedDecimalPoint {
+    LogTrace(@"%s", __PRETTY_FUNCTION__);
+    
     if (_textField.keyboardType == UIKeyboardTypeDecimalPad ||
         _textField.keyboardType == UIKeyboardTypeNumberPad)
     {
@@ -178,18 +198,23 @@ typedef enum {
     }
 }
 
--(BOOL)resignFirstResponder {
+- (BOOL)resignFirstResponder {
+    LogTrace(@"%s", __PRETTY_FUNCTION__);
+    
     return _textField.resignFirstResponder;
 }
 
--(BOOL)isFirstResponder {
+- (BOOL)isFirstResponder {
+    LogTrace(@"%s", __PRETTY_FUNCTION__);
+    
     return _textField.isFirstResponder;
 }
 
 #pragma mark - Helper Methods
 
-- (void)resizeSelfToWidth:(NSInteger)width
-{
+- (void)resizeSelfToWidth:(NSInteger)width {
+    LogTrace(@"%s", __PRETTY_FUNCTION__);
+    
     [UIView animateWithDuration:0.15
                           delay:0.0
                         options:(UIViewAnimationOptions)UIViewAnimationCurveEaseOut
@@ -209,8 +234,9 @@ typedef enum {
 }
 
 
-- (void)resizeSelfByPixels:(NSInteger)pixelOffset
-{
+- (void)resizeSelfByPixels:(NSInteger)pixelOffset {
+    LogTrace(@"%s", __PRETTY_FUNCTION__);
+    
     // if pixel offset is positive it makes the textfield bigger, and vice versa
     
     [UIView animateWithDuration:0.15
@@ -234,6 +260,8 @@ typedef enum {
 - (void)resizeTextField:(UITextField *)textField
      forClearTextButton:(BOOL)showClearTextButton
 {
+    LogTrace(@"%s", __PRETTY_FUNCTION__);
+    
     if (showClearTextButton) {
         //expand size of field to include clear text button
         [self resizeSelfByPixels:_clearTextButtonOffset];
@@ -246,6 +274,8 @@ typedef enum {
 }
 
 - (void)resizeSelfFromOldTextWidth:(CGFloat)oldWidth toNewTextWidth:(CGFloat)newWidth {
+    LogTrace(@"%s", __PRETTY_FUNCTION__);
+    
     CGFloat changeInWidth = newWidth - oldWidth;
     CGFloat resizeThreshold = _textField.frame.size.width - kDynamicResizeThresholdOffset;
     CGFloat resizedWidth = _textField.frame.size.width + newWidth + _clearTextButtonOffset + 5 - resizeThreshold;
@@ -262,6 +292,8 @@ typedef enum {
 shouldChangeCharactersInRange:(NSRange)range
 replacementString:(NSString *)string
 {
+    LogTrace(@"%s", __PRETTY_FUNCTION__);
+    
     _text = textField.text;
     
     if (_fixedDecimalPoint && ![string isNumeral] && string.length != 0) {
@@ -345,6 +377,8 @@ replacementString:(NSString *)string
 } // textField:shouldChangeCharactersInRange:replacementString:
 
 - (BOOL)textFieldShouldClear:(UITextField *)textField {
+    LogTrace(@"%s", __PRETTY_FUNCTION__);
+    
     _text = textField.text;
     
     BOOL shouldClear = YES;
@@ -368,6 +402,8 @@ replacementString:(NSString *)string
 }
 
 - (BOOL)textFieldShouldReturn:(UITextField *)textField {
+    LogTrace(@"%s", __PRETTY_FUNCTION__);
+    
     _text = textField.text;
     
     if ([_delegate respondsToSelector:@selector(textFieldShouldReturn:)]) {
@@ -377,6 +413,8 @@ replacementString:(NSString *)string
 }
 
 - (BOOL)textFieldShouldBeginEditing:(UITextField *)textField {
+    LogTrace(@"%s", __PRETTY_FUNCTION__);
+    
     _text = textField.text;
     
     if ([_delegate respondsToSelector:@selector(textFieldShouldBeginEditing:)]) {
@@ -387,6 +425,8 @@ replacementString:(NSString *)string
 }
 
 - (void)textFieldDidBeginEditing:(UITextField *)textField {
+    LogTrace(@"%s", __PRETTY_FUNCTION__);
+    
     _text = textField.text;
     
     textField.placeholder = nil;
@@ -414,6 +454,8 @@ replacementString:(NSString *)string
 }
 
 - (BOOL)textFieldShouldEndEditing:(UITextField *)textField {
+    LogTrace(@"%s", __PRETTY_FUNCTION__);
+    
     _text = textField.text;
     
     if ([_delegate respondsToSelector:@selector(textFieldShouldEndEditing:)]) {
@@ -423,6 +465,8 @@ replacementString:(NSString *)string
 }
 
 - (void)textFieldDidEndEditing:(UITextField *)textField {
+    LogTrace(@"%s", __PRETTY_FUNCTION__);
+    
     _text = textField.text;
     
     if (_isOffsetForTextClearButton) {

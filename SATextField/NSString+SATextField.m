@@ -21,16 +21,21 @@
 //
 
 #import "NSString+SATextField.h"
+#import "Logging.h"
 
 @implementation NSString (SATextField)
 
 - (NSString *)repeatTimes:(NSUInteger)times {
+    LogTrace(@"%s", __PRETTY_FUNCTION__);
+    
     return [@"" stringByPaddingToLength:(times * [self length])
                              withString:self
                         startingAtIndex:0];
 }
 
 - (NSString*)stringByTrimmingLeadingZeroes {
+    LogTrace(@"%s", __PRETTY_FUNCTION__);
+    
     NSInteger i = 0;
     
     while ((i < [self length])
@@ -43,6 +48,8 @@
 }
 
 - (BOOL)isNumeral {
+    LogTrace(@"%s", __PRETTY_FUNCTION__);
+    
     NSCharacterSet *myCharSet = [NSCharacterSet characterSetWithCharactersInString:@"0123456789"];
     for (int i = 0; i < [self length]; i++) {
         unichar c = [self characterAtIndex:i];
