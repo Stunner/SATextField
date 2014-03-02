@@ -118,6 +118,7 @@ typedef enum {
 
 -(void)setText:(NSString *)text {
     _textField.text = text;
+    _text = text;
     if ([text isEqualToString:@""]) {
         [self resizeTextField:_textField forClearTextButton:NO];
     } else {
@@ -261,6 +262,8 @@ typedef enum {
 shouldChangeCharactersInRange:(NSRange)range
 replacementString:(NSString *)string
 {
+    _text = textField.text;
+    
     if (_fixedDecimalPoint && ![string isNumeral] && string.length != 0) {
         return NO;
     }
@@ -337,10 +340,13 @@ replacementString:(NSString *)string
       shouldChangeCharactersInRange:range
                   replacementString:string];
     }
+    _text = textField.text;
     return YES;
 } // textField:shouldChangeCharactersInRange:replacementString:
 
 - (BOOL)textFieldShouldClear:(UITextField *)textField {
+    _text = textField.text;
+    
     BOOL shouldClear = YES;
     if ([_delegate respondsToSelector:@selector(textFieldShouldClear:)]) {
         shouldClear = [_delegate textFieldShouldClear:self];
@@ -362,6 +368,8 @@ replacementString:(NSString *)string
 }
 
 - (BOOL)textFieldShouldReturn:(UITextField *)textField {
+    _text = textField.text;
+    
     if ([_delegate respondsToSelector:@selector(textFieldShouldReturn:)]) {
         return [_delegate textFieldShouldReturn:self];
     }
@@ -369,6 +377,8 @@ replacementString:(NSString *)string
 }
 
 - (BOOL)textFieldShouldBeginEditing:(UITextField *)textField {
+    _text = textField.text;
+    
     if ([_delegate respondsToSelector:@selector(textFieldShouldBeginEditing:)]) {
         return [_delegate textFieldShouldBeginEditing:self];
     }
@@ -377,6 +387,8 @@ replacementString:(NSString *)string
 }
 
 - (void)textFieldDidBeginEditing:(UITextField *)textField {
+    _text = textField.text;
+    
     textField.placeholder = nil;
     if (textField.text.length > 0 && !_isOffsetForTextClearButton) {
         [self resizeTextField:textField forClearTextButton:YES];
@@ -402,6 +414,8 @@ replacementString:(NSString *)string
 }
 
 - (BOOL)textFieldShouldEndEditing:(UITextField *)textField {
+    _text = textField.text;
+    
     if ([_delegate respondsToSelector:@selector(textFieldShouldEndEditing:)]) {
         return [_delegate textFieldShouldEndEditing:self];
     }
@@ -409,6 +423,8 @@ replacementString:(NSString *)string
 }
 
 - (void)textFieldDidEndEditing:(UITextField *)textField {
+    _text = textField.text;
+    
     if (_isOffsetForTextClearButton) {
         [self resizeTextField:textField forClearTextButton:NO];
     }
