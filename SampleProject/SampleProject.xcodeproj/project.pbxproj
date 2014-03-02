@@ -25,7 +25,22 @@
 		93B01D2D1731F72500EF8182 /* SATextFieldUtility.m in Sources */ = {isa = PBXBuildFile; fileRef = 93B01D2C1731F72500EF8182 /* SATextFieldUtility.m */; };
 		93CB475E1736052300CE92A1 /* CustomTextField.m in Sources */ = {isa = PBXBuildFile; fileRef = 93CB475B1736052300CE92A1 /* CustomTextField.m */; };
 		93CB475F1736052300CE92A1 /* NSString+SATextField.m in Sources */ = {isa = PBXBuildFile; fileRef = 93CB475D1736052300CE92A1 /* NSString+SATextField.m */; };
+		93D822C518C2E20F00848EF4 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 93B01CFD1731CAD200EF8182 /* Foundation.framework */; };
+		93D822C618C2E20F00848EF4 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 93B01CFB1731CAD200EF8182 /* UIKit.framework */; };
+		93D822CC18C2E20F00848EF4 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 93D822CA18C2E20F00848EF4 /* InfoPlist.strings */; };
+		93D822D618C2E38500848EF4 /* SATextFieldTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 93D822D518C2E38500848EF4 /* SATextFieldTests.m */; };
+		93D822D818C2E3B600848EF4 /* XCTest.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 93D822D718C2E3B600848EF4 /* XCTest.framework */; };
 /* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		93D822D018C2E20F00848EF4 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 93B01CF01731CAD200EF8182 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 93B01CF71731CAD200EF8182;
+			remoteInfo = SampleProject;
+		};
+/* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
 		930C9D851734778E009B8244 /* LICENSE.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = LICENSE.txt; path = ../LICENSE.txt; sourceTree = "<group>"; };
@@ -57,6 +72,12 @@
 		93CB475B1736052300CE92A1 /* CustomTextField.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CustomTextField.m; path = ../SATextField/CustomTextField.m; sourceTree = "<group>"; };
 		93CB475C1736052300CE92A1 /* NSString+SATextField.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "NSString+SATextField.h"; path = "../SATextField/NSString+SATextField.h"; sourceTree = "<group>"; };
 		93CB475D1736052300CE92A1 /* NSString+SATextField.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "NSString+SATextField.m"; path = "../SATextField/NSString+SATextField.m"; sourceTree = "<group>"; };
+		93D822C218C2E20F00848EF4 /* SATextFieldTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = SATextFieldTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		93D822C918C2E20F00848EF4 /* SATextFieldTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "SATextFieldTests-Info.plist"; sourceTree = "<group>"; };
+		93D822CB18C2E20F00848EF4 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		93D822CF18C2E20F00848EF4 /* SATextFieldTests-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "SATextFieldTests-Prefix.pch"; sourceTree = "<group>"; };
+		93D822D518C2E38500848EF4 /* SATextFieldTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SATextFieldTests.m; sourceTree = "<group>"; };
+		93D822D718C2E3B600848EF4 /* XCTest.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = XCTest.framework; path = Library/Frameworks/XCTest.framework; sourceTree = DEVELOPER_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -70,6 +91,16 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		93D822BF18C2E20F00848EF4 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				93D822D818C2E3B600848EF4 /* XCTest.framework in Frameworks */,
+				93D822C618C2E20F00848EF4 /* UIKit.framework in Frameworks */,
+				93D822C518C2E20F00848EF4 /* Foundation.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
@@ -80,6 +111,7 @@
 				930C9D861734778E009B8244 /* README.md */,
 				93B01D271731D02600EF8182 /* SATextField */,
 				93B01D011731CAD200EF8182 /* SampleProject */,
+				93D822C718C2E20F00848EF4 /* SATextFieldTests */,
 				93B01CFA1731CAD200EF8182 /* Frameworks */,
 				93B01CF91731CAD200EF8182 /* Products */,
 			);
@@ -89,6 +121,7 @@
 			isa = PBXGroup;
 			children = (
 				93B01CF81731CAD200EF8182 /* SampleProject.app */,
+				93D822C218C2E20F00848EF4 /* SATextFieldTests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -96,6 +129,7 @@
 		93B01CFA1731CAD200EF8182 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				93D822D718C2E3B600848EF4 /* XCTest.framework */,
 				93B01CFB1731CAD200EF8182 /* UIKit.framework */,
 				93B01CFD1731CAD200EF8182 /* Foundation.framework */,
 				93B01CFF1731CAD200EF8182 /* CoreGraphics.framework */,
@@ -148,6 +182,25 @@
 			name = SATextField;
 			sourceTree = "<group>";
 		};
+		93D822C718C2E20F00848EF4 /* SATextFieldTests */ = {
+			isa = PBXGroup;
+			children = (
+				93D822D518C2E38500848EF4 /* SATextFieldTests.m */,
+				93D822C818C2E20F00848EF4 /* Supporting Files */,
+			);
+			path = SATextFieldTests;
+			sourceTree = "<group>";
+		};
+		93D822C818C2E20F00848EF4 /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				93D822C918C2E20F00848EF4 /* SATextFieldTests-Info.plist */,
+				93D822CA18C2E20F00848EF4 /* InfoPlist.strings */,
+				93D822CF18C2E20F00848EF4 /* SATextFieldTests-Prefix.pch */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -168,6 +221,24 @@
 			productReference = 93B01CF81731CAD200EF8182 /* SampleProject.app */;
 			productType = "com.apple.product-type.application";
 		};
+		93D822C118C2E20F00848EF4 /* SATextFieldTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 93D822D418C2E20F00848EF4 /* Build configuration list for PBXNativeTarget "SATextFieldTests" */;
+			buildPhases = (
+				93D822BE18C2E20F00848EF4 /* Sources */,
+				93D822BF18C2E20F00848EF4 /* Frameworks */,
+				93D822C018C2E20F00848EF4 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				93D822D118C2E20F00848EF4 /* PBXTargetDependency */,
+			);
+			name = SATextFieldTests;
+			productName = SATextFieldTests;
+			productReference = 93D822C218C2E20F00848EF4 /* SATextFieldTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
@@ -176,6 +247,11 @@
 			attributes = {
 				LastUpgradeCheck = 0460;
 				ORGANIZATIONNAME = "Aaron Jubbal";
+				TargetAttributes = {
+					93D822C118C2E20F00848EF4 = {
+						TestTargetID = 93B01CF71731CAD200EF8182;
+					};
+				};
 			};
 			buildConfigurationList = 93B01CF31731CAD200EF8182 /* Build configuration list for PBXProject "SampleProject" */;
 			compatibilityVersion = "Xcode 3.2";
@@ -190,6 +266,7 @@
 			projectRoot = "";
 			targets = (
 				93B01CF71731CAD200EF8182 /* SampleProject */,
+				93D822C118C2E20F00848EF4 /* SATextFieldTests */,
 			);
 		};
 /* End PBXProject section */
@@ -205,6 +282,14 @@
 				93B01D121731CAD200EF8182 /* Default-568h@2x.png in Resources */,
 				930C9D871734778E009B8244 /* LICENSE.txt in Resources */,
 				930C9D881734778E009B8244 /* README.md in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		93D822C018C2E20F00848EF4 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				93D822CC18C2E20F00848EF4 /* InfoPlist.strings in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -227,13 +312,37 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		93D822BE18C2E20F00848EF4 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				93D822D618C2E38500848EF4 /* SATextFieldTests.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		93D822D118C2E20F00848EF4 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 93B01CF71731CAD200EF8182 /* SampleProject */;
+			targetProxy = 93D822D018C2E20F00848EF4 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
 		93B01D041731CAD200EF8182 /* InfoPlist.strings */ = {
 			isa = PBXVariantGroup;
 			children = (
 				93B01D051731CAD200EF8182 /* en */,
+			);
+			name = InfoPlist.strings;
+			sourceTree = "<group>";
+		};
+		93D822CA18C2E20F00848EF4 /* InfoPlist.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				93D822CB18C2E20F00848EF4 /* en */,
 			);
 			name = InfoPlist.strings;
 			sourceTree = "<group>";
@@ -321,6 +430,67 @@
 			};
 			name = Release;
 		};
+		93D822D218C2E20F00848EF4 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ARCHS = "$(ARCHS_STANDARD_INCLUDING_64_BIT)";
+				BUNDLE_LOADER = "$(BUILT_PRODUCTS_DIR)/SampleProject.app/SampleProject";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(SDKROOT)/Developer/Library/Frameworks",
+					"$(inherited)",
+					"$(DEVELOPER_FRAMEWORKS_DIR)",
+				);
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "SATextFieldTests/SATextFieldTests-Prefix.pch";
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				INFOPLIST_FILE = "SATextFieldTests/SATextFieldTests-Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_HOST = "$(BUNDLE_LOADER)";
+				WRAPPER_EXTENSION = xctest;
+			};
+			name = Debug;
+		};
+		93D822D318C2E20F00848EF4 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ARCHS = "$(ARCHS_STANDARD_INCLUDING_64_BIT)";
+				BUNDLE_LOADER = "$(BUILT_PRODUCTS_DIR)/SampleProject.app/SampleProject";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				ENABLE_NS_ASSERTIONS = NO;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(SDKROOT)/Developer/Library/Frameworks",
+					"$(inherited)",
+					"$(DEVELOPER_FRAMEWORKS_DIR)",
+				);
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "SATextFieldTests/SATextFieldTests-Prefix.pch";
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				INFOPLIST_FILE = "SATextFieldTests/SATextFieldTests-Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_HOST = "$(BUNDLE_LOADER)";
+				WRAPPER_EXTENSION = xctest;
+			};
+			name = Release;
+		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -341,6 +511,14 @@
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
+		};
+		93D822D418C2E20F00848EF4 /* Build configuration list for PBXNativeTarget "SATextFieldTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				93D822D218C2E20F00848EF4 /* Debug */,
+				93D822D318C2E20F00848EF4 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
 		};
 /* End XCConfigurationList section */
 	};
