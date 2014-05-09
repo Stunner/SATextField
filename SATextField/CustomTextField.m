@@ -21,12 +21,14 @@
 //
 
 #import "CustomTextField.h"
-#import "Logging.h"
+#import "Logging.h" // optional
 
 @implementation CustomTextField
 
 - (id)initWithFrame:(CGRect)frame {
+#ifdef LOGGING_ENABLED
     LogTrace(@"%s", __PRETTY_FUNCTION__);
+#endif
     
     self = [super initWithFrame:frame];
     if (self) {
@@ -36,7 +38,9 @@
 }
 
 - (CGRect)caretRectForPosition:(UITextPosition *)position {
+#ifdef LOGGING_ENABLED
     LogTrace(@"%s", __PRETTY_FUNCTION__);
+#endif
     
     if (_hideCaret) {
         return CGRectZero;

@@ -21,7 +21,7 @@
 //
 
 #import "SATableViewController.h"
-#import "Logging.h"
+#import "Logging.h" // optional
 
 @interface SATableViewController ()
 
@@ -34,7 +34,9 @@
 @implementation SATableViewController
 
 - (id)initWithStyle:(UITableViewStyle)style {
+#ifdef LOGGING_ENABLED
     LogTrace(@"%s", __PRETTY_FUNCTION__);
+#endif
     
     self = [super initWithStyle:style];
     if (self) {
@@ -44,7 +46,9 @@
 }
 
 - (void)viewDidLoad {
+#ifdef LOGGING_ENABLED
     LogTrace(@"%s", __PRETTY_FUNCTION__);
+#endif
     
     [super viewDidLoad];
 
@@ -57,7 +61,9 @@
 }
 
 - (void)didReceiveMemoryWarning {
+#ifdef LOGGING_ENABLED
     LogTrace(@"%s", __PRETTY_FUNCTION__);
+#endif
     
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
@@ -67,7 +73,9 @@
 
 //see: http://stackoverflow.com/questions/7195661/why-is-uigesturerecognizer-being-called-on-my-textfield-clear-button
 - (BOOL)gestureRecognizer:(UIGestureRecognizer *)gestureRecognizer shouldReceiveTouch:(UITouch *)touch {
+#ifdef LOGGING_ENABLED
     LogTrace(@"%s", __PRETTY_FUNCTION__);
+#endif
     
     if([touch.view isKindOfClass:[UITextField class]] ||
        [touch.view isKindOfClass:[UIButton class]])
@@ -80,7 +88,9 @@
 #pragma mark - Helper Functions
 
 - (void)shouldResignFirstResponder {
+#ifdef LOGGING_ENABLED
     LogTrace(@"%s", __PRETTY_FUNCTION__);
+#endif
     
     // to be overidden by subclass -- called when first responder should be resigned
 }
@@ -162,7 +172,9 @@
 //}
 
 - (void)scrollViewWillBeginDragging:(UIScrollView *)activeScrollView {
+#ifdef LOGGING_ENABLED
     LogTrace(@"%s", __PRETTY_FUNCTION__);
+#endif
     
     [self shouldResignFirstResponder];
 }

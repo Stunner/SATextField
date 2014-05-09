@@ -22,14 +22,16 @@
 
 #import "SATextFieldUtility.h"
 #import "NSString+SATextField.h"
-#import "Logging.h"
+#import "Logging.h" // optional
 
 @implementation SATextFieldUtility
 
 + (void)selectTextForInput:(UITextField *)input
                    atRange:(NSRange)range
 {
+#ifdef LOGGING_ENABLED
     LogTrace(@"%s", __PRETTY_FUNCTION__);
+#endif
     
     UITextPosition *start = [input positionFromPosition:[input beginningOfDocument]
                                                  offset:range.location];
@@ -40,7 +42,9 @@
 
 + (NSString *) append:(id) first, ...
 {
+#ifdef LOGGING_ENABLED
     LogTrace(@"%s", __PRETTY_FUNCTION__);
+#endif
     
     NSString * result = @"";
     id eachArg;
@@ -59,7 +63,9 @@
 + (NSString *)insertDecimalInString:(NSString *)string
                   atPositionFromEnd:(NSUInteger)position
 {
+#ifdef LOGGING_ENABLED
     LogTrace(@"%s", __PRETTY_FUNCTION__);
+#endif
     
     NSUInteger decimalPosition = string.length - position;
     NSString *leftOfDecimal = [string substringToIndex:decimalPosition];
