@@ -534,7 +534,9 @@ replacementString:(NSString *)string
     LogTrace(@"%s", __PRETTY_FUNCTION__);
 #endif
     
-    textField.text = [NSString stringWithFormat:@"%.2f", [textField.text floatValue]];
+    if (_currencyRepresentation) {
+        textField.text = [NSString stringWithFormat:@"%.2f", [textField.text floatValue]];
+    }
     _text = textField.text;
     
     if (_isOffsetForTextClearButton) {
