@@ -129,9 +129,27 @@
 {
     NSString *newString = [initialText stringByReplacingCharactersInRange:range
                                                                withString:string];
-    if (newString.length > characterLimit)
-        return NO;
-    if ([SATextFieldUtility numberOfOccurrencesOfString:@"." inString:newString] > (allowDecimal ? 1 : 0))
+    NSUInteger activeCharacterLimit = characterLimit;
+    NSUInteger decimalCount = [SATextFieldUtility numberOfOccurrencesOfString:@"." inString:newString];
+    if (allowDecimal) {
+        if (decimalCount == 0) {
+            activeCharacterLimit = characterLimit - 3; // needs to compensate for the 3 characters: .xx
+        } else if (decimalCount == 1) {
+            activeCharacterLimit = characterLimit;
+            NSUInteger characteristicCharacterLimit = characterLimit - 3;
+            NSString *characteristic = [[newString componentsSeparatedByString:@"."] firstObject];
+            if (characteristic.length > characteristicCharacterLimit) {
+                return NO;
+            }
+        } else { // decimalCount > 1
+            return NO;
+        }
+    } else { // decimal not allowed
+        if (decimalCount > 0) {
+            return NO;
+        }
+    }
+    if (newString.length > activeCharacterLimit)
         return NO;
     
     return [SATextFieldUtility maintainTwoDigitsAfterDecimalForChangingCharacters:initialText
