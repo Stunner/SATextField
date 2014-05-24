@@ -90,6 +90,7 @@ typedef enum {
         _maxTextLength = -1; // no text length cap
         _fixedDecimalPoint = NO;
         _dynamicResizing = NO;
+        _currencyRepresentation = NO;
         _optionType = OptionTypeDefault;
     }
     return self;
@@ -410,6 +411,17 @@ replacementString:(NSString *)string
         [self resizeSelfFromOldTextWidth:oldTextWidth toNewTextWidth:newTextWidth];
     }
     
+    if (_currencyRepresentation) {
+        if (![SATextFieldUtility shouldChangeCharacters:textField.text
+                                                inRange:range
+                                               toString:string
+                                         characterLimit:8
+                                           allowDecimal:YES])
+        {
+            return NO;
+        }
+    }
+    
     if ([_delegate respondsToSelector:@selector(textField:shouldChangeCharactersInRange:replacementString:)]) {
         return [_delegate textField:self
       shouldChangeCharactersInRange:range
@@ -522,6 +534,7 @@ replacementString:(NSString *)string
     LogTrace(@"%s", __PRETTY_FUNCTION__);
 #endif
     
+    textField.text = [NSString stringWithFormat:@"%.2f", [textField.text floatValue]];
     _text = textField.text;
     
     if (_isOffsetForTextClearButton) {

@@ -65,6 +65,7 @@ replacementString:(NSString *)string;
 @property (nonatomic, assign) BOOL fixedDecimalPoint;
 
 @property (nonatomic, assign) BOOL dynamicResizing;
+@property (nonatomic, assign) BOOL currencyRepresentation;
 /**
  Maximum size that the text field may resize to when dynamically 
  resizing.

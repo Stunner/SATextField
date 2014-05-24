@@ -74,6 +74,20 @@
     return returnable;
 }
 
++ (BOOL)maintainTwoDigitsAfterDecimalForChangingCharacters:(NSString *)initialText
+                                                   inRange:(NSRange)range
+                                                  toString:(NSString *)string
+{
+    NSString *newString = [initialText stringByReplacingCharactersInRange:range
+                                                               withString:string];
+    // determine if there are two digits after the decimal
+    NSCharacterSet *charSet = [NSCharacterSet characterSetWithCharactersInString:@"."];
+    NSRange decimalRange = [newString rangeOfCharacterFromSet:charSet];
+    if (decimalRange.location != NSNotFound)
+        return ((newString.length-1) - decimalRange.location < 3);
+    return YES;
+}
+
 /**
  @see http://stackoverflow.com/questions/2166809/number-of-occurrences-of-a-substring-in-an-nsstring
  */
@@ -106,4 +120,24 @@
     
     return needleCount;
 }// numberOfOccurrencesOfString:inString:
+
++ (BOOL)shouldChangeCharacters:(NSString *)initialText
+                       inRange:(NSRange)range
+                      toString:(NSString *)string
+                characterLimit:(NSInteger)characterLimit
+                  allowDecimal:(BOOL)allowDecimal
+{
+    NSString *newString = [initialText stringByReplacingCharactersInRange:range
+                                                               withString:string];
+    if (newString.length > characterLimit)
+        return NO;
+    if ([SATextFieldUtility numberOfOccurrencesOfString:@"." inString:newString] > (allowDecimal ? 1 : 0))
+        return NO;
+    
+    return [SATextFieldUtility maintainTwoDigitsAfterDecimalForChangingCharacters:initialText
+                                                                          inRange:range
+                                                                         toString:string];
+    return YES;
+}
+
 @end

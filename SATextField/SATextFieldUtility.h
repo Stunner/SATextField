@@ -35,4 +35,10 @@
 + (NSUInteger) numberOfOccurrencesOfString:(NSString *)needle
                                   inString:(NSString *)haystack;
 
++ (BOOL)shouldChangeCharacters:(NSString *)initialText
+                       inRange:(NSRange)range
+                      toString:(NSString *)string
+                characterLimit:(NSInteger)characterLimit
+                  allowDecimal:(BOOL)allowDecimal;
+
 @end

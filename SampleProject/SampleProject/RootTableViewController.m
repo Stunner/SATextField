@@ -125,6 +125,7 @@
             _textField.fixedDecimalPoint = NO;
             _textField.maxTextLength = 14;
             _textField.textAlignment = NSTextAlignmentLeft;
+            _textField.currencyRepresentation = YES;
         }
         
         UILabel *percentSign = [[UILabel alloc] initWithFrame:CGRectMake(285.0, 10.0, 20.0, 26.0)];
