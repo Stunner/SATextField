@@ -100,6 +100,7 @@ typedef enum {
     LogTrace(@"%s", __PRETTY_FUNCTION__);
 #endif
     
+    _keyboardType = keyboardType;
     _textField.keyboardType = keyboardType;
 }
 
@@ -337,6 +338,13 @@ replacementString:(NSString *)string
     NSString *newString = [textField.text stringByReplacingCharactersInRange:range
                                                                   withString:string];
     
+    if (_keyboardType == UIKeyboardTypeDecimalPad) {
+        if ([SATextFieldUtility numberOfOccurrencesOfString:@"." inString:newString] > 1) {
+            return NO;
+        }
+    }
+    
+    // field resizing
     if (newString.length > 0 && !_isOffsetForTextClearButton) {
         [self resizeTextField:textField forClearTextButton:YES];
         if (_optionType == OptionTypeDefault) {
@@ -355,6 +363,7 @@ replacementString:(NSString *)string
         }
     }
     
+    // if maxTextLength property set, don't let more than the max number of characters be set
     if (_maxTextLength > -1) {
         if (newString.length > _maxTextLength) {
             if ([_delegate respondsToSelector:@selector(textField:shouldChangeCharactersInRange:replacementString:)]) {

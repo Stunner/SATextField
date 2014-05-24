@@ -74,4 +74,36 @@
     return returnable;
 }
 
+/**
+ @see http://stackoverflow.com/questions/2166809/number-of-occurrences-of-a-substring-in-an-nsstring
+ */
++ (NSUInteger) numberOfOccurrencesOfString:(NSString *)needle
+                                  inString:(NSString *)haystack
+{
+    const char * rawNeedle = [needle UTF8String];
+    NSUInteger needleLength = strlen(rawNeedle);
+    
+    const char * rawHaystack = [haystack UTF8String];
+    NSUInteger haystackLength = strlen(rawHaystack);
+    
+    NSUInteger needleCount = 0;
+    NSUInteger needleIndex = 0;
+    for (NSUInteger index = 0; index < haystackLength; ++index) {
+        const char thisCharacter = rawHaystack[index];
+        if (thisCharacter != rawNeedle[needleIndex]) {
+            needleIndex = 0; //they don't match; reset the needle index
+        }
+        
+        //resetting the needle might be the beginning of another match
+        if (thisCharacter == rawNeedle[needleIndex]) {
+            needleIndex++; //char match
+            if (needleIndex >= needleLength) {
+                needleCount++; //we completed finding the needle
+                needleIndex = 0;
+            }
+        }
+    }
+    
+    return needleCount;
+}// numberOfOccurrencesOfString:inString:
 @end

@@ -32,4 +32,7 @@
 + (NSString *)insertDecimalInString:(NSString *)string
                   atPositionFromEnd:(NSUInteger)position;
 
++ (NSUInteger) numberOfOccurrencesOfString:(NSString *)needle
+                                  inString:(NSString *)haystack;
+
 @end
