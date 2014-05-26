@@ -49,6 +49,12 @@ replacementString:(NSString *)string;
 @property (nonatomic, assign) BOOL adjustsFontSizeToFitWidth;
 @property (nonatomic, assign) UITextFieldViewMode clearButtonMode;
 @property (nonatomic, assign) NSTextAlignment textAlignment;
+/**
+ Returns the string that is displayed in the text field (takes into
+ account the placeholder value when appropriate). Will return empty 
+ string instead of null.
+ */
+@property (nonatomic, strong, readonly) NSString *effectiveText;
 @property (nonatomic, strong) NSString *text;
 /**
  How wide the textfield should expand to when a character is

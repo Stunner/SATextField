@@ -220,17 +220,23 @@ replacementString:(NSString *)string
 {
     LogTrace(@"%s", __PRETTY_FUNCTION__);
     
+    LogInfo(@"effective text: '%@'", textField.effectiveText);
+    
     return YES;
 }
 
 - (BOOL)textFieldShouldClear:(SATextField *)textField {
     LogTrace(@"%s", __PRETTY_FUNCTION__);
     
+    LogInfo(@"effective text: '%@'", textField.effectiveText);
+    
     return YES;
 }
 
 - (BOOL)textFieldShouldReturn:(SATextField *)textField {
     LogTrace(@"%s", __PRETTY_FUNCTION__);
+    
+    LogInfo(@"effective text: '%@'", textField.effectiveText);
     
     [_textField resignFirstResponder];
     return YES;
@@ -239,21 +245,29 @@ replacementString:(NSString *)string
 - (BOOL)textFieldShouldBeginEditing:(SATextField *)textField {
     LogTrace(@"%s", __PRETTY_FUNCTION__);
     
+    LogInfo(@"effective text: '%@'", textField.effectiveText);
+    
     return YES;
 }
 
 - (void)textFieldDidBeginEditing:(SATextField *)textField {
     LogTrace(@"%s", __PRETTY_FUNCTION__);
+    
+    LogInfo(@"effective text: '%@'", textField.effectiveText);
 }
 
 - (BOOL)textFieldShouldEndEditing:(SATextField *)textField {
     LogTrace(@"%s", __PRETTY_FUNCTION__);
+    
+    LogInfo(@"effective text: '%@'", textField.effectiveText);
     
     return YES;
 }
 
 - (void)textFieldDidEndEditing:(SATextField *)textField {
     LogTrace(@"%s", __PRETTY_FUNCTION__);
+    
+    LogInfo(@"effective text: '%@'", textField.effectiveText);
 }
 
 

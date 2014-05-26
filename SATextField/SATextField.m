@@ -96,6 +96,21 @@ typedef enum {
     return self;
 }
 
+#pragma mark - Getters
+
+- (NSString *)effectiveText {
+#ifdef LOGGING_ENABLED
+    LogTrace(@"%s", __PRETTY_FUNCTION__);
+#endif
+    
+    if (_textField.text.length > 0) {
+        return _textField.text ? _textField.text : @"";
+    }
+    return _textField.placeholder ? _textField.placeholder : @"";
+}
+
+#pragma mark - Setters
+
 - (void)setKeyboardType:(UIKeyboardType)keyboardType {
 #ifdef LOGGING_ENABLED
     LogTrace(@"%s", __PRETTY_FUNCTION__);
