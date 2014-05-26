@@ -27,6 +27,8 @@
 
 @protocol SATextFieldDelegate <NSObject>
 
+@optional
+
 - (BOOL)textField:(SATextField *)textField
 shouldChangeCharactersInRange:(NSRange)range
 replacementString:(NSString *)string;
