@@ -535,7 +535,9 @@ replacementString:(NSString *)string
 #endif
     
     if (_currencyRepresentation) {
-        textField.text = [NSString stringWithFormat:@"%.2f", [textField.text floatValue]];
+        if (textField.text.length > 0) {
+            textField.text = [NSString stringWithFormat:@"%.2f", [textField.text floatValue]];
+        }
     }
     _text = textField.text;
     
