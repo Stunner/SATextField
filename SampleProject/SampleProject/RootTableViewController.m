@@ -123,7 +123,7 @@
             _textField.expansionWidth = 40.0;
             _textField.maxWidth = 150.0;
             _textField.fixedDecimalPoint = NO;
-            _textField.maxTextLength = 14;
+            _textField.maxTextLength = 8;
             _textField.textAlignment = NSTextAlignmentLeft;
             _textField.currencyRepresentation = YES;
         }

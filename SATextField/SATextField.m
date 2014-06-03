@@ -430,7 +430,7 @@ replacementString:(NSString *)string
         if (![SATextFieldUtility shouldChangeCharacters:textField.text
                                                 inRange:range
                                                toString:string
-                                         characterLimit:8
+                                         characterLimit:_maxTextLength
                                            allowDecimal:YES])
         {
             return NO;
