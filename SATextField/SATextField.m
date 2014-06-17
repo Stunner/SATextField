@@ -421,11 +421,6 @@ replacementString:(NSString *)string
         return NO;
     }
     
-    if (_dynamicResizing) {
-        CGFloat newTextWidth = [newString sizeWithFont:textField.font].width;
-        [self resizeSelfFromOldTextWidth:oldTextWidth toNewTextWidth:newTextWidth];
-    }
-    
     if (_currencyRepresentation) {
         if (![SATextFieldUtility shouldChangeCharacters:textField.text
                                                 inRange:range
@@ -435,6 +430,11 @@ replacementString:(NSString *)string
         {
             return NO;
         }
+    }
+    
+    if (_dynamicResizing) {
+        CGFloat newTextWidth = [newString sizeWithFont:textField.font].width;
+        [self resizeSelfFromOldTextWidth:oldTextWidth toNewTextWidth:newTextWidth];
     }
     
     if ([_delegate respondsToSelector:@selector(textField:shouldChangeCharactersInRange:replacementString:)]) {
