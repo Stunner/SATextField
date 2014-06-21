@@ -335,6 +335,38 @@ typedef enum {
     }
 }
 
+- (void)resizeSelfToNewString:(NSString *)newString fromOldString:(NSString *)oldString {
+#ifdef LOGGING_ENABLED
+    LogTrace(@"%s", __PRETTY_FUNCTION__);
+#endif
+    
+    CGFloat newTextWidth = [newString sizeWithFont:_textField.font].width;
+    CGFloat oldTextWidth = [oldString sizeWithFont:_textField.font].width;
+    if (_dynamicResizing) {
+        [self resizeSelfFromOldTextWidth:oldTextWidth toNewTextWidth:newTextWidth];
+    }
+    
+    // field resizing
+    if (newString.length > 0 && !_isOffsetForTextClearButton) {
+        [self resizeTextField:_textField forClearTextButton:YES];
+        if (_optionType == OptionTypeDefault) {
+            if (!_isExpanded) {
+                [self resizeSelfByPixels:_expansionWidth];
+                _isExpanded = YES;
+            }
+        }
+    } else if (newString.length == 0 && _isOffsetForTextClearButton) {
+        [self resizeTextField:_textField forClearTextButton:NO];
+        if (_optionType == OptionTypeDefault) {
+            if (_isExpanded && [newString isEqualToString:@""]) {
+                [self resizeSelfByPixels:-_expansionWidth];
+                _isExpanded = NO;
+            }
+        }
+    }
+    
+}
+
 #pragma mark - TextField Delegate Methods
 
 - (BOOL)textField:(UITextField *)textField
@@ -357,25 +389,6 @@ replacementString:(NSString *)string
     if (_keyboardType == UIKeyboardTypeDecimalPad) {
         if ([SATextFieldUtility numberOfOccurrencesOfString:@"." inString:newString] > 1) {
             return NO;
-        }
-    }
-    
-    // field resizing
-    if (newString.length > 0 && !_isOffsetForTextClearButton) {
-        [self resizeTextField:textField forClearTextButton:YES];
-        if (_optionType == OptionTypeDefault) {
-            if (!_isExpanded) {
-                [self resizeSelfByPixels:_expansionWidth];
-                _isExpanded = YES;
-            }
-        }
-    } else if (newString.length == 0 && _isOffsetForTextClearButton) {
-        [self resizeTextField:textField forClearTextButton:NO];
-        if (_optionType == OptionTypeDefault) {
-            if (_isExpanded && [newString isEqualToString:@""]) {
-                [self resizeSelfByPixels:-_expansionWidth];
-                _isExpanded = NO;
-            }
         }
     }
     
@@ -411,6 +424,7 @@ replacementString:(NSString *)string
         if (_dynamicResizing) {
             [self resizeSelfFromOldTextWidth:oldTextWidth toNewTextWidth:newTextWidth];
         }
+//        [self resizeSelfToNewString:newString fromOldString:textField.text];
         
         if ([_delegate respondsToSelector:@selector(textField:shouldChangeCharactersInRange:replacementString:)]) {
             [_delegate textField:self
@@ -432,17 +446,37 @@ replacementString:(NSString *)string
         }
     }
     
-    if (_dynamicResizing) {
-        CGFloat newTextWidth = [newString sizeWithFont:textField.font].width;
-        [self resizeSelfFromOldTextWidth:oldTextWidth toNewTextWidth:newTextWidth];
-    }
+//    if (_dynamicResizing) {
+//        CGFloat newTextWidth = [newString sizeWithFont:textField.font].width;
+//        [self resizeSelfFromOldTextWidth:oldTextWidth toNewTextWidth:newTextWidth];
+//    }
+    [self resizeSelfToNewString:newString fromOldString:textField.text];
+    
+//    // field resizing
+//    if (newString.length > 0 && !_isOffsetForTextClearButton) {
+//        [self resizeTextField:textField forClearTextButton:YES];
+//        if (_optionType == OptionTypeDefault) {
+//            if (!_isExpanded) {
+//                [self resizeSelfByPixels:_expansionWidth];
+//                _isExpanded = YES;
+//            }
+//        }
+//    } else if (newString.length == 0 && _isOffsetForTextClearButton) {
+//        [self resizeTextField:textField forClearTextButton:NO];
+//        if (_optionType == OptionTypeDefault) {
+//            if (_isExpanded && [newString isEqualToString:@""]) {
+//                [self resizeSelfByPixels:-_expansionWidth];
+//                _isExpanded = NO;
+//            }
+//        }
+//    }
     
     if ([_delegate respondsToSelector:@selector(textField:shouldChangeCharactersInRange:replacementString:)]) {
         return [_delegate textField:self
       shouldChangeCharactersInRange:range
                   replacementString:string];
     }
-    _text = textField.text;
+    _text = textField.text; // redundant call here
     return YES;
 } // textField:shouldChangeCharactersInRange:replacementString:
 
