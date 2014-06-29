@@ -32,6 +32,7 @@
 #define kDynamicResizeClearTextButtonOffset 0
 #define kDynamicResizeClearTextButtonOffsetSelection 31
 #define kFixedDecimalClearTextButtonOffset 29
+#define kTextFieldSidesBuffer 19
 
 typedef enum {
     OptionTypeDefault,
@@ -150,7 +151,7 @@ typedef enum {
     LogTrace(@"%s", __PRETTY_FUNCTION__);
 #endif
     
-    _textField.clearButtonMode = clearButtonMode;
+    _textField.clearButtonMode = UITextFieldViewModeNever;//clearButtonMode;
 }
 
 - (void)setTextAlignment:(NSTextAlignment)textAlignment {
@@ -302,6 +303,15 @@ typedef enum {
                      }];
 }
 
+- (void)resizeSelfToText:(NSString *)text {
+#ifdef LOGGING_ENABLED
+    LogTrace(@"%s", __PRETTY_FUNCTION__);
+#endif
+
+    CGFloat textWidth = [text sizeWithFont:_textField.font].width;
+    [self resizeSelfToWidth:textWidth + kTextFieldSidesBuffer];
+}
+
 - (void)resizeTextField:(UITextField *)textField
      forClearTextButton:(BOOL)showClearTextButton
 {
@@ -309,15 +319,25 @@ typedef enum {
     LogTrace(@"%s", __PRETTY_FUNCTION__);
 #endif
     
-    if (showClearTextButton) {
-        //expand size of field to include clear text button
-        [self resizeSelfByPixels:_clearTextButtonOffset];
-        _isOffsetForTextClearButton = YES;
-    } else {
-        //shrink size of field to exclude clear text button
-        [self resizeSelfByPixels:-_clearTextButtonOffset];
-        _isOffsetForTextClearButton = NO;
-    }
+    [self resizeSelfToText:textField.text];
+//    CGFloat widthDifference = 0;
+//    if (textField.text.length > 0) {
+//        CGFloat textWidth = textField.frame.size.width;
+////        LogDebug(@"text width: %f", textWidth);
+//        CGFloat realTextWidth = [textField.text sizeWithFont:_textField.font].width;
+//        widthDifference = ABS(realTextWidth - textWidth);
+//    }
+//    LogDebug(@"width difference: %f", widthDifference);
+//    _clearTextButtonOffset = 10;
+//    if (showClearTextButton) {
+//        //expand size of field to include clear text button
+//        [self resizeSelfByPixels:_clearTextButtonOffset + widthDifference];
+//        _isOffsetForTextClearButton = YES;
+//    } else {
+//        //shrink size of field to exclude clear text button
+//        [self resizeSelfByPixels:-(_clearTextButtonOffset + widthDifference)];
+//        _isOffsetForTextClearButton = NO;
+//    }
 }
 
 - (void)resizeSelfFromOldTextWidth:(CGFloat)oldWidth toNewTextWidth:(CGFloat)newWidth {
@@ -424,7 +444,6 @@ replacementString:(NSString *)string
         if (_dynamicResizing) {
             [self resizeSelfFromOldTextWidth:oldTextWidth toNewTextWidth:newTextWidth];
         }
-//        [self resizeSelfToNewString:newString fromOldString:textField.text];
         
         if ([_delegate respondsToSelector:@selector(textField:shouldChangeCharactersInRange:replacementString:)]) {
             [_delegate textField:self
@@ -446,38 +465,19 @@ replacementString:(NSString *)string
         }
     }
     
-//    if (_dynamicResizing) {
-//        CGFloat newTextWidth = [newString sizeWithFont:textField.font].width;
-//        [self resizeSelfFromOldTextWidth:oldTextWidth toNewTextWidth:newTextWidth];
-//    }
-    [self resizeSelfToNewString:newString fromOldString:textField.text];
+//    [self resizeSelfToNewString:newString fromOldString:textField.text];
     
-//    // field resizing
-//    if (newString.length > 0 && !_isOffsetForTextClearButton) {
-//        [self resizeTextField:textField forClearTextButton:YES];
-//        if (_optionType == OptionTypeDefault) {
-//            if (!_isExpanded) {
-//                [self resizeSelfByPixels:_expansionWidth];
-//                _isExpanded = YES;
-//            }
-//        }
-//    } else if (newString.length == 0 && _isOffsetForTextClearButton) {
-//        [self resizeTextField:textField forClearTextButton:NO];
-//        if (_optionType == OptionTypeDefault) {
-//            if (_isExpanded && [newString isEqualToString:@""]) {
-//                [self resizeSelfByPixels:-_expansionWidth];
-//                _isExpanded = NO;
-//            }
-//        }
-//    }
-    
+    BOOL returnValue = YES;
     if ([_delegate respondsToSelector:@selector(textField:shouldChangeCharactersInRange:replacementString:)]) {
-        return [_delegate textField:self
-      shouldChangeCharactersInRange:range
-                  replacementString:string];
+        returnValue = [_delegate textField:self
+             shouldChangeCharactersInRange:range
+                         replacementString:string];
+    }
+    if (returnValue) {
+        [self resizeSelfToText:newString];
     }
     _text = textField.text; // redundant call here
-    return YES;
+    return returnValue;
 } // textField:shouldChangeCharactersInRange:replacementString:
 
 - (BOOL)textFieldShouldClear:(UITextField *)textField {
