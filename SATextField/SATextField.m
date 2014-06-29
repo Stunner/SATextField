@@ -28,7 +28,7 @@
 
 #define kDynamicResizeThresholdOffset 4
 
-#define kDefaultClearTextButtonOffset 27
+#define kDefaultClearTextButtonOffset 28
 #define kDynamicResizeClearTextButtonOffset 0
 #define kDynamicResizeClearTextButtonOffsetSelection 31
 #define kFixedDecimalClearTextButtonOffset 29
@@ -323,7 +323,7 @@ typedef enum {
     if (_textField.clearButtonMode == UITextFieldViewModeNever) {
         [self resizeSelfToWidthWithoutShrinking:textWidth + kTextFieldSidesBuffer];
     } else if (_textField.clearButtonMode == UITextFieldViewModeWhileEditing) {
-        if (text.length > 0) {
+        if (text.length > 0 && _textField.isEditing) {
             [self resizeSelfToWidthWithoutShrinking:textWidth + kTextFieldSidesBuffer + kDefaultClearTextButtonOffset];
         } else {
             [self resizeSelfToWidthWithoutShrinking:textWidth + kTextFieldSidesBuffer];
