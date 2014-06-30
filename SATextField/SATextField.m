@@ -331,6 +331,18 @@ typedef enum {
     }
 }
 
+- (void)resizeSelfForClearButton:(NSString *)text {
+#ifdef LOGGING_ENABLED
+    LogTrace(@"%s", __PRETTY_FUNCTION__);
+#endif
+    
+    if (text.length > 0 && _textField.isEditing) {
+        [self resizeSelfToWidthWithoutShrinking:_initialTextFieldWidth + kDefaultClearTextButtonOffset];
+    } else {
+        [self resizeSelfToWidthWithoutShrinking:_initialTextFieldWidth];
+    }
+}
+
 - (void)resizeTextField:(UITextField *)textField
      forClearTextButton:(BOOL)showClearTextButton
 {
@@ -413,6 +425,8 @@ typedef enum {
     
     if (_dynamicResizing) {
         [self resizeSelfToText:newText];
+    } else {
+        [self resizeSelfForClearButton:newText];
     }
     
 }
@@ -573,16 +587,22 @@ replacementString:(NSString *)string
     _text = textField.text;
     
     textField.placeholder = nil;
-    if (textField.text.length > 0 && !_isOffsetForTextClearButton) {
-        [self resizeTextField:textField forClearTextButton:YES];
-    }
+//    if (textField.text.length > 0 && !_isOffsetForTextClearButton) {
+//        [self resizeTextField:textField forClearTextButton:YES];
+//    }
+    [self handleResizingForNewText:textField.text];
+//    [self resizeSelfForClearButton:textField.text];
+//    
+//    if (_dynamicResizing) {
+//        [self resizeSelfToText:textField.text];
+//    }
     
-    if (_dynamicResizing && !_fixedDecimalPoint) {
-        if (_isOffsetForTextClearButtonForDynamicResize) {
-            [self resizeSelfByPixels:kDynamicResizeClearTextButtonOffsetSelection];
-            _isOffsetForTextClearButtonForDynamicResize = NO;
-        }
-    }
+//    if (_dynamicResizing && !_fixedDecimalPoint) {
+//        if (_isOffsetForTextClearButtonForDynamicResize) {
+//            [self resizeSelfByPixels:kDynamicResizeClearTextButtonOffsetSelection];
+//            _isOffsetForTextClearButtonForDynamicResize = NO;
+//        }
+//    }
     
     if (_fixedDecimalPoint) {
         if ([textField.text isEqualToString:@""]) {
@@ -624,7 +644,8 @@ replacementString:(NSString *)string
 //    if (_isOffsetForTextClearButton) {
 //        [self resizeTextField:textField forClearTextButton:NO];
 //    }
-    [self resizeSelfToText:textField.text];
+    [self handleResizingForNewText:textField.text];
+//    [self resizeSelfToText:textField.text];
     if (_optionType == OptionTypeDefault) {
         if (_isExpanded && [textField.text isEqualToString:@""]) {
             [self resizeSelfByPixels:-_expansionWidth];
