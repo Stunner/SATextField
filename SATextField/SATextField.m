@@ -411,8 +411,9 @@ typedef enum {
     LogTrace(@"%s", __PRETTY_FUNCTION__);
 #endif
     
-    
-    [self resizeSelfToText:newText];
+    if (_dynamicResizing) {
+        [self resizeSelfToText:newText];
+    }
     
 }
 
@@ -630,13 +631,13 @@ replacementString:(NSString *)string
             _isExpanded = NO;
         }
     }
-    if (_dynamicResizing && !_fixedDecimalPoint) {
-        CGFloat textWidth = [textField.text sizeWithFont:textField.font].width;
-        if (textWidth + kDynamicResizeClearTextButtonOffsetSelection > _initialTextFieldWidth) {
-            [self resizeSelfByPixels:-kDynamicResizeClearTextButtonOffsetSelection];
-            _isOffsetForTextClearButtonForDynamicResize = YES;
-        }
-    }
+//    if (_dynamicResizing && !_fixedDecimalPoint) {
+//        CGFloat textWidth = [textField.text sizeWithFont:textField.font].width;
+//        if (textWidth + kDynamicResizeClearTextButtonOffsetSelection > _initialTextFieldWidth) {
+//            [self resizeSelfByPixels:-kDynamicResizeClearTextButtonOffsetSelection];
+//            _isOffsetForTextClearButtonForDynamicResize = YES;
+//        }
+//    }
     if ([textField.text isEqualToString:@""]) {
         if (_fixedDecimalPoint) {
             [self setText:@"0.00"];
