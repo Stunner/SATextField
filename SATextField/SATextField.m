@@ -432,6 +432,14 @@ typedef enum {
     
 }
 
+- (void)updateText:(NSString *)text {
+#ifdef LOGGING_ENABLED
+    LogTrace(@"%s", __PRETTY_FUNCTION__);
+#endif
+    
+    _textField.text = text;
+}
+
 #pragma mark - TextField Delegate Methods
 
 - (BOOL)textField:(UITextField *)textField
@@ -480,12 +488,18 @@ replacementString:(NSString *)string
             NSUInteger zeroesCount = 3-cleansedString.length;
             NSString *zeroes = [SATextFieldUtility insertDecimalInString:[@"0" repeatTimes:zeroesCount]
                                                        atPositionFromEnd:(zeroesCount - 1)];
-            textField.text = [SATextFieldUtility append:zeroes, cleansedString, nil];
+            newString = [SATextFieldUtility append:zeroes, cleansedString, nil];
         } else {
-            textField.text = [SATextFieldUtility insertDecimalInString:cleansedString
+            newString = [SATextFieldUtility insertDecimalInString:cleansedString
                                                      atPositionFromEnd:2];
         }
-        CGFloat newTextWidth = [textField.text sizeWithFont:textField.font].width;
+        CGFloat newTextWidth = [newString sizeWithFont:textField.font].width;
+        if (newString.length < textField.text.length) { // update immediately when deleting
+            [self updateText:newString];
+        } else {
+            [self performSelector:@selector(updateText:) withObject:newString afterDelay:0.08];
+        }
+//        [self updateText:newString];
         if (_dynamicResizing) {
             [self resizeSelfFromOldTextWidth:oldTextWidth toNewTextWidth:newTextWidth];
         }
