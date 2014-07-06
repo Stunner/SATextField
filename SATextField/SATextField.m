@@ -170,30 +170,6 @@ typedef enum {
     _textField.text = text;
     _text = text;
     [self handleResizingForNewText:text];
-//    if ([text isEqualToString:@""]) {
-//        [self resizeTextField:_textField forClearTextButton:NO];
-//    } else {
-//        if ([self isFirstResponder]) {
-//            [self resizeTextField:_textField forClearTextButton:YES];
-//        } else {
-//            [self resizeTextField:_textField forClearTextButton:NO];
-//        }
-//        CGFloat textWidth = [text sizeWithFont:_textField.font].width;
-//        CGFloat resizeThreshold = textWidth - kDynamicResizeThresholdOffset;
-//        if ([self isFirstResponder]) {
-//            if (textWidth + _clearTextButtonOffset >= resizeThreshold) {
-//                [self resizeSelfByPixels:textWidth + _clearTextButtonOffset + 5 - resizeThreshold];
-//            } else if (textWidth + _clearTextButtonOffset < resizeThreshold) {
-//                [self resizeSelfByPixels:resizeThreshold + 5 - textWidth + _clearTextButtonOffset];
-//            }
-//        } else {
-//            if (textWidth >= resizeThreshold) {
-//                [self resizeSelfByPixels:textWidth + 26 - resizeThreshold];
-//            } else if (textWidth < resizeThreshold) {
-//                [self resizeSelfByPixels:resizeThreshold + 26 - textWidth];
-//            }
-//        }
-//    }
 }
 
 - (void)setDynamicResizing:(BOOL)dynamicResizing {
@@ -352,24 +328,6 @@ typedef enum {
 #endif
     
     [self resizeSelfToText:textField.text];
-//    CGFloat widthDifference = 0;
-//    if (textField.text.length > 0) {
-//        CGFloat textWidth = textField.frame.size.width;
-////        LogDebug(@"text width: %f", textWidth);
-//        CGFloat realTextWidth = [textField.text sizeWithFont:_textField.font].width;
-//        widthDifference = ABS(realTextWidth - textWidth);
-//    }
-//    LogDebug(@"width difference: %f", widthDifference);
-//    _clearTextButtonOffset = 10;
-//    if (showClearTextButton) {
-//        //expand size of field to include clear text button
-//        [self resizeSelfByPixels:_clearTextButtonOffset + widthDifference];
-//        _isOffsetForTextClearButton = YES;
-//    } else {
-//        //shrink size of field to exclude clear text button
-//        [self resizeSelfByPixels:-(_clearTextButtonOffset + widthDifference)];
-//        _isOffsetForTextClearButton = NO;
-//    }
 }
 
 - (void)resizeSelfFromOldTextWidth:(CGFloat)oldWidth toNewTextWidth:(CGFloat)newWidth {
@@ -499,7 +457,7 @@ replacementString:(NSString *)string
         } else {
             [self performSelector:@selector(updateText:) withObject:newString afterDelay:0.08];
         }
-//        [self updateText:newString];
+        
         if (_dynamicResizing) {
             [self resizeSelfFromOldTextWidth:oldTextWidth toNewTextWidth:newTextWidth];
         }
@@ -523,8 +481,6 @@ replacementString:(NSString *)string
             return NO;
         }
     }
-    
-//    [self resizeSelfToNewString:newString fromOldString:textField.text];
     
     BOOL returnValue = YES;
     if ([_delegate respondsToSelector:@selector(textField:shouldChangeCharactersInRange:replacementString:)]) {
@@ -559,15 +515,8 @@ replacementString:(NSString *)string
             return NO;
         }
         [self resizeSelfToText:@""];
-//        [self resizeSelfToWidth:_fixedDecimalPoint ? (_initialTextFieldWidth + _clearTextButtonOffset +
-//                                                      kDynamicResizeThresholdOffset)
-//                                                   : _initialTextFieldWidth + _clearTextButtonOffset];
     }
     
-//    if (_isOffsetForTextClearButton) {
-//        [self resizeTextField:textField forClearTextButton:NO];
-//        _isExpanded = NO;
-//    }
     return shouldClear;
 }
 
@@ -606,22 +555,6 @@ replacementString:(NSString *)string
     _text = textField.text;
     
     textField.placeholder = nil;
-//    if (textField.text.length > 0 && !_isOffsetForTextClearButton) {
-//        [self resizeTextField:textField forClearTextButton:YES];
-//    }
-    
-//    [self resizeSelfForClearButton:textField.text];
-//    
-//    if (_dynamicResizing) {
-//        [self resizeSelfToText:textField.text];
-//    }
-    
-//    if (_dynamicResizing && !_fixedDecimalPoint) {
-//        if (_isOffsetForTextClearButtonForDynamicResize) {
-//            [self resizeSelfByPixels:kDynamicResizeClearTextButtonOffsetSelection];
-//            _isOffsetForTextClearButtonForDynamicResize = NO;
-//        }
-//    }
     
     if (_fixedDecimalPoint) {
         if ([textField.text isEqualToString:@""]) {
@@ -667,24 +600,14 @@ replacementString:(NSString *)string
     }
     _text = textField.text;
     
-//    if (_isOffsetForTextClearButton) {
-//        [self resizeTextField:textField forClearTextButton:NO];
-//    }
     [self handleResizingForNewText:textField.text];
-//    [self resizeSelfToText:textField.text];
+    
     if (_optionType == OptionTypeDefault) {
         if (_isExpanded && [textField.text isEqualToString:@""]) {
             [self resizeSelfByPixels:-_expansionWidth];
             _isExpanded = NO;
         }
     }
-//    if (_dynamicResizing && !_fixedDecimalPoint) {
-//        CGFloat textWidth = [textField.text sizeWithFont:textField.font].width;
-//        if (textWidth + kDynamicResizeClearTextButtonOffsetSelection > _initialTextFieldWidth) {
-//            [self resizeSelfByPixels:-kDynamicResizeClearTextButtonOffsetSelection];
-//            _isOffsetForTextClearButtonForDynamicResize = YES;
-//        }
-//    }
     if ([textField.text isEqualToString:@""]) {
         if (_fixedDecimalPoint) {
             [self setText:@"0.00"];
