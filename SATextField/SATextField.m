@@ -205,6 +205,7 @@ typedef enum {
         } else {
             _clearTextButtonOffset = _dynamicResizing ? kDynamicResizeClearTextButtonOffset : kDefaultClearTextButtonOffset;
             _optionType = _dynamicResizing ? OptionTypeDynamicResize : OptionTypeDefault;
+            [self setText:@""];
         }
     } else {
         if (_fixedDecimalPoint) {
