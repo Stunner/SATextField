@@ -213,6 +213,14 @@ typedef enum {
     }
 }
 
+- (void)setAccessibilityLabel:(NSString *)accessibilityLabel {
+#ifdef LOGGING_ENABLED
+    LogTrace(@"%s", __PRETTY_FUNCTION__);
+#endif
+    
+    _textField.accessibilityLabel = accessibilityLabel;
+}
+
 - (BOOL)resignFirstResponder {
 #ifdef LOGGING_ENABLED
     LogTrace(@"%s", __PRETTY_FUNCTION__);

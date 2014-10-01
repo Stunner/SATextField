@@ -125,6 +125,7 @@
             _textField.fixedDecimalPoint = NO;
             _textField.maxTextLength = 8;
             _textField.textAlignment = NSTextAlignmentLeft;
+            _textField.accessibilityLabel = @"Text Field";
 //            _textField.currencyRepresentation = YES;
         }
         
