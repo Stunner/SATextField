@@ -16,3 +16,5 @@ profile
 *.moved-aside
 DerivedData
 .idea/
+SampleProject/Pods
+SampleProject/Podfile.lock

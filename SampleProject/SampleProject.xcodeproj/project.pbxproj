@@ -11,6 +11,7 @@
 		930C9D881734778E009B8244 /* README.md in Resources */ = {isa = PBXBuildFile; fileRef = 930C9D861734778E009B8244 /* README.md */; };
 		935BDD9C175446AD0071A470 /* SATableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 935BDD9B175446AD0071A470 /* SATableViewController.m */; };
 		935BDD9F175449D60071A470 /* SATableViewControllerSubclass.m in Sources */ = {isa = PBXBuildFile; fileRef = 935BDD9E175449D60071A470 /* SATableViewControllerSubclass.m */; };
+		9379C70E19DBEC55005F75EF /* SATextFieldTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 9379C70D19DBEC55005F75EF /* SATextFieldTests.m */; };
 		93B01CFC1731CAD200EF8182 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 93B01CFB1731CAD200EF8182 /* UIKit.framework */; };
 		93B01CFE1731CAD200EF8182 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 93B01CFD1731CAD200EF8182 /* Foundation.framework */; };
 		93B01D001731CAD200EF8182 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 93B01CFF1731CAD200EF8182 /* CoreGraphics.framework */; };
@@ -30,9 +31,17 @@
 		93D822CC18C2E20F00848EF4 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 93D822CA18C2E20F00848EF4 /* InfoPlist.strings */; };
 		93D822D618C2E38500848EF4 /* SATextFieldTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 93D822D518C2E38500848EF4 /* SATextFieldTests.m */; };
 		93D822D818C2E3B600848EF4 /* XCTest.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 93D822D718C2E3B600848EF4 /* XCTest.framework */; };
+		D1E08A48950C6DEE506E32A8 /* libPods-SATextField KIF Tests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = DFD5C24FF0956BFE8670943D /* libPods-SATextField KIF Tests.a */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
+		9379C70719DBE962005F75EF /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 93B01CF01731CAD200EF8182 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 93B01CF71731CAD200EF8182;
+			remoteInfo = SampleProject;
+		};
 		93D822D018C2E20F00848EF4 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 93B01CF01731CAD200EF8182 /* Project object */;
@@ -49,6 +58,10 @@
 		935BDD9B175446AD0071A470 /* SATableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SATableViewController.m; path = ../SATextField/SATableViewController.m; sourceTree = "<group>"; };
 		935BDD9D175449D60071A470 /* SATableViewControllerSubclass.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SATableViewControllerSubclass.h; path = ../SATextField/SATableViewControllerSubclass.h; sourceTree = "<group>"; };
 		935BDD9E175449D60071A470 /* SATableViewControllerSubclass.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SATableViewControllerSubclass.m; path = ../SATextField/SATableViewControllerSubclass.m; sourceTree = "<group>"; };
+		9379C70119DBE962005F75EF /* SATextField KIF Tests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "SATextField KIF Tests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
+		9379C70419DBE962005F75EF /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		9379C70C19DBEC55005F75EF /* SATextFieldTests.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SATextFieldTests.h; sourceTree = "<group>"; };
+		9379C70D19DBEC55005F75EF /* SATextFieldTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SATextFieldTests.m; sourceTree = "<group>"; };
 		93B01CF81731CAD200EF8182 /* SampleProject.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SampleProject.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		93B01CFB1731CAD200EF8182 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		93B01CFD1731CAD200EF8182 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -79,9 +92,20 @@
 		93D822D518C2E38500848EF4 /* SATextFieldTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SATextFieldTests.m; sourceTree = "<group>"; };
 		93D822D718C2E3B600848EF4 /* XCTest.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = XCTest.framework; path = Library/Frameworks/XCTest.framework; sourceTree = DEVELOPER_DIR; };
 		93D822DD18C318D700848EF4 /* Logging.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Logging.h; sourceTree = "<group>"; };
+		A4AD0EE1501ECB3DE79E5791 /* Pods-SATextField KIF Tests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SATextField KIF Tests.release.xcconfig"; path = "Pods/Target Support Files/Pods-SATextField KIF Tests/Pods-SATextField KIF Tests.release.xcconfig"; sourceTree = "<group>"; };
+		D3E91940412AF8088609937C /* Pods-SATextField KIF Tests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SATextField KIF Tests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-SATextField KIF Tests/Pods-SATextField KIF Tests.debug.xcconfig"; sourceTree = "<group>"; };
+		DFD5C24FF0956BFE8670943D /* libPods-SATextField KIF Tests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-SATextField KIF Tests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
+		9379C6FE19DBE962005F75EF /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				D1E08A48950C6DEE506E32A8 /* libPods-SATextField KIF Tests.a in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		93B01CF51731CAD200EF8182 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -105,6 +129,33 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		481CAEC48FB1777E3A793712 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				D3E91940412AF8088609937C /* Pods-SATextField KIF Tests.debug.xcconfig */,
+				A4AD0EE1501ECB3DE79E5791 /* Pods-SATextField KIF Tests.release.xcconfig */,
+			);
+			name = Pods;
+			sourceTree = "<group>";
+		};
+		9379C70219DBE962005F75EF /* SATextField KIF Tests */ = {
+			isa = PBXGroup;
+			children = (
+				9379C70319DBE962005F75EF /* Supporting Files */,
+				9379C70C19DBEC55005F75EF /* SATextFieldTests.h */,
+				9379C70D19DBEC55005F75EF /* SATextFieldTests.m */,
+			);
+			path = "SATextField KIF Tests";
+			sourceTree = "<group>";
+		};
+		9379C70319DBE962005F75EF /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				9379C70419DBE962005F75EF /* Info.plist */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
 		93B01CEF1731CAD200EF8182 = {
 			isa = PBXGroup;
 			children = (
@@ -113,8 +164,10 @@
 				93B01D271731D02600EF8182 /* SATextField */,
 				93B01D011731CAD200EF8182 /* SampleProject */,
 				93D822C718C2E20F00848EF4 /* SATextFieldTests */,
+				9379C70219DBE962005F75EF /* SATextField KIF Tests */,
 				93B01CFA1731CAD200EF8182 /* Frameworks */,
 				93B01CF91731CAD200EF8182 /* Products */,
+				481CAEC48FB1777E3A793712 /* Pods */,
 			);
 			sourceTree = "<group>";
 		};
@@ -123,6 +176,7 @@
 			children = (
 				93B01CF81731CAD200EF8182 /* SampleProject.app */,
 				93D822C218C2E20F00848EF4 /* SATextFieldTests.xctest */,
+				9379C70119DBE962005F75EF /* SATextField KIF Tests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -134,6 +188,7 @@
 				93B01CFB1731CAD200EF8182 /* UIKit.framework */,
 				93B01CFD1731CAD200EF8182 /* Foundation.framework */,
 				93B01CFF1731CAD200EF8182 /* CoreGraphics.framework */,
+				DFD5C24FF0956BFE8670943D /* libPods-SATextField KIF Tests.a */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -215,6 +270,26 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
+		9379C70019DBE962005F75EF /* SATextField KIF Tests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 9379C70B19DBE962005F75EF /* Build configuration list for PBXNativeTarget "SATextField KIF Tests" */;
+			buildPhases = (
+				671D9ED497D21E27B475E43C /* Check Pods Manifest.lock */,
+				9379C6FD19DBE962005F75EF /* Sources */,
+				9379C6FE19DBE962005F75EF /* Frameworks */,
+				9379C6FF19DBE962005F75EF /* Resources */,
+				8A6FEA96E08055C40AD9ED4F /* Copy Pods Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				9379C70819DBE962005F75EF /* PBXTargetDependency */,
+			);
+			name = "SATextField KIF Tests";
+			productName = "SATextField KIF Tests";
+			productReference = 9379C70119DBE962005F75EF /* SATextField KIF Tests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
 		93B01CF71731CAD200EF8182 /* SampleProject */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = 93B01D1B1731CAD200EF8182 /* Build configuration list for PBXNativeTarget "SampleProject" */;
@@ -259,6 +334,10 @@
 				LastUpgradeCheck = 0510;
 				ORGANIZATIONNAME = "Aaron Jubbal";
 				TargetAttributes = {
+					9379C70019DBE962005F75EF = {
+						CreatedOnToolsVersion = 6.0.1;
+						TestTargetID = 93B01CF71731CAD200EF8182;
+					};
 					93D822C118C2E20F00848EF4 = {
 						TestTargetID = 93B01CF71731CAD200EF8182;
 					};
@@ -278,11 +357,19 @@
 			targets = (
 				93B01CF71731CAD200EF8182 /* SampleProject */,
 				93D822C118C2E20F00848EF4 /* SATextFieldTests */,
+				9379C70019DBE962005F75EF /* SATextField KIF Tests */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
+		9379C6FF19DBE962005F75EF /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		93B01CF61731CAD200EF8182 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -306,7 +393,48 @@
 		};
 /* End PBXResourcesBuildPhase section */
 
+/* Begin PBXShellScriptBuildPhase section */
+		671D9ED497D21E27B475E43C /* Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Check Pods Manifest.lock";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
+			showEnvVarsInLog = 0;
+		};
+		8A6FEA96E08055C40AD9ED4F /* Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-SATextField KIF Tests/Pods-SATextField KIF Tests-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
+
 /* Begin PBXSourcesBuildPhase section */
+		9379C6FD19DBE962005F75EF /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				9379C70E19DBEC55005F75EF /* SATextFieldTests.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		93B01CF41731CAD200EF8182 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -334,6 +462,11 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
+		9379C70819DBE962005F75EF /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 93B01CF71731CAD200EF8182 /* SampleProject */;
+			targetProxy = 9379C70719DBE962005F75EF /* PBXContainerItemProxy */;
+		};
 		93D822D118C2E20F00848EF4 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			target = 93B01CF71731CAD200EF8182 /* SampleProject */;
@@ -361,6 +494,69 @@
 /* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
+		9379C70919DBE962005F75EF /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = D3E91940412AF8088609937C /* Pods-SATextField KIF Tests.debug.xcconfig */;
+			buildSettings = {
+				BUNDLE_LOADER = "$(BUILT_PRODUCTS_DIR)/SampleProject.app/SampleProject";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(SDKROOT)/Developer/Library/Frameworks",
+					"$(inherited)",
+				);
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				INFOPLIST_FILE = "SATextField KIF Tests/Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				MTL_ENABLE_DEBUG_INFO = YES;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_HOST = "$(BUNDLE_LOADER)";
+			};
+			name = Debug;
+		};
+		9379C70A19DBE962005F75EF /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = A4AD0EE1501ECB3DE79E5791 /* Pods-SATextField KIF Tests.release.xcconfig */;
+			buildSettings = {
+				BUNDLE_LOADER = "$(BUILT_PRODUCTS_DIR)/SampleProject.app/SampleProject";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(SDKROOT)/Developer/Library/Frameworks",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				INFOPLIST_FILE = "SATextField KIF Tests/Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				MTL_ENABLE_DEBUG_INFO = NO;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_HOST = "$(BUNDLE_LOADER)";
+			};
+			name = Release;
+		};
 		93B01D191731CAD200EF8182 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -503,6 +699,15 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
+		9379C70B19DBE962005F75EF /* Build configuration list for PBXNativeTarget "SATextField KIF Tests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				9379C70919DBE962005F75EF /* Debug */,
+				9379C70A19DBE962005F75EF /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
 		93B01CF31731CAD200EF8182 /* Build configuration list for PBXProject "SampleProject" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
