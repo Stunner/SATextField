@@ -143,6 +143,7 @@
             [_dynamicResizeSwitch addTarget:self
                                action:@selector(dynamicResizeSwitchFlipped:)
                      forControlEvents:UIControlEventAllTouchEvents];
+            _dynamicResizeSwitch.accessibilityLabel = @"Dynamic Resize";
         }
         [cell addSubview:_dynamicResizeSwitch];
     } else if (indexPath.section == 2) {
@@ -153,6 +154,7 @@
             [_fixedDecimalSwitch addTarget:self
                                     action:@selector(fixedDecimalSwitchFlipped:)
                           forControlEvents:UIControlEventAllTouchEvents];
+            _fixedDecimalSwitch.accessibilityLabel = @"Fixed Decimal";
         }
         [cell addSubview:_fixedDecimalSwitch];
     }
