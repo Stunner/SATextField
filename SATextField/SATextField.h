@@ -83,6 +83,7 @@ replacementString:(NSString *)string;
 - (id)initWithFrame:(CGRect)frame;
 
 -(BOOL)resignFirstResponder;
+-(BOOL)becomeFirstResponder;
 -(BOOL)isFirstResponder;
 
 @end

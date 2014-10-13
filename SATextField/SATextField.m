@@ -226,7 +226,15 @@ typedef enum {
     LogTrace(@"%s", __PRETTY_FUNCTION__);
 #endif
     
-    return _textField.resignFirstResponder;
+    return [_textField resignFirstResponder];
+}
+
+- (BOOL)becomeFirstResponder {
+#ifdef LOGGING_ENABLED
+    LogTrace(@"%s", __PRETTY_FUNCTION__);
+#endif
+    
+    return [_textField becomeFirstResponder];
 }
 
 - (BOOL)isFirstResponder {
@@ -234,7 +242,7 @@ typedef enum {
     LogTrace(@"%s", __PRETTY_FUNCTION__);
 #endif
     
-    return _textField.isFirstResponder;
+    return [_textField isFirstResponder];
 }
 
 #pragma mark - Helper Methods
