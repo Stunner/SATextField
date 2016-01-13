@@ -279,6 +279,7 @@
 				9379C6FE19DBE962005F75EF /* Frameworks */,
 				9379C6FF19DBE962005F75EF /* Resources */,
 				8A6FEA96E08055C40AD9ED4F /* Copy Pods Resources */,
+				A04F741C3A3630B490DAB9D1 /* Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -422,6 +423,21 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-SATextField KIF Tests/Pods-SATextField KIF Tests-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		A04F741C3A3630B490DAB9D1 /* Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Embed Pods Frameworks";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-SATextField KIF Tests/Pods-SATextField KIF Tests-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 /* End PBXShellScriptBuildPhase section */

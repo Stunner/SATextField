@@ -1,3 +1,7 @@
+Important:
+==========
+SATextField is deprecated, use [a text field instance](https://github.com/Stunner/STAControls/tree/master/STAControls/STAControls/TextField) (of [STAControls](https://github.com/Stunner/STAControls)) instead.
+
 SATextField
 ===========
 
